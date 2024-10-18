@@ -1,0 +1,12 @@
+*
+
+!.gitignore
+!README.md
+
+!picom/
+!i3/
+!nvim/
+
+!picom/**
+!i3/**
+!nvim/**

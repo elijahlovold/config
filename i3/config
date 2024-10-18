@@ -190,10 +190,6 @@ exec_always --no-startup-id feh --bg-scale ~/.config/i3/background.png
 # start autotiling
 exec_always --no-startup-id autotiling
 
-# Configure additional display 
-exec --no-startup-id xrandr --output eDP-1 --scale 0.5x0.5
-exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --scale 0.8x0.8
-
 # Screenshot bindings
 bindsym --release Print exec scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png  # Selective screenshot
 bindsym $mod+Print exec scrot ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png
