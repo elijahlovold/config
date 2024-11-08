@@ -36,8 +36,8 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause &&
  bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
  bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 5%+
 
-# enable trackpad
-exec --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
+# # enable trackpad
+# exec --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -181,18 +181,18 @@ bindsym $mod+Shift+Control+x exec --no-startup-id systemctl poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id systemctl reboot
 
 
+# Configure additional display 
+exec --no-startup-id xrandr --output DisplayPort-0 --rotate right
+exec --no-startup-id xrandr --output DisplayPort-1 --scale 0.6x0.6
+
 # start picom compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # Set background 
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/background.png
 
-# start autotiling
-exec_always --no-startup-id autotiling
-
-# # Configure additional display 
-# exec --no-startup-id xrandr --output eDP-1 --scale 0.5x0.5
-# exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --scale 0.8x0.8
+# # start autotiling
+# exec_always --no-startup-id autotiling
 
 # Screenshot bindings
 bindsym --release Print exec scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png  # Selective screenshot
@@ -221,10 +221,12 @@ bar {
     position top
     # output DisplayPort-0
     status_command ~/.config/i3/bumblebee-status \
-        -m git spotify speedtest traffic cpu memory pulsein pulseout \
+        -m git spotify speedtest traffic cpu memory \
+        weather pulsein pulseout \
         bluetooth time date \
         -p bluetooth.manager=blueman-manager \
-        time.format="%H:%M" date.format="%a, %b %d %Y" \
+        traffic.exclude="lo,virbr,docker,vboxnet,veth,wlp11s0" \
+        weather.unit=imperial time.format="%H:%M" date.format="%a, %b %d %Y" \
         pulseout.limit=100 pulseout.left-click=select_default_device_popup \
         -t greyish-powerline
 
@@ -233,11 +235,14 @@ bar {
 
         #border #bg #text
         focused_workspace #000000 #000000 #00dce8
-        active_workspace #000000 #000000 #3860ff
-        inactive_workspace #000000 #000000 #925cff
+        active_workspace #000000 #000000 #925cff
+        inactive_workspace #000000 #000000 #3860ff
         urgent_workspace #c40233 #c40233 #000000
     }
 }
+
+# hide the title bar
+for_window [class="^.*"] border pixel 0
 
 #############################
 ### settings for i3-gaps: ###
