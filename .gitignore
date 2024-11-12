@@ -6,7 +6,9 @@
 !picom/
 !i3/
 !nvim/
+!alacritty/
 
 !picom/**
 !i3/**
 !nvim/**
+!alacritty/**

@@ -1,3 +1,8 @@
+# install alacritty
+```
+sudo snap install alacritty --classic
+```
+
 # install picom and i3 
 ```
 sudo apt install i3 picom feh blueman
