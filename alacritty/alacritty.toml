@@ -9,7 +9,16 @@
 
 [keyboard]
     bindings = [{key = "Return", mods = "Super|Shift", command = "alacritty"},
-                {key = "Space", mods = "Control", mode = "~vi", action = "ToggleViMode"}]
+                {key = "Escape", mode = "~vi | ~AppKeypad", action = "ToggleViMode"},
+
+                {key = "w", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BF"},
+                {key = "b", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BB"},
+                {key = "k", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[A"},
+                {key = "j", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[B"},
+                {key = "l", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[C"},
+                {key = "h", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[D"},
+
+                {key = "d", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .."}]
 
 # Default colors
 [colors.primary]

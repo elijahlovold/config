@@ -225,7 +225,7 @@ bar {
     position top
     # output DisplayPort-0
     status_command ~/.config/i3/bumblebee-status \
-        -m git spotify speedtest traffic cpu memory \
+        -m spotify speedtest traffic cpu memory \
         weather pulsein pulseout \
         bluetooth time date \
         -p bluetooth.manager=blueman-manager \
