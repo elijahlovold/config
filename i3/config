@@ -6,7 +6,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+font pango:FiraCode Nerd Font 12
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -43,7 +43,7 @@ exec --no-startup-id xinput set-prop 12 "libinput Tapping Enabled" 1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+q kill
@@ -181,18 +181,18 @@ bindsym $mod+Shift+Control+x exec --no-startup-id systemctl poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id systemctl reboot
 
 
+# Configure additional display 
+exec --no-startup-id xrandr --output DisplayPort-0 --rotate right
+exec --no-startup-id xrandr --output DisplayPort-1 --scale 0.6x0.6
+
 # start picom compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # Set background 
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/background.png
 
-# start autotiling
-exec_always --no-startup-id autotiling
-
-# # Configure additional display 
-# exec --no-startup-id xrandr --output eDP-1 --scale 0.5x0.5
-# exec --no-startup-id xrandr --output HDMI-1 --right-of eDP-1 --scale 0.8x0.8
+# # start autotiling
+# exec_always --no-startup-id autotiling
 
 # Screenshot bindings
 bindsym --release Print exec scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png  # Selective screenshot
@@ -210,6 +210,9 @@ bindsym $mod+p exec i3-sensible-terminal -e python3
 # open nvim
 bindsym $mod+v exec i3-sensible-terminal -e nvim
 
+# open music 
+bindsym $mod+m exec spotify
+
 
 ######################################
 ### settings for bumblebee-status: ###
@@ -218,13 +221,15 @@ bindsym $mod+v exec i3-sensible-terminal -e nvim
 # https://github.com/tobi-wan-kenobi/bumblebee-status?tab=readme-ov-file
 bar {
     font pango: Source Code Pro, FontAwesome 12
+    # font pango:FiraCode Nerd Font 12
     position top
     # output DisplayPort-0
     status_command ~/.config/i3/bumblebee-status \
         -m git spotify speedtest traffic cpu memory pulsein pulseout \
         bluetooth battery time date \
         -p bluetooth.manager=blueman-manager \
-        time.format="%H:%M" date.format="%a, %b %d %Y" \
+        traffic.exclude="lo,virbr,docker,vboxnet,veth,wlp11s0" \
+        weather.unit=imperial time.format="%H:%M" date.format="%a, %b %d %Y" \
         pulseout.limit=100 pulseout.left-click=select_default_device_popup \
         -t greyish-powerline
 
@@ -233,11 +238,14 @@ bar {
 
         #border #bg #text
         focused_workspace #000000 #000000 #00dce8
-        active_workspace #000000 #000000 #3860ff
-        inactive_workspace #000000 #000000 #925cff
+        active_workspace #000000 #000000 #925cff
+        inactive_workspace #000000 #000000 #3860ff
         urgent_workspace #c40233 #c40233 #000000
     }
 }
+
+# hide the title bar
+for_window [class="^.*"] border pixel 0
 
 #############################
 ### settings for i3-gaps: ###
