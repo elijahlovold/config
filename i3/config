@@ -222,7 +222,7 @@ bar {
     # output DisplayPort-0
     status_command ~/.config/i3/bumblebee-status \
         -m git spotify speedtest traffic cpu memory pulsein pulseout \
-        bluetooth time date \
+        bluetooth battery time date \
         -p bluetooth.manager=blueman-manager \
         time.format="%H:%M" date.format="%a, %b %d %Y" \
         pulseout.limit=100 pulseout.left-click=select_default_device_popup \
