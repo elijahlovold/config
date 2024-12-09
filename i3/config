@@ -205,10 +205,13 @@ bindsym $mod+o exec nautilus
 bindsym $mod+g exec google-chrome
 
 # open python
-bindsym $mod+p exec i3-sensible-terminal -e python3
+bindsym $mod+p exec alacritty -e python3
 
 # open nvim
-bindsym $mod+v exec i3-sensible-terminal -e nvim
+bindsym $mod+v exec alacritty -e nvim
+
+# open vim-anywhere
+bindsym $mod+Shift+v exec alacritty -e vim-anywhere
 
 # open music 
 bindsym $mod+m exec spotify
