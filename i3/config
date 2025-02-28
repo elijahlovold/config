@@ -182,8 +182,8 @@ bindsym $mod+Shift+Control+r exec --no-startup-id systemctl reboot
 
 
 # Configure additional display 
-exec --no-startup-id xrandr --output DisplayPort-0 --rotate right
-exec --no-startup-id xrandr --output DisplayPort-1 --scale 0.6x0.6
+# exec --no-startup-id xrandr --output DisplayPort-0 --rotate right
+# exec --no-startup-id xrandr --output DisplayPort-1 --scale 0.6x0.6
 
 # start picom compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
