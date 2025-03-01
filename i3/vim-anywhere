@@ -13,9 +13,12 @@
 
 AW_PATH=$HOME/.vim-anywhere
 TMPFILE_DIR=/tmp/vim-anywhere
-TMPFILE=$TMPFILE_DIR/doc-$(date +"%y%m%d%H%M%S")
-# # Capture the current clipboard contents and store it in TMPFILE
-# xclip -selection primary -o > "$TMPFILE"
+TMPFILE=$TMPFILE_DIR/doc-$(date +"%y%m%d%H%M%S.txt")
+
+## Check if the directory exists
+if [ ! -d "$TMPFILE_DIR" ]; then
+  mkdir -p "$TMPFILE_DIR"
+fi
 
 # Check if there is currently any selected (highlighted) text in the primary selection
 if xclip -selection primary -o > /dev/null 2>&1; then
