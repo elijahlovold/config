@@ -48,8 +48,8 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run
-# bindsym $mod+d  exec "rofi -modi drun,run -show drun"
+# bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d  exec "rofi -show run"
 
 # add locking shortcut
 bindsym $mod+Ctrl+l exec i3lock -c 000000
@@ -67,16 +67,16 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+h move left 100px
+bindsym $mod+Shift+j move down 100px
+bindsym $mod+Shift+k move up 100px
+bindsym $mod+Shift+l move right 100px
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left resize shrink width 30px
-bindsym $mod+Shift+Down resize shrink height 30px
-bindsym $mod+Shift+Up resize grow height 30px
-bindsym $mod+Shift+Right resize grow width 30px
+bindsym $mod+Shift+Left resize shrink width 60px
+bindsym $mod+Shift+Down resize shrink height 60px
+bindsym $mod+Shift+Up resize grow height 60px
+bindsym $mod+Shift+Right resize grow width 60px
 
 # split in horizontal/vertical orientation
 bindsym $mod+semicolon split h
@@ -191,8 +191,8 @@ exec_always --no-startup-id feh --bg-scale ~/.config/i3/background.png
 # exec_always --no-startup-id autotiling -sr "1.61"
 
 # Configure additional display 
-exec_always --no-startup-id xrandr --output eDP-1 --scale 0.5x0.5 --pos 0x0
-exec_always --no-startup-id xrandr --output HDMI-1 --mode 3840x2160 --rate 30 --right-of eDP-1 --scale 1x1
+# exec_always --no-startup-id xrandr --output eDP-1 --scale 0.5x0.5
+# exec_always --no-startup-id xrandr --output HDMI-1 --auto --right-of eDP-1
 
 # Screenshot bindings
 bindsym --release Print exec scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png  # Selective screenshot
@@ -206,6 +206,9 @@ bindsym $mod+o exec nautilus
 
 # open browser
 bindsym $mod+g exec google-chrome
+
+# open firefox
+bindsym $mod+x exec firefox
 
 # open python
 bindsym $mod+p exec alacritty -e python3
@@ -230,11 +233,13 @@ bar {
     position top
     # output DisplayPort-0
     status_command ~/.config/i3/bumblebee-status \
-        -m git spotify speedtest traffic cpu memory \
+        -m git spotify speedtest traffic cpu2 memory \
         pulsein pulseout bluetooth battery time date \
         -p bluetooth.manager=blueman-manager \
         time.format="%H:%M" date.format="%a, %b %d %Y" \
         pulseout.limit=100 pulseout.left-click=select_default_device_popup \
+        cpu2.layout="cpu2.maxfreq cpu2.cpuload cpu2.coresload cpu2.temp" \
+        cpu2.temp_pattern="temp1_input:" \
         -t greyish-powerline
 
     colors {
