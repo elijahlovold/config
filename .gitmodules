@@ -1,0 +1,6 @@
+[submodule "nvim"]
+	path = nvim
+	url = git@github.com:elijahlovold/nvim.git
+[submodule "trident"]
+	path = trident
+	url = git@github.com:elijahlovold/trident.git
