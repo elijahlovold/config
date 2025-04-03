@@ -42,6 +42,9 @@ bindsym XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause &&
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# popup_during_fullscreen smart|ignore|leave_fullscreen|all
+popup_during_fullscreen leave_fullscreen
+
 # start a terminal
 bindsym $mod+Return split h; exec alacritty
 bindsym $mod+backslash split v; exec alacritty; 
@@ -150,9 +153,9 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-# Cycle through workspaces with Mod+Tab
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
+# Cycle through tabs with Mod+Tab
+bindsym $mod+Tab focus right
+bindsym $mod+Shift+Tab focus left
 
 # add keybinds to move windows between displays
 bindsym $mod+n move workspace to output right
@@ -202,6 +205,8 @@ exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # Set background 
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/background.png
+# exec --no-startup-id xwinwrap -ov -g 3840x2160+1920+0 -ni -- mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts --hwdec=vdpau-copy -wid WID --no-input-default-bindings "$(find ~/Videos/Wallpapers -type f | shuf -n 1)" 
+exec --no-startup-id xwinwrap -ov -g 3840x2160+1920+0 -ni -- mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts --hwdec=vdpau-copy -wid WID --no-input-default-bindings ~/Videos/Wallpapers/bkg.mp4
 
 # # start OpenRGB
 # exec_always --no-startup-id OpenRGB_0.9_x86_64_b5f46e3.AppImage --startminimized
@@ -214,7 +219,7 @@ bindsym $mod+Print exec scrot ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png
 bindsym $mod+o exec nautilus
 
 # open browser
-bindsym $mod+g exec google-chrome
+bindsym $mod+g exec --no-startup-id google-chrome
 
 # open firefox
 bindsym $mod+x exec firefox
@@ -252,6 +257,7 @@ bar {
     font pango: Source Code Pro, FontAwesome 12
     position top
     output DisplayPort-0
+    tray_output none
     status_command ~/.config/i3/bumblebee-status \
         -m spotify cpu memory \
         pulsein pulseout time date \
@@ -278,6 +284,7 @@ bar {
     font pango: Source Code Pro, FontAwesome 18
     position top
     output DisplayPort-1
+    tray_output DisplayPort-1
     status_command ~/.config/i3/bumblebee-status \
         -m git spotify speedtest traffic cpu2 memory \
         pulsein pulseout \
@@ -308,6 +315,7 @@ bar {
     font pango: Source Code Pro, FontAwesome 12
     position top
     output HDMI-A-0
+    tray_output none
     status_command ~/.config/i3/bumblebee-status \
         -m git spotify traffic cpu memory \
         pulsein pulseout \
