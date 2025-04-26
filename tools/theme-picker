@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CFG="$HOME/.config/"
+THEME_DIR="$CFG/config/themes"
+
+THEME=$(ls $THEME_DIR | rofi -dmenu)
+
+THEME_DIR="$THEME_DIR/$THEME"
+
+# copy alacritty files
+cp "$THEME_DIR/alacritty.toml" "$CFG/alacritty/alacritty.toml"
+
+# copy bumblebee status files
+cp "$THEME_DIR/current-theme.json" "$HOME/.local/share/bumblebee-status/themes/current-theme.json"
+# i3-msg reload
+# i3-msg restart

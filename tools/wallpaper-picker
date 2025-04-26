@@ -1,0 +1,24 @@
+#!/bin/bash
+
+STATIC_PATH="$HOME/.config/i3/background.png"
+VID_PATH="$HOME/Videos/Wallpapers"
+
+# rest of your code
+if [[ "$1" == "--manual" ]]; then 
+    VID_SEL=$(ls "$VID_PATH" | rofi -dmenu)
+    VID_PLAY="$VID_PATH/$VID_SEL"
+else 
+    VID_PLAY="$(find "$VID_PATH" -type f | shuf -n 1)"
+fi
+
+# Kill existing background processes
+pkill -f xwinwrap
+pkill -f mpv
+
+# Restart static background
+feh --bg-scale "$STATIC_PATH"
+
+# Restart video background
+xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
+  mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts \
+      --hwdec=vdpau-copy -wid WID --no-input-default-bindings "$VID_PLAY" &

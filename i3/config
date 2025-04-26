@@ -18,7 +18,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+#exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -33,11 +33,11 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous && $refresh_i3stat
 bindsym XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause && $refresh_i3status
 
 # video controls
- bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
- bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 5%+
+#bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
+#bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 5%+
 
-# # enable trackpad
-# exec --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
+# enable trackpad
+#exec --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -48,6 +48,7 @@ popup_during_fullscreen leave_fullscreen
 # start a terminal
 bindsym $mod+Return split h; exec alacritty
 bindsym $mod+backslash split v; exec alacritty; 
+#bindsym $mod+Shift+backslash split v; exec alacritty --working-directory $(pwd)
 
 # kill focused window
 bindsym $mod+q kill
@@ -55,7 +56,7 @@ bindsym $mod+q kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec rofi -show run
 
-bindsym $mod+Shift+w exec ~/.config/rofi/rofi-wifi-menu.sh
+bindsym $mod+Ctrl+w exec ~/.config/rofi/rofi-wifi-menu.sh
 
 # add locking shortcut
 bindsym $mod+Ctrl+l exec i3lock -c 000000
@@ -116,7 +117,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws0 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -128,7 +129,7 @@ bindsym $mod+6 workspace number $ws6
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
+bindsym $mod+0 workspace number $ws0
 
 bindsym $mod+Mod1+1 workspace number $ws1; exec google-chrome --new-window https://calendar.google.com/calendar/u/0/r
 bindsym $mod+Mod1+2 workspace number $ws2; exec slack
@@ -136,10 +137,10 @@ bindsym $mod+Mod1+3 workspace number $ws3; exec alacritty --working-directory /v
 bindsym $mod+Mod1+4 workspace number $ws4; exec alacritty --working-directory ~/repos
 bindsym $mod+Mod1+5 workspace number $ws5
 bindsym $mod+Mod1+6 workspace number $ws6
-bindsym $mod+Mod1+7 workspace number $ws7
+bindsym $mod+Mod1+7 workspace number $ws7; exec Obsidian-1.8.9.AppImage
 bindsym $mod+Mod1+8 workspace number $ws8; exec alacritty --working-directory ~/.config
 bindsym $mod+Mod1+9 workspace number $ws9; exec google-chrome --new-window https://chatgpt.com/
-bindsym $mod+Mod1+0 workspace number $ws10; exec spotify
+bindsym $mod+Mod1+0 workspace number $ws0; exec spotify
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
@@ -195,18 +196,17 @@ bindsym $mod+Shift+Control+e exec --no-startup-id i3-msg exit
 bindsym $mod+Shift+Control+x exec --no-startup-id systemctl poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id systemctl reboot
 
-
-# Configure additional display 
-exec --no-startup-id xrandr --output DisplayPort-0 --rotate right
-# exec --no-startup-id xrandr --output DisplayPort-1 --scale 0.6x0.6
-
 # start picom compositor
 exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
-# Set background 
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/background.png
-# exec --no-startup-id xwinwrap -ov -g 3840x2160+1920+0 -ni -- mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts --hwdec=vdpau-copy -wid WID --no-input-default-bindings "$(find ~/Videos/Wallpapers -type f | shuf -n 1)" 
-exec --no-startup-id xwinwrap -ov -g 3840x2160+1920+0 -ni -- mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts --hwdec=vdpau-copy -wid WID --no-input-default-bindings ~/Videos/Wallpapers/bkg.mp4
+# Configure additional display 
+exec_always --no-startup-id toggle_monitors --reset
+bindsym $mod+t exec --no-startup-id toggle-monitors
+
+# # Set background 
+exec --no-startup-id wallpaper-picker
+bindsym $mod+c exec --no-startup-id wallpaper-picker
+bindsym $mod+Ctrl+c exec --no-startup-id wallpaper-picker --manual
 
 # # start OpenRGB
 # exec_always --no-startup-id OpenRGB_0.9_x86_64_b5f46e3.AppImage --startminimized
@@ -216,7 +216,7 @@ bindsym --release Print exec scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png 
 bindsym $mod+Print exec scrot ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png
 
 # open files 
-bindsym $mod+o exec nautilus
+bindsym $mod+o exec thunar
 
 # open browser
 bindsym $mod+g exec --no-startup-id google-chrome
@@ -239,6 +239,9 @@ bindsym $mod+m exec spotify
 # open symbol picker
 bindsym $mod+Shift+p exec rofimoji
 
+# open password picker
+bindsym $mod+Ctrl+p exec password-picker
+
 # Define the mode
 mode "vim_mode" {
     bindsym i mode "default"; exec setxkbmap; exec --no-startup-id sh -c "sleep 0.1 && xmodmap ~/.Xmodmap"
@@ -254,6 +257,7 @@ bindsym $mod+Escape mode "vim_mode"; exec --no-startup-id xmodmap ~/.Xvimmap
 
 # https://github.com/tobi-wan-kenobi/bumblebee-status?tab=readme-ov-file
 bar {
+    id bar0
     font pango: Source Code Pro, FontAwesome 12
     position top
     output DisplayPort-0
@@ -266,7 +270,7 @@ bar {
         pulseout.left-click=select_default_device_popup \
         pulsein.left-click=select_default_device_popup \
         memory.format="{percent:.1f}%"\
-        -t blue-jammey
+        -t current-theme
 
     colors {
         background #000000 
@@ -281,12 +285,13 @@ bar {
 }
 
 bar {
+    id bar1
     font pango: Source Code Pro, FontAwesome 18
     position top
     output DisplayPort-1
     tray_output DisplayPort-1
     status_command ~/.config/i3/bumblebee-status \
-        -m git spotify speedtest traffic cpu2 memory \
+        -m spotify speedtest traffic cpu2 memory \
         pulsein pulseout \
         bluetooth pomodoro time date \
         -p bluetooth.manager="alacritty -e bluetoothctl"\
@@ -297,7 +302,7 @@ bar {
         pulsein.left-click=select_default_device_popup \
         cpu2.layout="cpu2.maxfreq cpu2.cpuload cpu2.coresload cpu2.temp" \
         cpu2.temp_pattern="temp2_input:" \
-        -t blue-jammey
+        -t current-theme
 
     colors {
         background #000000 
@@ -312,12 +317,13 @@ bar {
 }
 
 bar {
+    id bar2
     font pango: Source Code Pro, FontAwesome 12
     position top
     output HDMI-A-0
     tray_output none
     status_command ~/.config/i3/bumblebee-status \
-        -m git spotify traffic cpu memory \
+        -m spotify traffic cpu memory \
         pulsein pulseout \
         bluetooth pomodoro time date \
         -p bluetooth.manager="alacritty -e bluetoothctl"\
@@ -326,7 +332,7 @@ bar {
         pulseout.limit=100 \
         pulseout.left-click=select_default_device_popup \
         pulsein.left-click=select_default_device_popup \
-        -t blue-jammey
+        -t current-theme
 
     colors {
         background #000000 

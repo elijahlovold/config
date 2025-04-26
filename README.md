@@ -1,10 +1,10 @@
 ## Installation 
 
 install requirements: 
-`./install_reqs.sh`
+`./setup/install_reqs.sh`
 
 setup with:  
-`./setup.sh`
+`./setup/setup.sh`
 
 source the local `bashrc.sh` in your actual `.bashrc` by adding this line: 
 `source /home/elijah/.config/config/bashrc.sh`

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+PRIMARY="DisplayPort-1"
+SECONDARY="DisplayPort-0"
+SOLO="HDMI-A-0"
+
+STATE_FILE="/tmp/monitor_toggle_state"
+
+if [[ ! -f "$STATE_FILE" || "$1" == "--reset" ]]; then
+    STATE="reset"
+else
+    STATE=$(cat "$STATE_FILE")
+fi
+
+if [[ "$STATE" == "reset" || "$STATE" == "dual" ]]; then
+    xrandr --output "$PRIMARY" --auto --primary \
+        --output "$SECONDARY" --auto --rotate right --left-of "$PRIMARY" \
+        --output "$SOLO" --off
+    echo "dual" > "$STATE_FILE"
+else
+    xrandr --output "$PRIMARY" --off \
+        --output "$SECONDARY" --off \
+        --output "$SOLO" --auto
+    echo "solo" > "$STATE_FILE"
+fi
