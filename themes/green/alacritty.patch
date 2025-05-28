@@ -1,0 +1,11 @@
+--- alacritty.toml	2025-05-20 23:04:28.128604573 -0700
++++ green/alacritty.toml	2025-04-22 20:19:44.713458818 -0700
+@@ -22,7 +22,7 @@
+ 
+ # Default colors
+ [colors.primary]
+-background = "#00011D"
++background = "#001d09"
+ foreground = '#cccccc'
+ 
+ # Normal colors

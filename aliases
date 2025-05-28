@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# ls aliases
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# use rg if available, either way, use color
+[ command -v rg >/dev/null 2>&1 ] && alias grep='rg --color=auto' || alias grep='grep --color=auto'
+
+# git aliases
+alias g='git'
+alias glog='git log --oneline --graph'
+
+# some nice utils
+alias logcat='cat "$(ls -t | head -n1)"'
+alias cmake-dep='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..'
+
+# youtube audio downloader, -x is audio only
+alias yta='yt-dlp --add-metadata -xic --audio-format mp3'
+
+# minicom alias for ACM0
+alias acm0='minicom -b 115200 -o -D /dev/ttyACM0'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# python .venv auto-sourcing
+cd() {
+  builtin cd "$@"
+
+  if [[ -z "$VIRTUAL_ENV" ]] ; then
+      # If env folder is found then activate the vitualenv
+      if [[ -d ./.venv ]] ; then
+        . ./.venv/bin/activate
+      fi
+  else
+      # check the current folder belong to earlier VIRTUAL_ENV folder
+      # if yes then do nothing else deactivate
+      parentdir="$(dirname "$VIRTUAL_ENV")"
+      if [[ "$PWD"/ != "$parentdir"/* ]] ; then
+        deactivate
+      fi
+  fi
+}
+

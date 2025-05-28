@@ -1,0 +1,37 @@
+#!/bin/sh
+
+STATE_FILE="/tmp/theme_picker"
+
+ALACRITTY_FILE="$XDG_CONFIG_HOME/alacritty/alacritty.toml"
+BUMBLEBEE_FILE="$XDG_DATA_HOME/bumblebee-status/themes/current_theme.json"
+
+THEME_DIR="$XDG_CONFIG_HOME/themes"
+
+theme=$(ls $THEME_DIR | rofi -dmenu)
+[ "$theme" = "" ] && exit 1
+
+selected_theme="$THEME_DIR/$theme"
+
+if [ -f "$STATE_FILE" ]; then
+    current_theme=$(cat "$STATE_FILE")
+    if [ "$current_theme" = "$selected_theme" ]; then
+        pgrep -x dunst && notify-send "$current_theme already set"
+        exit 0
+    fi
+    [ -e "$current_theme/alacritty.patch" ] && \
+        patch -R "$ALACRITTY_FILE" "$current_theme/alacritty.patch"
+    [ -e "$current_theme/bumblebee.patch" ] && \
+        patch -R "$BUMBLEBEE_FILE" "$current_theme/bumblebee-status.patch"
+fi
+
+echo "$selected_theme" > "$STATE_FILE"
+
+openrgb -p "$theme.orp" &
+
+# apply alacritty changes
+patch "$ALACRITTY_FILE" "$selected_theme/alacritty.patch"
+
+# apply bumblebee changes
+patch "$BUMBLEBEE_FILE" "$selected_theme/bumblebee-status.patch"
+pkill -f bumblebee-status
+i3-msg restart

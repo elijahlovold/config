@@ -1,17 +1,9 @@
-#!/bin/bash
-#
-# vim-anywhere - use Vim whenever, wherever
-# Author: Chris Knadler
-# Homepage: https://www.github.com/cknadler/vim-anywhere
-#
-# Open a temporary file with Vim. Once Vim is closed, copy the contents of that
-# file to the system clipboard.
+#!/bin/sh
 
 ###
 # defs
 ###
 
-AW_PATH=$HOME/.vim-anywhere
 TMPFILE_DIR=/tmp/vim-anywhere
 TMPFILE=$TMPFILE_DIR/doc-$(date +"%y%m%d%H%M%S.txt")
 
@@ -52,18 +44,7 @@ done
 # run
 ###
 
-# AW_PATH=$HOME/.vim-anywhere
-# TMPFILE_DIR=/tmp/vim-anywhere
-# TMPFILE=$TMPFILE_DIR/doc-$(date +"%y%m%d%H%M%S")
+chmod o-r $TMPFILE # Make file only readable by you
+nvim $TMPFILE
 
-# mkdir -p $TMPFILE_DIR
-# touch $TMPFILE
-
-
-# Linux
-if [[ $OSTYPE == "linux-gnu" ]]; then
-  chmod o-r $TMPFILE # Make file only readable by you
-  nvim $TMPFILE
-  
-  cat $TMPFILE | nohup xclip -selection clipboard
-fi
+nohup xclip -selection clipboard < "$TMPFILE" >/dev/null 2>&1 &

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# scan partitions and pick one
+mountable=$(lsblk -lp | grep "part $" | awk '{print $1, "(" $4 ")"}')
+[ "$mountable" = "" ] && exit 1
+chosen=$(echo "$mountable" | rofi -dmenu -i -p "Mount which drive?" | awk '{print $1}')
+[ "$chosen" = "" ] && exit 1
+
+# try to mount based on /etc/fstab if possible
+sudo mount "$chosen" && exit 0
+
+# find possible mount points and pick one (or a new one)
+dirs=$(find /mnt /media /mount -type d -maxdepth 2 2>/dev/null)
+mountpoint=$(echo "$dirs" | rofi -dmenu -i -p "Chose a mount point.")
+[ "$mountpoint" = "" ] && exit 1
+
+# prompt create
+if [ ! -d "$mountpoint" ]; then
+    mkdiryn=$(echo -e "No\nYes" | rofi -dmenu -i -p "$mountpoint does not exist. Create it?")
+    if [ "$mkdiryn" ]; then
+        sudo mkdir -p "$mountpoint"
+    else
+        exit 1
+    fi
+fi
+
+# finally, mount drive and send notification if dunst is running
+sudo mount $chosen $mountpoint && pgrep -x dunst && notify-send "$chosen mounted to $mountpoint"

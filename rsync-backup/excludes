@@ -1,0 +1,36 @@
+# Exclude the build directory
+**/build/
+**/_build/
+**/dist/
+**/.venv/
+
+**/android-studio
+**/LTspiceXVII
+
+**/__pycache__/
+**/.ruff_cache/
+**/.cache/
+**/.pio/
+**/ui_compiled/
+**/htmlcov/
+
+test*
+
+*.deb
+
+# Exclude the trash or temporary directories
+/trash/
+/tmp/
+/*.swp
+
+# Exclude log files
+*.log
+
+# Exclude certain file types (example: .bak and .tmp)
+*.bak
+*.tmp
+
+# Exclude Python bytecode files
+*.pyc
+*.pyo
+

@@ -1,0 +1,20 @@
+--- alacritty.toml	2025-05-20 23:04:28.128604573 -0700
++++ white/alacritty.toml	2025-04-22 20:25:54.624678559 -0700
+@@ -5,7 +5,7 @@
+ 
+ [window]
+     padding = {x = 10, y = 10}
+-    opacity = 0.8
++    opacity = 0.2
+ 
+ [keyboard]
+     bindings = [{key = "Return", mods = "Super|Shift", command = "alacritty"},
+@@ -22,7 +22,7 @@
+ 
+ # Default colors
+ [colors.primary]
+-background = "#00011D"
++background = "#cccccc"
+ foreground = '#cccccc'
+ 
+ # Normal colors

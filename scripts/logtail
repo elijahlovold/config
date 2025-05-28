@@ -1,0 +1,4 @@
+#!/bin/sh
+
+latest=$(ls -p -t | grep -v "/$" | head -n 1)
+[ -f "$latest" ] && echo "File: $latest\n"; tail -f "$latest"

@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# unlock encrypted drive:
+#   sudo cryptsetup open /dev/sda1 crypt_bkp
+#
+# mount encrypted drive:
+#   sudo mount /dev/mapper/crypt_bkp /mnt/backup
+#
+# do stuff...
+#
+# umount encrypted drive:
+#   sudo umount /mnt/backup
+#
+# lock encrypted drive:
+#   sudo cryptsetup close crypt_bkp
+
+# Set HOME to the current user's home directory
+export HOME=$(eval echo ~$SUDO_USER)
+
+# Rsync source and destination
+SRC="$HOME"
+DEST="/mnt/backup"
+
+if [ "$(lsblk | grep "$DEST")" = "" ]; then
+    echo "Drive is NOT mounted to $DEST"
+    exit 1
+else
+    echo "Drive is mounted to $DEST"
+fi
+
+# Exclude patterns file
+EXCLUDES="$XDG_CONFIG_HOME/rsync-backup/excludes"
+DIRS="$XDG_CONFIG_HOME/rsync-backup/dirs"
+
+cat "$DIRS" | while read -r dir; do
+    src_dir="$SRC/$dir"
+    dest_dir="$DEST/$dir"
+    echo "$src_dir -> $dest_dir"
+
+    # create if missing
+    [ ! -d "$dest_dir" ] && mkdir -p "$dest_dir"
+
+    # Run rsync for each directory
+    rsync -avh --delete --exclude-from="$EXCLUDES" "$src_dir/" "$dest_dir/"
+    echo "\n"
+done
+

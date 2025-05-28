@@ -1,48 +1,60 @@
 [font]
-# Font configuration
     normal = { family = "FiraCode Nerd Font", style = "Regular" }
     size = 14.0
 
 [window]
     padding = {x = 10, y = 10}
     opacity = 0.8
+    decorations = "None"
+
+[terminal]
+    shell = "/bin/zsh"
 
 [keyboard]
-    bindings = [{key = "Return", mods = "Super|Shift", command = "alacritty"},
-                {key = "Escape", mode = "~vi | ~AppKeypad", action = "ToggleViMode"},
+    bindings = [
+        {key = "Return", mods = "Super|Shift", command = "alacritty"},
+        {key = "Escape", mode = "~vi | ~AppKeypad", action = "ToggleViMode"},
 
-                {key = "w", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BF"},
-                {key = "b", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BB"},
-                {key = "k", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[A"},
-                {key = "j", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[B"},
-                {key = "l", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[C"},
-                {key = "h", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[D"},
+        {key = "w", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BF"},
+        {key = "b", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BB"},
+        {key = "k", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[A"},
+        {key = "j", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[B"},
+        {key = "l", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[C"},
+        {key = "h", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001B[D"},
+    ]
 
-                {key = "d", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .."}]
+[cursor]
+    vi_mode_style = { shape="Block", blinking="Off" }
 
-# Default colors
+[colors]
+    transparent_background_colors = true
+
 [colors.primary]
-background = "#00011D"
-foreground = '#cccccc'
+    background = "#00011D"
+    foreground = '#cccccc'
 
-# Normal colors
 [colors.normal]
-black      = '#0c0c0c'
-red        = '#c50f1f'
-green      = '#05f00d'
-yellow     = '#c19c00'
-blue       = '#0037da'
-magenta    = '#881798'
-cyan       = '#3a96dd'
-white      = '#cccccc'
+    black      = '#0c0c0c'
+    red        = '#c50f1f'
+    green      = '#05f00d'
+    yellow     = '#c19c00'
+    blue       = '#0037da'
+    magenta    = '#881798'
+    cyan       = '#3a96dd'
+    white      = '#cccccc'
 
-# Bright colors
 [colors.bright]
-black      = '#767676'
-red        = '#e74856'
-green      = '#16c60c'
-yellow     = '#f9f1a5'
-blue       = '#3b78ff'
-magenta    = '#b4009e'
-cyan       = '#61d6d6'
-white      = '#f2f2f2'
+    black      = '#767676'
+    red        = '#e74856'
+    green      = '#16c60c'
+    yellow     = '#f9f1a5'
+    blue       = '#3b78ff'
+    magenta    = '#b4009e'
+    cyan       = '#61d6d6'
+    white      = '#f2f2f2'
+
+# [bell]
+#   animation = "EaseOutSine"
+#   duration = 300
+#   color = '0xffffff'
+#   command = { program = "paplay", args = ["/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"] }

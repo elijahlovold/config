@@ -1,0 +1,29 @@
+#!/bin/sh
+
+STATIC_PATH="$XDG_CONFIG_HOME/i3/background.png"
+VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
+
+
+# rest of your code
+if [ "$1" = "--manual" ]; then
+
+    selected=$(find "$VID_PATH" -type f -name "*.png" \
+        | shuf | sxiv -t -o -)
+    [ "$selected" = "" ] && exit 1
+    vid_play=$(echo $selected | awk '{print $1}' | sed 's/\.png/\.mp4/')
+    [ ! -f "$vid_play" ] && exit 1
+else
+    vid_play="$(find "$VID_PATH" -type f -name "*.mp4" | shuf -n 1)"
+fi
+
+# Kill existing background processes
+pkill -f xwinwrap
+pkill -f mpv
+
+# Restart static background
+feh --bg-fill --no-fehbg "$STATIC_PATH"
+
+# Restart video background
+xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
+  mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts \
+      --hwdec=vdpau-copy -wid WID --no-input-default-bindings "$vid_play" &

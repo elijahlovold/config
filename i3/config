@@ -8,24 +8,35 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:FiraCode Nerd Font 12
 
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
+# # Start XDG autostart .desktop files using dex. See also
+# # https://wiki.archlinux.org/index.php/XDG_Autostart
+# exec --no-startup-id dex --autostart --environment i3
 
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# # screen before suspend. Use loginctl lock-session to lock your screen.
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-#exec --no-startup-id nm-applet
+# start a notification service
+exec_always --no-startup-id dunst &
+
+# system tray - network and ble manager
+exec_always --no-startup-id nm-applet &
+exec_always --no-startup-id blueman-applet &
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id \
+    pactl set-sink-volume @DEFAULT_SINK@ +5% && \
+    pactl list sink-inputs | grep -q . || \
+    paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym XF86AudioLowerVolume exec --no-startup-id \
+    pactl set-sink-volume @DEFAULT_SINK@ -5% && \
+    pactl list sink-inputs | grep -q . || \
+    paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym XF86AudioMute exec --no-startup-id \
+    pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id \
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Media Control Bindings
 bindsym XF86AudioNext exec --no-startup-id playerctl next && $refresh_i3status
@@ -143,16 +154,16 @@ bindsym $mod+Mod1+9 workspace number $ws9; exec google-chrome --new-window https
 bindsym $mod+Mod1+0 workspace number $ws0; exec spotify
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6; workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7; workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8; workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9; workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws0; workspace number $ws0
 
 # Cycle through tabs with Mod+Tab
 bindsym $mod+Tab focus right
@@ -196,24 +207,16 @@ bindsym $mod+Shift+Control+e exec --no-startup-id i3-msg exit
 bindsym $mod+Shift+Control+x exec --no-startup-id systemctl poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id systemctl reboot
 
-# start picom compositor
-exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
-
 # Configure additional display 
-exec_always --no-startup-id toggle_monitors --reset
 bindsym $mod+t exec --no-startup-id toggle-monitors
 
-# # Set background 
-exec --no-startup-id wallpaper-picker
+# set background
 bindsym $mod+c exec --no-startup-id wallpaper-picker
 bindsym $mod+Ctrl+c exec --no-startup-id wallpaper-picker --manual
 
-# # start OpenRGB
-# exec_always --no-startup-id OpenRGB_0.9_x86_64_b5f46e3.AppImage --startminimized
-
 # Screenshot bindings
-bindsym --release Print exec scrot -s ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png  # Selective screenshot
-bindsym $mod+Print exec scrot ~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png
+bindsym --release Print exec --no-startup-id scrot -s "$(xdg-user-dir PICTURES)/Screenshots/screenshot_%Y-%m-%d_%H%M%S.png" -e "xclip -selection clipboard -t image/png -i \$f"
+bindsym $mod+Print exec --no-startup-id scrot -u "$(xdg-user-dir PICTURES)/Screenshots/screenshot_%Y-%m-%d_%H%M%S.png" -e "xclip -selection clipboard -t image/png -i \$f"
 
 # open files 
 bindsym $mod+o exec thunar
@@ -241,14 +244,6 @@ bindsym $mod+Shift+p exec rofimoji
 
 # open password picker
 bindsym $mod+Ctrl+p exec password-picker
-
-# Define the mode
-mode "vim_mode" {
-    bindsym i mode "default"; exec setxkbmap; exec --no-startup-id sh -c "sleep 0.1 && xmodmap ~/.Xmodmap"
-}
-
-# Bind a key to enter the custom mode
-bindsym $mod+Escape mode "vim_mode"; exec --no-startup-id xmodmap ~/.Xvimmap
 
 
 ######################################

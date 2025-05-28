@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# run in a dir with .mp4 files
+for f in *.mp4; do
+    thumb="${f%.mp4}.png"
+    if [ -f "$thumb" ]; then
+        echo "skipping file: $f"
+    else
+        ffmpeg -i "$f" -frames:v 1 -q:v 2 "$thumb"
+    fi
+done
+
