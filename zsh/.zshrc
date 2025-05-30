@@ -19,13 +19,14 @@ setopt append_history inc_append_history  # append to history file
 setopt hist_ignore_all_dups  # ignore duplicate commands
 setopt hist_expire_dups_first  # remove older duplicates first
 
-bindkey -s "^o" "cd -\n"
+bindkey -s "^O" "^Ucd -\n"
 bindkey "^A" beginning-of-line
 bindkey "^K" kill-line
 bindkey "^P" redisplay
 bindkey "^R" history-incremental-search-backward
 bindkey "^U" backward-kill-line
 bindkey "^Y" yank
+bindkey "^\b" backward-kill-word
 
 # vi mode
 bindkey -v
