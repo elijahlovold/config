@@ -23,4 +23,4 @@
 [ -d "$HOME/.config/scripts" ] && PATH="$HOME/.config/scripts:$PATH"
 
 # source cargo env
-. "/home/elijah/.cache/cargo/env"
+# . "/home/elijah/.cache/cargo/env"

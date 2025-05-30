@@ -44,11 +44,11 @@ bindsym XF86AudioPrev exec --no-startup-id playerctl previous && $refresh_i3stat
 bindsym XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause && $refresh_i3status
 
 # video controls
-#bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
-#bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 5%+
 
 # enable trackpad
-#exec --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
+exec --no-startup-id xinput set-prop "VEN_04F3:00 04F3:3291 Touchpad" "libinput Tapping Enabled" 1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -250,42 +250,10 @@ bindsym $mod+Ctrl+p exec password-picker
 ### settings for bumblebee-status: ###
 ######################################
 
-# https://github.com/tobi-wan-kenobi/bumblebee-status?tab=readme-ov-file
 bar {
-    id bar0
-    font pango: Source Code Pro, FontAwesome 12
-    position top
-    output DisplayPort-0
-    tray_output none
-    status_command ~/.config/i3/bumblebee-status \
-        -m spotify cpu memory \
-        pulsein pulseout time date \
-        -p time.format="%H:%M" date.format="%a, %m/%d/%y" \
-        pulseout.limit=100 \
-        pulseout.left-click=select_default_device_popup \
-        pulsein.left-click=select_default_device_popup \
-        memory.format="{percent:.1f}%"\
-        -t current-theme
-
-    colors {
-        background #000000 
-
-        #border #bg #text
-        focused_workspace #000000 #000000 #00dce8
-        active_workspace #000000 #000000 #925cff
-        inactive_workspace #000000 #000000 #3860ff
-        urgent_workspace #c40233 #c40233 #000000
-    }
-
-}
-
-bar {
-    id bar1
     font pango: Source Code Pro, FontAwesome 18
     position top
-    output DisplayPort-1
-    tray_output DisplayPort-1
-    status_command ~/.config/i3/bumblebee-status \
+    status_command bumblebee-status \
         -m spotify speedtest traffic cpu2 memory \
         pulsein pulseout \
         bluetooth pomodoro time date \
@@ -311,35 +279,6 @@ bar {
 
 }
 
-bar {
-    id bar2
-    font pango: Source Code Pro, FontAwesome 12
-    position top
-    output HDMI-A-0
-    tray_output none
-    status_command ~/.config/i3/bumblebee-status \
-        -m spotify traffic cpu memory \
-        pulsein pulseout \
-        bluetooth pomodoro time date \
-        -p bluetooth.manager="alacritty -e bluetoothctl"\
-        traffic.exclude="lo,virbr,docker,vboxnet,veth,wlp11s0" \
-        weather.unit=imperial time.format="%H:%M" date.format="%a, %m/%d/%y" \
-        pulseout.limit=100 \
-        pulseout.left-click=select_default_device_popup \
-        pulsein.left-click=select_default_device_popup \
-        -t current-theme
-
-    colors {
-        background #000000 
-
-        #border #bg #text
-        focused_workspace #000000 #000000 #00dce8
-        active_workspace #000000 #000000 #925cff
-        inactive_workspace #000000 #000000 #3860ff
-        urgent_workspace #c40233 #c40233 #000000
-    }
-}
-
 # hide the title bar
 for_window [class="^.*"] border pixel 0
 
@@ -357,6 +296,12 @@ smart_gaps off
 # Smart borders (draw borders around container only if it is not the only container on this workspace) 
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
 smart_borders on
+
+# Default border for all windows
+default_border pixel 2
+
+# Per-window border override (optional)
+for_window [class=".*"] border pixel 2
 
 bindsym $mod+z gaps inner current plus 5
 bindsym $mod+Shift+z gaps inner current minus 5

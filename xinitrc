@@ -2,11 +2,11 @@ if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
     eval $(dbus-launch --sh-syntax)
 fi
 
-# setxkbmap -option caps:swapescape
+setxkbmap -option caps:swapescape
 
-picom --config /home/elijah/.config/picom/picom.conf &
+# picom --config "$XDG_CONFIG_HOME/picom/picom.conf" &
 
-toggle-monitors --reset
-wallpaper-picker
+# set background
+feh --bg-scale "$XDG_CONFIG_HOME/i3/background.png"
 
 exec i3
