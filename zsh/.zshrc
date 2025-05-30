@@ -13,12 +13,19 @@ compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 # History settings
-SAVEHIST=100000  # store 100000 commands in history file
+HISTSIZE=10000 # In-memory history size (for current session)
+SAVEHIST=10000 # Max lines saved to $HISTFILE
 setopt append_history inc_append_history  # append to history file
 setopt hist_ignore_all_dups  # ignore duplicate commands
 setopt hist_expire_dups_first  # remove older duplicates first
 
 bindkey -s "^o" "cd -\n"
+bindkey "^A" beginning-of-line
+bindkey "^K" kill-line
+bindkey "^P" redisplay
+bindkey "^R" history-incremental-search-backward
+bindkey "^U" backward-kill-line
+bindkey "^Y" yank
 
 # vi mode
 bindkey -v
