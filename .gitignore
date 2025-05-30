@@ -10,6 +10,9 @@
 !nvim/
 !nvim/**
 
+!git/
+!git/personal_config
+
 !picom/
 !picom/**
 

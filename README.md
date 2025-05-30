@@ -24,20 +24,24 @@ xinput list
 
 ### Ubuntu
 ```
+# fix this to build from source instead
 snap install alacritty --classic
 
-# install picom and i3
-apt install i3 picom feh blueman
+# install i3
+apt install i3 picom brightnessctl
 pip install i3ipc
 
-# install bumblebee-status into ~/.local/bin/bumblebee-status
+# install bumblebee-status and utils
 pip install --user bumblebee-status
-# mv ~/.local/bin/bumblebee-status ~/.config/i3/bumblebee-status
-
-# append config notes to .config/i3/config modules:
 pip install pulsectl dbus-python speedtest-cli pygit2
 apt install -y dbus
-apt install xcwd playerctl pactl brightnessctl
+apt install xcwd playerctl pactl
+
+# general utils
+apt install git sxiv htop feh blueman
+
+# zsh
+apt install zsh zsh-syntax-highlighting
 
 ## figure out how I installed fastfetch
 # wget https://github.com/fastfetch-cli/fastfetch/releases/tag/2.27.1

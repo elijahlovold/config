@@ -12,6 +12,8 @@ alias l='ls -CF'
 # git aliases
 alias g='git'
 alias glog='git log --oneline --graph'
+# use personal git credentials
+alias egit='GIT_CONFIG_GLOBAL=$XDG_CONFIG_HOME/git/personal_config git'
 
 # some nice utils
 alias logcat='cat "$(ls -t | head -n1)"'
