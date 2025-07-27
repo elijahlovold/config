@@ -28,6 +28,7 @@ yay -S dbus
 
 # general apps
 yay -S alacritty thunar zathura firefox
+yay -S spotify discord steam
 
 # zsh
 yay -S zsh zsh-syntax-highlighting
@@ -70,7 +71,10 @@ mv FiraCode/*.ttf ~/.local/share/fonts/
 fc-cache -fv
 
 # xwinwrap custom branch
-https://github.com/gustavoflw/xwinwrap/tree/master
+git clone https://github.com/mmhobi7/xwinwrap.git
+cd xwinwrap
+make
+sudo make install
 
 # optional fun packages
 yay -S ttyper openrgb-git glow cbonsai-git pipes.sh cava
