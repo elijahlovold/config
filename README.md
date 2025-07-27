@@ -1,32 +1,98 @@
-## Installation 
+# Installation
 
-install requirements: 
-`./setup/install_reqs.sh`
+install this repo to `$XDG_CONFIG_HOME`
 
-setup with:  
-`./setup/setup.sh`
+static link:
+* `$XDG_CONFIG_HOME/profile` to `~/.profile`
+* `$XDG_CONFIG_HOME/zprofile` to `~/.zprofile`
+* `$XDG_CONFIG_HOME/bashrc` to `~/.bashrc`
 
-source the local `bashrc.sh` in your actual `.bashrc` by adding this line: 
-`source /home/elijah/.config/config/bashrc.sh`
+change shell to zsh (after installing of course):
+`chsh -s $(which zsh)`
 
-## configure i3/config
-* configure displays
-```
-xrandr
-```
-
-* configure trackpad input device
-```
-xinput list
-```
+## Groups
+`tty docker video optical input wheel dialout`
 
 ## Requirements
 
-### Ubuntu
+### Arch-Based
 ```
-# fix this to build from source instead
-snap install alacritty --classic
+# yay
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 
+# dbus before anything else
+yay -S dbus
+
+# general apps
+yay -S alacritty thunar zathura firefox
+
+# zsh
+yay -S zsh zsh-syntax-highlighting
+
+# X11, i3
+yay -S xorg xorg-xinit xorg-xrandr xclip xdotool numlockx
+yay -S i3 i3status-rust picom rofi
+
+# wayland, toolkits, hyprland, tools
+yay -S wayland wlroots xorg-xwayland \
+ qt5-wayland qt6-wayland gtk3 \
+ hyprland waybar wofi \
+ wl-clipboard cliphist hyprpaper mpvpaper
+
+# session services/utils
+yay -S pulseaudio dunst xdg-utils xdg-user-dirs
+yay -S noto-fonts-emoji rofimoji
+
+# installing, moving, compressing
+yay -S man wget git openssh uv rsync pigz zip unzip
+
+# file editing and searching
+yay -S neovim bat ripgrep fzf
+
+# hw interfacing
+yay -S btop lshw blueman nmap speedtest-cli fastfetch
+
+# media
+yay -S ffmpeg mpv feh sxiv flameshot
+yay -S vlc vlc-plugins-all makemkv
+    sudo modprobe sg
+
+# webcam
+yay -S iriunwebcam-bin android-tools
+
+# fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
+unzip FiraCode.zip
+mv FiraCode/*.ttf ~/.local/share/fonts/
+fc-cache -fv
+
+# xwinwrap custom branch
+https://github.com/gustavoflw/xwinwrap/tree/master
+
+# optional fun packages
+yay -S ttyper openrgb-git glow cbonsai-git pipes.sh cava
+
+# dev tools
+yay -S npm nodejs
+# cpp
+yay -S gcc ninja cmake codelldb-bin
+yay -S docker docker-compose
+# pip libs
+pip install debugpy qt6-tools
+
+# design software
+yay -S blender bambustudio-bin
+
+# electronics software
+yay -S ltspice
+
+```
+
+### Debian-Based
+```
 # install i3
 apt install i3 picom brightnessctl
 pip install i3ipc
@@ -47,4 +113,14 @@ apt install zsh zsh-syntax-highlighting
 # wget https://github.com/fastfetch-cli/fastfetch/releases/tag/2.27.1
 ```
 
-### Arch
+## configure i3/config
+* configure displays
+```
+xrandr
+```
+
+* configure trackpad input device
+```
+xinput list
+```
+

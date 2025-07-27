@@ -12,14 +12,23 @@ else
     state=$(cat "$STATE_FILE")
 fi
 
+
 if [ "$state" = "reset" ] || [ "$state" = "solo" ]; then
-    xrandr --output "$PRIMARY" --auto --primary \
-        --output "$SECONDARY" --auto --rotate right --left-of "$PRIMARY" \
-        --output "$SOLO" --off
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        exit 0
+    elif [ -n "$DISPLAY" ]; then
+        xrandr --output "$PRIMARY" --auto --primary \
+            --output "$SECONDARY" --auto --rotate right --left-of "$PRIMARY" \
+            --output "$SOLO" --off
+    fi
     echo "dual" > "$STATE_FILE"
 else
-    xrandr --output "$PRIMARY" --off \
-        --output "$SECONDARY" --off \
-        --output "$SOLO" --auto
+    if [ -n "$WAYLAND_DISPLAY" ]; then
+        exit 0
+    elif [ -n "$DISPLAY" ]; then
+        xrandr --output "$PRIMARY" --off \
+            --output "$SECONDARY" --off \
+            --output "$SOLO" --auto
+    fi
     echo "solo" > "$STATE_FILE"
 fi

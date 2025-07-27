@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STATIC_PATH="$XDG_CONFIG_HOME/i3/background.png"
+STATIC_PATH="$XDG_CONFIG_HOME/i3/background"
 VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
 
 
@@ -16,14 +16,23 @@ else
     vid_play="$(find "$VID_PATH" -type f -name "*.mp4" | shuf -n 1)"
 fi
 
-# Kill existing background processes
-pkill -f xwinwrap
-pkill -f mpv
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    exit 0
+else  # assume X11
 
-# Restart static background
-feh --bg-fill --no-fehbg "$STATIC_PATH"
+    # Kill existing background processes
+    pkill -f xwinwrap
+    pkill -f mpv
 
-# Restart video background
-xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
-  mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts \
-      --hwdec=vdpau-copy -wid WID --no-input-default-bindings "$vid_play" &
+    if [ "$1" = "--stop" ]; then
+        exit 0
+    fi
+
+    # Restart static background
+    feh --bg-fill --no-fehbg "$STATIC_PATH"
+
+    # Restart video background
+    xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
+      mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts \
+          --hwdec=vdpau -wid WID --no-input-default-bindings "$vid_play" &
+fi

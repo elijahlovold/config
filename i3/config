@@ -12,17 +12,6 @@ font pango:FiraCode Nerd Font 12
 # # https://wiki.archlinux.org/index.php/XDG_Autostart
 # exec --no-startup-id dex --autostart --environment i3
 
-# # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# # screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# start a notification service
-exec_always --no-startup-id dunst &
-
-# system tray - network and ble manager
-exec_always --no-startup-id nm-applet &
-exec_always --no-startup-id blueman-applet &
-
 # Use pactl to adjust volume in PulseAudio.
 # set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id \
@@ -41,7 +30,8 @@ bindsym XF86AudioMicMute exec --no-startup-id \
 # Media Control Bindings
 bindsym XF86AudioNext exec --no-startup-id playerctl next && $refresh_i3status
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous && $refresh_i3status
-bindsym XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause && $refresh_i3status
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause && $refresh_i3status
+bindsym Shift+XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause && $refresh_i3status
 
 # video controls
 #bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
@@ -56,21 +46,15 @@ floating_modifier $mod
 # popup_during_fullscreen smart|ignore|leave_fullscreen|all
 popup_during_fullscreen leave_fullscreen
 
+# set terminal to alacritty
+set $term alacritty
+
 # start a terminal
-bindsym $mod+Return split h; exec alacritty
-bindsym $mod+backslash split v; exec alacritty; 
-#bindsym $mod+Shift+backslash split v; exec alacritty --working-directory $(pwd)
+bindsym $mod+Return split h; exec --no-startup-id $term
+bindsym $mod+backslash split v; exec --no-startup-id $term
 
 # kill focused window
 bindsym $mod+q kill
-
-# start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show run
-
-bindsym $mod+Ctrl+w exec ~/.config/rofi/rofi-wifi-menu.sh
-
-# add locking shortcut
-bindsym $mod+Ctrl+l exec i3lock -c 000000
 
 # change focus
 bindsym $mod+h focus left
@@ -144,13 +128,13 @@ bindsym $mod+0 workspace number $ws0
 
 bindsym $mod+Mod1+1 workspace number $ws1; exec google-chrome --new-window https://calendar.google.com/calendar/u/0/r
 bindsym $mod+Mod1+2 workspace number $ws2; exec slack
-bindsym $mod+Mod1+3 workspace number $ws3; exec alacritty --working-directory /var/lib/cadence
-bindsym $mod+Mod1+4 workspace number $ws4; exec alacritty --working-directory ~/repos
+bindsym $mod+Mod1+3 workspace number $ws3; exec $term --working-directory /var/lib/cadence
+bindsym $mod+Mod1+4 workspace number $ws4; exec $term --working-directory ~/repos
 bindsym $mod+Mod1+5 workspace number $ws5
-bindsym $mod+Mod1+6 workspace number $ws6
-bindsym $mod+Mod1+7 workspace number $ws7; exec Obsidian-1.8.9.AppImage
-bindsym $mod+Mod1+8 workspace number $ws8; exec alacritty --working-directory ~/.config
-bindsym $mod+Mod1+9 workspace number $ws9; exec google-chrome --new-window https://chatgpt.com/
+bindsym $mod+Mod1+6 workspace number $ws6; exec firefox
+bindsym $mod+Mod1+7 workspace number $ws7; exec obsidian
+bindsym $mod+Mod1+8 workspace number $ws8; exec $term --working-directory $XDG_CONFIG_HOME
+bindsym $mod+Mod1+9 workspace number $ws9; exec $BROWSER --new-window https://chatgpt.com/
 bindsym $mod+Mod1+0 workspace number $ws0; exec spotify
 
 # move focused container to workspace
@@ -196,27 +180,30 @@ mode "resize" {
 }
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Control+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+Control+e exec --no-startup-id i3-msg exit
 
 # power control bindings
-bindsym $mod+Shift+Control+x exec --no-startup-id systemctl poweroff
-bindsym $mod+Shift+Control+r exec --no-startup-id systemctl reboot
+bindsym $mod+Shift+Control+x exec --no-startup-id poweroff
+bindsym $mod+Shift+Control+r exec --no-startup-id reboot
 
 # Configure additional display 
 bindsym $mod+t exec --no-startup-id toggle-monitors
 
 # set background
 bindsym $mod+c exec --no-startup-id wallpaper-picker
-bindsym $mod+Ctrl+c exec --no-startup-id wallpaper-picker --manual
+bindsym $mod+Shift+c exec --no-startup-id wallpaper-picker --manual
+bindsym $mod+Control+c exec --no-startup-id wallpaper-picker --stop
 
 # Screenshot bindings
-bindsym --release Print exec --no-startup-id scrot -s "$(xdg-user-dir PICTURES)/Screenshots/screenshot_%Y-%m-%d_%H%M%S.png" -e "xclip -selection clipboard -t image/png -i \$f"
-bindsym $mod+Print exec --no-startup-id scrot -u "$(xdg-user-dir PICTURES)/Screenshots/screenshot_%Y-%m-%d_%H%M%S.png" -e "xclip -selection clipboard -t image/png -i \$f"
+bindsym --release Print exec --no-startup-id flameshot gui -c -p "$(xdg-user-dir PICTURES)/Screenshots/"
+bindsym $mod+Print exec --no-startup-id flameshot full -c -p  "$(xdg-user-dir PICTURES)/Screenshots/"
+
+# ---- apps ----
 
 # open files 
 bindsym $mod+o exec thunar
@@ -224,49 +211,53 @@ bindsym $mod+o exec thunar
 # open browser
 bindsym $mod+g exec --no-startup-id google-chrome
 
+# open resource monitor
+bindsym $mod+b exec $term -e btop
+
 # open firefox
 bindsym $mod+x exec firefox
 
 # open python
-bindsym $mod+p exec alacritty -e python3
-
-# open nvim
-bindsym $mod+v exec alacritty -e nvim
+bindsym $mod+p exec $term -e python3
 
 # open vim-anywhere
-bindsym $mod+Shift+v exec alacritty -e vim-anywhere
+bindsym $mod+Shift+v exec $term -e vim-anywhere
 
 # open music 
 bindsym $mod+m exec spotify
+bindsym --release $mod+Shift+Return exec spotify-queue
+bindsym --release $mod+Shift+p exec spotify-open-palette
 
-# open symbol picker
-bindsym $mod+Shift+p exec rofimoji
+# ---- dmenu/rofi utils ----
+
+# start rofi (a program launcher)
+bindsym $mod+d exec rofi -show run
+bindsym $mod+Ctrl+k exec rofi -show run
+
+bindsym $mod+Ctrl+w exec rofi-wifi-menu
+
+# open clipmenu
+bindsym --release $mod+v exec --no-startup-id sh -c "CM_LAUNCHER=rofi clipmenu && xdotool key --clearmodifiers ctrl+shift+v"
+
+# # open symbol picker
+# bindsym $mod+Shift+p exec rofimoji
 
 # open password picker
 bindsym $mod+Ctrl+p exec password-picker
 
 
-######################################
-### settings for bumblebee-status: ###
-######################################
+##############
+### i3bar: ###
+##############
 
-# https://github.com/tobi-wan-kenobi/bumblebee-status?tab=readme-ov-file
 bar {
     id bar0
-    font pango: Source Code Pro, FontAwesome 12
+    font pango:FiraCode Nerd Font 11
+    padding -2px 0
     position top
     output DisplayPort-0
     tray_output none
-    status_command ~/.config/i3/bumblebee-status \
-        -m spotify cpu memory \
-        pulsein pulseout time date \
-        -p time.format="%H:%M" date.format="%a, %m/%d/%y" \
-        pulseout.limit=100 \
-        pulseout.left-click=select_default_device_popup \
-        pulsein.left-click=select_default_device_popup \
-        memory.format="{percent:.1f}%"\
-        -t current-theme
-
+    status_command i3status-rs $XDG_CONFIG_HOME/i3status-rust/config_short.toml
     colors {
         background #000000 
 
@@ -281,24 +272,12 @@ bar {
 
 bar {
     id bar1
-    font pango: Source Code Pro, FontAwesome 18
+    font pango:FiraCode Nerd Font 18
+    padding -3px 0
     position top
     output DisplayPort-1
     tray_output DisplayPort-1
-    status_command ~/.config/i3/bumblebee-status \
-        -m spotify speedtest traffic cpu2 memory \
-        pulsein pulseout \
-        bluetooth pomodoro time date \
-        -p bluetooth.manager="alacritty -e bluetoothctl"\
-        traffic.exclude="lo,virbr,docker,vboxnet,veth,wlp11s0" traffic.showname=False \
-        weather.unit=imperial time.format="%H:%M" date.format="%a, %m/%d/%y" \
-        pulseout.limit=100 \
-        pulseout.left-click=select_default_device_popup \
-        pulsein.left-click=select_default_device_popup \
-        cpu2.layout="cpu2.maxfreq cpu2.cpuload cpu2.coresload cpu2.temp" \
-        cpu2.temp_pattern="temp2_input:" \
-        -t current-theme
-
+    status_command i3status-rs
     colors {
         background #000000 
 
@@ -313,22 +292,12 @@ bar {
 
 bar {
     id bar2
-    font pango: Source Code Pro, FontAwesome 12
+    font pango:FiraCode Nerd Font 12
+    padding -2px 0
     position top
     output HDMI-A-0
     tray_output none
-    status_command ~/.config/i3/bumblebee-status \
-        -m spotify traffic cpu memory \
-        pulsein pulseout \
-        bluetooth pomodoro time date \
-        -p bluetooth.manager="alacritty -e bluetoothctl"\
-        traffic.exclude="lo,virbr,docker,vboxnet,veth,wlp11s0" \
-        weather.unit=imperial time.format="%H:%M" date.format="%a, %m/%d/%y" \
-        pulseout.limit=100 \
-        pulseout.left-click=select_default_device_popup \
-        pulsein.left-click=select_default_device_popup \
-        -t current-theme
-
+    status_command i3status-rs
     colors {
         background #000000 
 
@@ -354,9 +323,9 @@ gaps outer 14
 # Smart gaps (gaps used if only more than one container on the workspace)
 smart_gaps off
 
-# Smart borders (draw borders around container only if it is not the only container on this workspace) 
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders on
+# # Smart borders (draw borders around container only if it is not the only container on this workspace)
+# # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+# smart_borders on
 
 bindsym $mod+z gaps inner current plus 5
 bindsym $mod+Shift+z gaps inner current minus 5

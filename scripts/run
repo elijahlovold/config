@@ -1,0 +1,21 @@
+#!/bin/python
+
+import json
+import os
+import subprocess
+import sys
+
+data_dir = os.getenv("XDG_DATA_HOME", "~/")
+json_file = os.path.join(data_dir, "nvim/run_commands.json")
+current_path = os.getcwd()
+
+with open(json_file, "r") as f:
+    commands = json.load(f)
+
+cmd = commands.get(current_path)
+cmds = cmd.split()
+if cmd:
+    subprocess.run(cmds)
+else:
+    print(f"No command for {current_path}", file=sys.stderr)
+    sys.exit(1)

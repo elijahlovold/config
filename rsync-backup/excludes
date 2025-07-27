@@ -14,8 +14,6 @@
 **/ui_compiled/
 **/htmlcov/
 
-test*
-
 *.deb
 
 # Exclude the trash or temporary directories

@@ -3,7 +3,7 @@
 STATE_FILE="/tmp/theme_picker"
 
 ALACRITTY_FILE="$XDG_CONFIG_HOME/alacritty/alacritty.toml"
-BUMBLEBEE_FILE="$XDG_DATA_HOME/bumblebee-status/themes/current_theme.json"
+BUMBLEBEE_FILE="$XDG_CONFIG_HOME/bumblebee-status/themes/current_theme.json"
 
 THEME_DIR="$XDG_CONFIG_HOME/themes"
 

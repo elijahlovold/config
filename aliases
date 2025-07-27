@@ -1,22 +1,40 @@
 #!/bin/sh
 
 # ls aliases
-alias ls='ls -h --color=auto'
+alias ls='ls -h --si --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
+alias lt='ls -ltr'
 alias l='ls -CF'
+
+alias free='free -h'
 
 # use rg if available, either way, use color
 [ command -v rg >/dev/null 2>&1 ] && alias grep='rg --color=auto' || alias grep='grep --color=auto'
 
 # git aliases
-alias g='git'
+alias gs='git status'
+alias gd='git diff'
+alias ga='git add'
+alias gsw='git switch'
+alias gsu='git submodule update'
 alias glog='git log --oneline --graph'
 # use personal git credentials
 alias egit='GIT_CONFIG_GLOBAL=$XDG_CONFIG_HOME/git/personal_config git'
 
+# copy paste
+alias xc="xclip -sel clip <"
+alias xp="xclip -sel clip -o >"
+
+alias bds='sudo bds-server-1.0.RC2 -c /opt/cadence/bds/config/bdsconfig.ini'
+
+alias ssh-phone='ssh -p 8022 u0_566@192.168.0.25'
+
 # some nice utils
-alias logcat='cat "$(ls -t | head -n1)"'
+alias lst='ls -t | head -n1'
+alias logcat='cat "$(lst)"'
+alias nvimr='nvim "$(lst)"'
+
 alias cmake-dep='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 ..'
 
 # youtube audio downloader, -x is audio only

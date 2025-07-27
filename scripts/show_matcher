@@ -1,0 +1,25 @@
+#!/bin/bash
+
+file="$1"
+
+# Check validity
+if [[ ! -f "$file" ]]; then
+    echo "Invalid file"
+    exit 1
+fi
+
+# Play in VLC
+vlc "$file"
+wait
+
+# Prompt for number
+read -p "Enter episode: " num
+
+# Rename
+new_file="S03E${num}.mkv"
+if [[ -f "$new_file" ]]; then
+    echo "file already exists"
+    exit 1
+fi
+mv "$file" "$new_file"
+echo "Renamed to $new_file"

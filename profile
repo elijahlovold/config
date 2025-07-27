@@ -8,11 +8,12 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# load up default colors
-[ "$(tty)" = "/dev/tty1" ] && openrgb -p default.orp --noautoconnect &
+# # load up default colors
+# [ "$(tty)" = "/dev/tty1" ] && openrgb -p default.orp --noautoconnect &
 
 # source env vars
 [ -f "$HOME/.config/env" ] && . "$HOME/.config/env"
+[ -f "$HOME/.config/aliases" ] && . "$HOME/.config/aliases"
 
 # if running bash and .bashrc if it exists
 [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
@@ -23,4 +24,4 @@
 [ -d "$HOME/.config/scripts" ] && PATH="$HOME/.config/scripts:$PATH"
 
 # source cargo env
-. "/home/elijah/.cache/cargo/env"
+[ -f "$HOME/.cache/cargo/env" ] && . "/home/elijah/.cache/cargo/env"

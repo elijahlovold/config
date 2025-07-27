@@ -1,0 +1,21 @@
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+    eval $(dbus-launch --sh-syntax)
+fi
+
+numlockx on
+setxkbmap -option caps:escape
+
+openrgb -p default &
+
+picom &
+pulseaudio --start &
+# system tray - network and ble manager
+# nm-applet &
+# blueman-applet &
+dunst &
+clipmenud &
+
+toggle-monitors --reset
+wallpaper-picker
+
+PATH="$XDG_DATA_HOME/.venv/bin:$PATH" exec i3
