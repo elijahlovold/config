@@ -1,0 +1,133 @@
+# modules at: 
+#    https://docs.rs/i3status-rs/latest/i3status_rs/blocks/index.html#modules
+
+[theme]
+theme = "plain"
+
+[theme.overrides]
+idle_bg = "#161821"
+idle_fg = "#d2d4de"
+separator = " "
+# separator = " "
+# separator = " "
+# separator = " "
+# separator = ""
+# separator = ""
+# separator = ""
+# separator = ""
+# separator = ""
+# separator = ""
+
+separator_fg = "auto"
+separator_bg = "auto"
+alternating_tint_bg = "#014a46"
+
+icons_format = "{icon}"
+
+[icons]
+icons = "awesome4"
+[icons.overrides]
+bat = ["|E|", "|_|", "|=|", "|F|"]
+bat_charging = "|^| "
+
+##################################
+# Extra apps
+##################################
+[[block]]
+block = "music"
+format = " $icon {$combo.str(max_w:40)|}"
+[[block.click]]
+button = "left"
+action = "play_pause"
+[[block.click]]
+button = "forward"
+action = "next"
+[[block.click]]
+button = "back"
+action = "prev"
+
+[[block]]
+block = "pomodoro"
+format = " $icon { $message|}"
+notify_cmd = "notify-send '{msg}'"
+blocking_cmd = false
+
+[[block]]
+block = "hueshift"
+format = " $icon $temperature "
+hue_shifter = "redshift"
+step = 50
+click_temp = 3500
+
+[[block]]
+block = "xrandr"
+format = " $icon  $brightness $resolution "
+
+# [[block]]
+# block = "speedtest"
+# interval = 1800
+# format = " ^icon_ping $ping "
+
+##################################
+# Hardware performance
+##################################
+
+[[block]]
+block = "amd_gpu"
+format = "  $utilization "
+format_alt = "  MEM: $vram_used_percents ($vram_used/$vram_total) "
+interval = 3
+
+[[block]]
+block = "cpu"
+format = " $icon $barchart $utilization "
+# format_alt = " $icon $frequency $utilization "
+info_cpu = 20
+warning_cpu = 50
+critical_cpu = 90
+
+[[block]]
+block = "memory"
+format = " $icon $mem_used.eng(w:3)/$mem_total.eng(w:3) ($mem_used_percents) "
+# format_alt = "$icon_swap   $swap_used_percents%"
+
+##################################
+# Peripherials
+##################################
+
+[[block]]
+block = "net"
+device = "wlan1"
+format = " $icon  ^icon_net_down$speed_down.eng(prefix:K) ^icon_net_up$speed_up.eng(prefix:K) "
+format_alt = " $icon  {$signal_strength $ssid $frequency|Wired connection} via $device "
+inactive_format = "󰖪 "
+
+[[block]]
+block = "bluetooth"
+format = "$icon"
+mac = "auto"
+[[block.click]]
+button = "left"
+cmd = "alacritty -e bluetoothctl"
+
+[[block]]
+block = "sound"
+driver = "pulseaudio"
+step_width = 5
+max_vol = 100
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"  # optional or switch to `select_default_device_popup`
+
+##################################
+# Time and Date
+##################################
+[[block]]
+block = "time"
+interval = 5
+format = " $icon $timestamp.datetime(f:'%H:%M') "
+
+[[block]]
+block = "time"
+interval = 60
+format = "   $timestamp.datetime(f:'%a, %m/%d/%y') "
