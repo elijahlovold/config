@@ -192,7 +192,7 @@ bindsym $mod+Shift+Control+x exec --no-startup-id poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id reboot
 
 # Configure additional display 
-bindsym $mod+t exec --no-startup-id toggle-monitors
+bindsym $mod+Shift+t exec --no-startup-id toggle-monitors
 
 # set background
 bindsym $mod+c exec --no-startup-id wallpaper-picker
@@ -222,6 +222,8 @@ bindsym $mod+p exec $term -e python3
 
 # open vim-anywhere
 bindsym $mod+Shift+v exec $term -e vim-anywhere
+
+bindsym $mod+t exec TERM=$term todays-notes
 
 # open music 
 bindsym $mod+m exec spotify

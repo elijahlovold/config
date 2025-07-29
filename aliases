@@ -26,10 +26,6 @@ alias egit='GIT_CONFIG_GLOBAL=$XDG_CONFIG_HOME/git/personal_config git'
 alias xc="xclip -sel clip <"
 alias xp="xclip -sel clip -o >"
 
-alias bds='sudo bds-server-1.0.RC2 -c /opt/cadence/bds/config/bdsconfig.ini'
-
-alias ssh-phone='ssh -p 8022 u0_566@192.168.0.25'
-
 # some nice utils
 alias lst='ls -t | head -n1'
 alias logcat='cat "$(lst)"'

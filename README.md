@@ -35,7 +35,7 @@ yay -S zsh zsh-syntax-highlighting
 
 # X11, i3
 yay -S xorg xorg-xinit xorg-xrandr xclip xdotool numlockx
-yay -S i3 i3status-rust picom rofi
+yay -S i3 i3status-rust picom rofi rofi-themes-collection-git
 
 # wayland, toolkits, hyprland, tools
 yay -S wayland wlroots xorg-xwayland \
@@ -45,7 +45,7 @@ yay -S wayland wlroots xorg-xwayland \
 
 # session services/utils
 yay -S pulseaudio dunst xdg-utils xdg-user-dirs
-yay -S noto-fonts-emoji rofimoji
+yay -S noto-fonts-emoji rofimoji redshift
 
 # installing, moving, compressing
 yay -S man wget git openssh uv rsync pigz zip unzip
