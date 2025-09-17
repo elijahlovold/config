@@ -1,14 +1,57 @@
-#!/bin/sh
+#!/bin/python
 
-NOTES_PATH="$HOME/vault/daily_notes"
-TEMPLATE="$NOTES_PATH/_daily_template.md"
-TODAY="$(date +%F)"
-OUTFILE="$NOTES_PATH/$TODAY.md"
+import os
+import subprocess
+from datetime import date
 
-# if not exist, create file with proper date header
-if [ ! -f "$OUTFILE" ]; then
-    HEADER="# $(date '+%A, %B %-d, %Y')"
-    echo -e "$HEADER\n$(tail -n +2 $TEMPLATE)" > "$OUTFILE"
-fi
+bday = date(2003, 8, 19)
 
-exec "$TERM" -e nvim "$OUTFILE"
+notes_path = f"{os.path.expanduser('~')}/vault/daily_notes"
+template = f"{notes_path}/_daily_template.md"
+today = date.today().isoformat()
+outfile = f"{notes_path}/{today}.md"
+
+if not os.path.isfile(outfile):
+    today = date.today()
+    years = today.year - bday.year
+    if (today.month, today.day) < (bday.month, bday.day):
+        years -= 1
+    bible_plan_path = f"{notes_path}/bible_plan_{years}.csv"
+
+    start_year = today.year
+    if (today.month, today.day) < (bday.month, bday.day):
+        start_year -= 1
+    start_date = bday.replace(year=start_year)
+    today_entry = (today - start_date).days
+
+    with open(bible_plan_path, "r") as f:
+        bible_plan_lines = f.readlines()
+        weeks = int(today_entry / 7)
+        dow = today_entry % 7
+        entry_i = 9 * weeks + 1 + dow
+        today_passage = bible_plan_lines[entry_i]
+
+        passage_txt = "Bible Passage:"
+        def split_ref(ref: str):
+            import re
+            match = re.match(r"(\d?\s*[A-Za-z]+)\s+(\d+(?:-\d+)?)", ref)
+            if not match:
+                raise ValueError("No regex match found!")
+            book, chapters = match.groups()
+            return book.strip(), chapters
+
+        for entry in [x.strip() for x in today_passage.split(",")]:
+            book, chaps = split_ref(entry)
+            passage_txt += f" [[{book}]] {chaps}"
+
+
+    with open(template, "r") as fin, open(outfile, "w") as fout:
+        for i, line in enumerate(fin):
+            if i == 0:
+                fout.write(f"# {date.today().strftime('%A, %B %-d, %Y')}\n")
+            elif i == 2:
+                fout.write(f"{passage_txt}\n")
+            else:
+                fout.write(line)
+
+subprocess.Popen(["alacritty", "-e", "nvim", outfile])

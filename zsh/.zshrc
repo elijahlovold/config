@@ -77,3 +77,5 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 fastfetch
+
+# eval "$(zoxide init zsh --cmd cd)"

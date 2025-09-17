@@ -1,0 +1,36 @@
+#!/bin/sh
+
+SINK=$(pactl get-default-sink)
+
+fade_out() {
+    for v in $(seq "$1" -5 0); do
+        pactl set-sink-volume "$SINK" "$v"% >/dev/null
+        sleep 0.01
+    done
+}
+
+fade_in() {
+    for v in $(seq 0 5 "$1"); do
+        pactl set-sink-volume "$SINK" "$v"% >/dev/null
+        sleep 0.01
+    done
+}
+
+get_vol_percent() {
+    pactl get-sink-volume "$SINK" | awk '{print $5}' | tr -d '%'
+}
+
+STATE=$(playerctl "$@" status 2>/dev/null | head -n1)
+
+if [ "$STATE" = "Playing" ]; then
+    CURVOL=$(get_vol_percent)
+    fade_out "$CURVOL"
+    playerctl "$@" pause
+    pactl set-sink-volume "$SINK" "$CURVOL"%   # restore instantly
+else
+    CURVOL=$(get_vol_percent)
+    pactl set-sink-volume "$SINK" 0%
+    sleep 0.08
+    playerctl "$@" play
+    fade_in "$CURVOL"
+fi

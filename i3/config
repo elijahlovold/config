@@ -13,25 +13,30 @@ font pango:FiraCode Nerd Font 12
 # exec --no-startup-id dex --autostart --environment i3
 
 # Use pactl to adjust volume in PulseAudio.
-# set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id \
     pactl set-sink-volume @DEFAULT_SINK@ +5% && \
-    pactl list sink-inputs | grep -q . || \
     paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 bindsym XF86AudioLowerVolume exec --no-startup-id \
     pactl set-sink-volume @DEFAULT_SINK@ -5% && \
-    pactl list sink-inputs | grep -q . || \
     paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 bindsym XF86AudioMute exec --no-startup-id \
-    pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec --no-startup-id \
-    pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+    pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Media Control Bindings
-bindsym XF86AudioNext exec --no-startup-id playerctl next && $refresh_i3status
-bindsym XF86AudioPrev exec --no-startup-id playerctl previous && $refresh_i3status
-bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause && $refresh_i3status
-bindsym Shift+XF86AudioPlay exec --no-startup-id playerctl --all-players play-pause && $refresh_i3status
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl-fade
+bindsym Shift+XF86AudioPlay exec --no-startup-id playerctl-fade --all-players
+
+# Media Control Bindings
+bindsym $mod+Mod1+l exec --no-startup-id playerctl next
+bindsym $mod+Mod1+h exec --no-startup-id playerctl previous
+bindsym $mod+Mod1+k exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym $mod+Mod1+j exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+Mod1+space exec --no-startup-id playerctl-fade
+bindsym $mod+Mod1+Shift+space exec --no-startup-id playerctl-fade --all-players
 
 # video controls
 #bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
@@ -50,8 +55,8 @@ popup_during_fullscreen leave_fullscreen
 set $term alacritty
 
 # start a terminal
-bindsym $mod+Return split h; exec --no-startup-id $term
-bindsym $mod+backslash split v; exec --no-startup-id $term
+bindsym $mod+Return split h; exec $term
+bindsym $mod+backslash split v; exec $term
 
 # kill focused window
 bindsym $mod+q kill
@@ -126,6 +131,8 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws0
 
+bindsym $mod+y workspace number 11; focus left; workspace 12; focus right; workspace number 11
+
 bindsym $mod+Mod1+1 workspace number $ws1; exec google-chrome --new-window https://calendar.google.com/calendar/u/0/r
 bindsym $mod+Mod1+2 workspace number $ws2; exec slack
 bindsym $mod+Mod1+3 workspace number $ws3; exec $term --working-directory /var/lib/cadence
@@ -191,17 +198,17 @@ bindsym $mod+Shift+Control+e exec --no-startup-id i3-msg exit
 bindsym $mod+Shift+Control+x exec --no-startup-id poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id reboot
 
-# Configure additional display 
-bindsym $mod+Shift+t exec --no-startup-id toggle-monitors
+# # Configure additional display
+# bindsym $mod+Shift+t exec --no-startup-id toggle-monitors
 
 # set background
 bindsym $mod+c exec --no-startup-id wallpaper-picker
-bindsym $mod+Shift+c exec --no-startup-id wallpaper-picker --manual
+bindsym $mod+Shift+c exec wallpaper-picker --manual
 bindsym $mod+Control+c exec --no-startup-id wallpaper-picker --stop
 
 # Screenshot bindings
-bindsym --release Print exec --no-startup-id flameshot gui -c -p "$(xdg-user-dir PICTURES)/Screenshots/"
-bindsym $mod+Print exec --no-startup-id flameshot full -c -p  "$(xdg-user-dir PICTURES)/Screenshots/"
+bindsym --release Print exec flameshot gui -c -p "$(xdg-user-dir PICTURES)/Screenshots/"
+bindsym $mod+Print exec flameshot full -c -p  "$(xdg-user-dir PICTURES)/Screenshots/"
 
 # ---- apps ----
 
@@ -209,10 +216,10 @@ bindsym $mod+Print exec --no-startup-id flameshot full -c -p  "$(xdg-user-dir PI
 bindsym $mod+o exec thunar
 
 # open browser
-bindsym $mod+g exec --no-startup-id google-chrome
+bindsym $mod+g exec google-chrome
 
 # open resource monitor
-bindsym $mod+b exec $term -e btop
+bindsym $mod+m exec $term -e btop
 
 # open firefox
 bindsym $mod+x exec firefox
@@ -224,11 +231,13 @@ bindsym $mod+p exec $term -e python3
 bindsym $mod+Shift+v exec $term -e vim-anywhere
 
 bindsym $mod+t exec TERM=$term todays-notes
+bindsym $mod+Shift+t exec zathura /home/elovold/vault/daily_notes/Old-and-New-Testament-Bible-Reading-Plan.pdf
+
+bindsym $mod+b exec $term -e nvim $HOME/dox/bible_kjv.txt
 
 # open music 
-bindsym $mod+m exec spotify
-bindsym --release $mod+Shift+Return exec spotify-queue
-bindsym --release $mod+Shift+p exec spotify-open-palette
+bindsym $mod+Shift+m exec spotify
+bindsym --release $mod+Shift+Return exec --no-startup-id spotify-queue
 
 # ---- dmenu/rofi utils ----
 

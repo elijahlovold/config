@@ -29,7 +29,8 @@ else  # assume X11
     fi
 
     # Restart static background
-    feh --bg-fill --no-fehbg "$STATIC_PATH"
+    # feh --bg-fill --no-fehbg "$STATIC_PATH"
+    feh --bg-fill --no-fehbg /home/elovold/pix/wallpapers/Linux/artix_wave_2.jpg /home/elovold/pix/wallpapers/Linux/artix_wave.jpg
 
     # Restart video background
     xwinwrap -ov -g 3840x2160+1080+0 -ni -- \

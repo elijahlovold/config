@@ -30,6 +30,12 @@ yay -S dbus
 yay -S alacritty thunar zathura firefox
 yay -S spotify discord steam
 
+# plugins and thumbnailer for thunar
+yay -S gvfs
+yay -S tumbler thunar-volman ffmpegthumbnailer poppler-glib
+# for ~/.config/scripts/stl-thumbnailer.sh (needs ffmpeg)
+yay -S openscad
+
 # zsh
 yay -S zsh zsh-syntax-highlighting
 
@@ -44,22 +50,25 @@ yay -S wayland wlroots xorg-xwayland \
  wl-clipboard cliphist hyprpaper mpvpaper
 
 # session services/utils
-yay -S pulseaudio dunst xdg-utils xdg-user-dirs
+yay -S dunst xdg-utils xdg-user-dirs
 yay -S noto-fonts-emoji rofimoji redshift
 
+# audio
+yay -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
+
 # installing, moving, compressing
-yay -S man wget git openssh uv rsync pigz zip unzip
+yay -S man wget git openssh uv rsync pigz zip unzip barrier
 
 # file editing and searching
-yay -S neovim bat ripgrep fzf
+yay -S neovim bat ripgrep fzf xxd
 
 # hw interfacing
 yay -S btop lshw blueman nmap speedtest-cli fastfetch
 
 # media
 yay -S ffmpeg mpv feh sxiv flameshot
-yay -S vlc vlc-plugins-all makemkv
-    sudo modprobe sg
+yay -S vlc vlc-plugins-all makemkv mkvtoolnix-cli subtitleedit
+    sudo modprobe sg gpu-screen-recorder-ui
 
 # webcam
 yay -S iriunwebcam-bin android-tools
@@ -78,6 +87,7 @@ sudo make install
 
 # optional fun packages
 yay -S ttyper openrgb-git glow cbonsai-git pipes.sh cava
+yay -S mcpelauncher
 
 # dev tools
 yay -S npm nodejs
@@ -88,7 +98,7 @@ yay -S docker docker-compose
 pip install debugpy qt6-tools
 
 # design software
-yay -S blender bambustudio-bin
+yay -S blender bambustudio-bin fstl
 
 # electronics software
 yay -S ltspice
