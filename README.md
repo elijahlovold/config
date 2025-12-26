@@ -29,6 +29,7 @@ yay -S dbus
 # general apps
 yay -S alacritty thunar zathura firefox
 yay -S spotify discord steam
+yay -S ncspot
 
 # plugins and thumbnailer for thunar
 yay -S gvfs
@@ -59,15 +60,17 @@ yay -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
 # installing, moving, compressing
 yay -S man wget git openssh uv rsync pigz zip unzip barrier
 
+yay -S man-pages man-db glibc
+
 # file editing and searching
-yay -S neovim bat ripgrep fzf xxd
+yay -S neovim bat jq ripgrep fzf xxd
 
 # hw interfacing
 yay -S btop lshw blueman nmap speedtest-cli fastfetch
 
 # media
 yay -S ffmpeg mpv feh sxiv flameshot
-yay -S vlc vlc-plugins-all makemkv mkvtoolnix-cli subtitleedit
+yay -S vlc vlc-plugins-all makemkv mkvtoolnix-cli
     sudo modprobe sg gpu-screen-recorder-ui
 
 # webcam
@@ -87,12 +90,14 @@ sudo make install
 
 # optional fun packages
 yay -S ttyper openrgb-git glow cbonsai-git pipes.sh cava
-yay -S mcpelauncher
+
+# games
+yay -S piu-piu-sh-git mcpelauncher
 
 # dev tools
 yay -S npm nodejs
 # cpp
-yay -S gcc ninja cmake codelldb-bin
+yay -S gcc valgrind pahole ninja cmake codelldb-bin
 yay -S docker docker-compose
 # pip libs
 pip install debugpy qt6-tools
@@ -101,7 +106,7 @@ pip install debugpy qt6-tools
 yay -S blender bambustudio-bin fstl
 
 # electronics software
-yay -S ltspice
+yay -S ltspice kicad saleae-logic2
 
 ```
 

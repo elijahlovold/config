@@ -6,12 +6,13 @@ VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
 
 # rest of your code
 if [ "$1" = "--manual" ]; then
-
     selected=$(find "$VID_PATH" -type f -name "*.png" \
         | shuf | sxiv -t -o -)
     [ "$selected" = "" ] && exit 1
     vid_play=$(echo $selected | awk '{print $1}' | sed 's/\.png/\.mp4/')
     [ ! -f "$vid_play" ] && exit 1
+elif [ "$1" = "--sp" ]; then
+    vid_play="https://streamer8.brownrice.com/stevenspassjupiter/stevenspassjupiter.stream/main_playlist.m3u8"
 else
     vid_play="$(find "$VID_PATH" -type f -name "*.mp4" | shuf -n 1)"
 fi
@@ -34,6 +35,11 @@ else  # assume X11
 
     # Restart video background
     xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
-      mpv --fs --loop-file --no-audio --no-osc --no-osd-bar --no-correct-pts \
-          --hwdec=vdpau -wid WID --no-input-default-bindings "$vid_play" &
+      mpv --fs --loop-file \
+        --no-audio --no-osc --no-osd-bar --no-correct-pts \
+        --no-input-default-bindings -wid WID \
+        --hwdec=vaapi,auto --profile=low-latency \
+        --gamma-auto=no --deband=no \
+        --scale=bilinear --cscale=bilinear \
+        "$vid_play" &
 fi

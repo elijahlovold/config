@@ -1,3 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
-xdotool mousemove 500 715 sleep 0.1 click 3 sleep 0.1 mousemove 600 840 click 1
+sleep 0.2
+xdotool mousemove 500 700 sleep 0.1 click 3 sleep 0.1 mousemove 600 840 click 1

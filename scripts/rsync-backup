@@ -34,7 +34,7 @@ DIRS="$XDG_CONFIG_HOME/rsync-backup/dirs"
 
 cat "$DIRS" | while read -r dir; do
     src_dir="$SRC/$dir"
-    dest_dir="$DEST/$dir"
+    dest_dir="$DEST/home/$dir"
     echo "$src_dir -> $dest_dir"
 
     # create if missing
