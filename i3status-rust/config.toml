@@ -36,7 +36,7 @@ bat_charging = "|^| "
 ##################################
 [[block]]
 block = "music"
-format = " $icon {$combo.str(max_w:40)|}"
+format = " $icon {$combo.str(max_w:25)|}"
 [[block.click]]
 button = "left"
 action = "play_pause"
@@ -105,11 +105,17 @@ format = " $icon  $brightness $resolution "
 # Hardware performance
 ##################################
 
-[[block]]
-block = "amd_gpu"
-format = "  $utilization "
-format_alt = "  MEM: $vram_used_percents ($vram_used/$vram_total) "
-interval = 3
+# [[block]]
+# block = "amd_gpu"
+# format = "  $utilization "
+# format_alt = "  MEM: $vram_used_percents ($vram_used/$vram_total) "
+# interval = 3
+
+# [[BLOCK]]
+# BLOCK = "NVIDIA_GPU"
+# FORMAT = "  $UTILIZATION "
+# # format_alt = "  MEM: $vram_used_percents ($vram_used/$vram_total) "
+# INTERVAL = 3
 
 [[block]]
 block = "cpu"
@@ -135,7 +141,7 @@ format = " $icon $speed_write.eng(prefix:K) "
 
 [[block]]
 block = "net"
-device = "wlan1"
+device = "wlp3s0"
 format = " $icon  ^icon_net_down$speed_down.eng(prefix:K) ^icon_net_up$speed_up.eng(prefix:K) "
 format_alt = " $icon  {$signal_strength $ssid} $ip $device "
 inactive_format = "󰖪 "

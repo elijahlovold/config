@@ -39,11 +39,12 @@ bindsym $mod+Mod1+space exec --no-startup-id playerctl-fade
 bindsym $mod+Mod1+Shift+space exec --no-startup-id playerctl-fade --all-players
 
 # video controls
-#bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 5%-
-#bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 5%+
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl --min-val=2 -q set 10%-
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q set 10%+
 
 # enable trackpad
-#exec --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
+exec_always --no-startup-id xinput set-prop 13 "libinput Tapping Enabled" 1
+exec_always --no-startup-id xinput set-prop 13 "libinput Disable While Typing Enabled" 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -267,52 +268,11 @@ for_window [class="ui_service.py|launch_workstation.py"] floating enable
 
 bar {
     id bar0
-    font pango:FiraCode Nerd Font 11
-    padding -2px 0
-    position top
-    output DisplayPort-0
-    tray_output none
-    status_command i3status-rs $XDG_CONFIG_HOME/i3status-rust/config_short.toml
-    colors {
-        background #000000 
-
-        #border #bg #text
-        focused_workspace #000000 #000000 #00dce8
-        active_workspace #000000 #000000 #925cff
-        inactive_workspace #000000 #000000 #3860ff
-        urgent_workspace #c40233 #c40233 #000000
-    }
-
-}
-
-bar {
-    id bar1
-    font pango:FiraCode Nerd Font 18
-    padding -3px 0
-    position top
-    output DisplayPort-1
-    tray_output DisplayPort-1
-    status_command i3status-rs
-    colors {
-        background #000000 
-
-        #border #bg #text
-        focused_workspace #000000 #000000 #00dce8
-        active_workspace #000000 #000000 #925cff
-        inactive_workspace #000000 #000000 #3860ff
-        urgent_workspace #c40233 #c40233 #000000
-    }
-
-}
-
-bar {
-    id bar2
     font pango:FiraCode Nerd Font 12
     padding -2px 0
     position top
-    output HDMI-A-0
     tray_output none
-    status_command i3status-rs
+    status_command i3status-rs $XDG_CONFIG_HOME/i3status-rust/config.toml
     colors {
         background #000000 
 
@@ -322,8 +282,48 @@ bar {
         inactive_workspace #000000 #000000 #3860ff
         urgent_workspace #c40233 #c40233 #000000
     }
+
 }
 
+# bar {
+#     id bar1
+#     font pango:FiraCode Nerd Font 18
+#     padding -3px 0
+#     position top
+#     output DisplayPort-1
+#     tray_output DisplayPort-1
+#     status_command i3status-rs
+#     colors {
+#         background #000000 
+#
+#         #border #bg #text
+#         focused_workspace #000000 #000000 #00dce8
+#         active_workspace #000000 #000000 #925cff
+#         inactive_workspace #000000 #000000 #3860ff
+#         urgent_workspace #c40233 #c40233 #000000
+#     }
+#
+# }
+#
+# bar {
+#     id bar2
+#     font pango:FiraCode Nerd Font 12
+#     padding -2px 0
+#     position top
+#     output HDMI-A-0
+#     tray_output none
+#     status_command i3status-rs
+#     colors {
+#         background #000000 
+#
+#         #border #bg #text
+#         focused_workspace #000000 #000000 #00dce8
+#         active_workspace #000000 #000000 #925cff
+#         inactive_workspace #000000 #000000 #3860ff
+#         urgent_workspace #c40233 #c40233 #000000
+#     }
+# }
+#
 # hide the title bar
 for_window [class="^.*"] border pixel 0
 
