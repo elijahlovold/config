@@ -2,17 +2,19 @@
 
 import os
 import subprocess
-from datetime import date
+import sys
+from datetime import date, timedelta
 
 bday = date(2003, 8, 19)
 
 notes_path = f"{os.path.expanduser('~')}/vault/daily_notes"
 template = f"{notes_path}/_daily_template.md"
-today = date.today().isoformat()
-outfile = f"{notes_path}/{today}.md"
+today = date.today()
+if (len(sys.argv) != 1):
+    today += timedelta(days=int(sys.argv[1]))
+outfile = f"{notes_path}/{today.isoformat()}.md"
 
 if not os.path.isfile(outfile):
-    today = date.today()
     years = today.year - bday.year
     if (today.month, today.day) < (bday.month, bday.day):
         years -= 1
@@ -48,7 +50,7 @@ if not os.path.isfile(outfile):
     with open(template, "r") as fin, open(outfile, "w") as fout:
         for i, line in enumerate(fin):
             if i == 0:
-                fout.write(f"# {date.today().strftime('%A, %B %-d, %Y')}\n")
+                fout.write(f"# {today.strftime('%A, %B %-d, %Y')}\n")
             elif i == 2:
                 fout.write(f"{passage_txt}\n")
             else:

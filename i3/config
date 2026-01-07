@@ -214,6 +214,7 @@ bindsym $mod+Print exec flameshot full -c -p  "$(xdg-user-dir PICTURES)/Screensh
 
 # open files 
 bindsym $mod+o exec thunar
+bindsym $mod+Shift+o exec $term --working-directory ~/vault -e nvim
 
 # open browser
 bindsym $mod+g exec google-chrome
@@ -231,7 +232,7 @@ bindsym $mod+p exec $term -e python3
 bindsym $mod+Shift+v exec $term -e vim-anywhere
 
 bindsym $mod+t exec TERM=$term todays-notes
-bindsym $mod+Shift+t exec zathura /home/elovold/vault/daily_notes/Old-and-New-Testament-Bible-Reading-Plan.pdf
+bindsym $mod+Shift+t exec TERM=$term todays-notes $(rofi -dmenu -i -p "Date delta")
 
 bindsym $mod+b exec $term -e nvim $HOME/dox/bible_kjv.txt
 
@@ -260,6 +261,10 @@ bindsym $mod+Shift+u exec wallpaper-picker --sp
 bindsym $mod+Ctrl+p exec password-picker
 
 for_window [class="ui_service.py|launch_workstation.py"] floating enable
+
+client.focused          #4c7899 #1f4156 #ffffff #2e9ef4 #00424f
+client.unfocused        #323649 #161821 #888888 #292d2e #222222
+client.focused_inactive #161821 #323649 #aaaaaa #292d2e #1e1e1e
 
 ##############
 ### i3bar: ###
