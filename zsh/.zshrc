@@ -79,3 +79,6 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 fastfetch
 
 # eval "$(zoxide init zsh --cmd cd)"
+
+# opencode
+export PATH=/home/elovold/.opencode/bin:$PATH

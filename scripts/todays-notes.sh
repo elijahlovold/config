@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NOTES_PATH="$HOME/vault/daily_notes"
+NOTES_PATH="$HOME/vault/Daily"
 TEMPLATE="$NOTES_PATH/_daily_template.md"
 TODAY="$(date +%F)"
 OUTFILE="$NOTES_PATH/$TODAY.md"

@@ -26,6 +26,7 @@ if [ "$STATE" = "Playing" ]; then
     CURVOL=$(get_vol_percent)
     fade_out "$CURVOL"
     playerctl "$@" pause
+    sleep 0.1
     pactl set-sink-volume "$SINK" "$CURVOL"%   # restore instantly
 else
     CURVOL=$(get_vol_percent)

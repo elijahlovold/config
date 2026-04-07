@@ -58,12 +58,12 @@ yay -S noto-fonts-emoji rofimoji redshift
 yay -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
 
 # installing, moving, compressing
-yay -S man wget git openssh uv rsync pigz zip unzip barrier
+yay -S wget git openssh uv rsync pigz zip unzip barrier
 
-yay -S man-pages man-db glibc
+yay -S man man-pages man-db glibc
 
 # file editing and searching
-yay -S neovim bat jq ripgrep fzf xxd
+yay -S neovim bat jq ripgrep fzf xxd obsidian
 
 # hw interfacing
 yay -S btop lshw blueman nmap speedtest-cli fastfetch
@@ -72,6 +72,9 @@ yay -S btop lshw blueman nmap speedtest-cli fastfetch
 yay -S ffmpeg mpv feh sxiv flameshot
 yay -S vlc vlc-plugins-all makemkv mkvtoolnix-cli
     sudo modprobe sg gpu-screen-recorder-ui
+
+# social
+yay -S discord slack signal-desktop session-desktop
 
 # webcam
 yay -S iriunwebcam-bin android-tools
@@ -97,13 +100,15 @@ yay -S piu-piu-sh-git mcpelauncher
 # dev tools
 yay -S npm nodejs
 # cpp
-yay -S gcc valgrind pahole ninja cmake codelldb-bin
+yay -S gcc valgrind pahole ninja cmake codelldb-bin stdman
 yay -S docker docker-compose
 # pip libs
 pip install debugpy qt6-tools
 
 # design software
 yay -S blender bambustudio-bin fstl
+# HIP backend for blender GPU compute on AMD devices:
+yay -S rocm-hip-runtime rocm-opencl-runtime
 
 # electronics software
 yay -S ltspice kicad saleae-logic2

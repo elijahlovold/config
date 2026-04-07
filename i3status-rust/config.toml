@@ -56,11 +56,10 @@ name = "metno"
 forecast_hours = 9
 coordinates = ["47.744500", "-121.090528"]
 
-# [[block]]
-# block = "docker"
-# interval = 2
-# format = " $icon $running/$total "
-#
+[[block]]
+block = "docker"
+interval = 2
+format = " $icon $running/$total "
 
 [[block]]
 block = "pomodoro"

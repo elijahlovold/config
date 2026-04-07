@@ -23,7 +23,6 @@ else  # assume X11
 
     # Kill existing background processes
     pkill -f xwinwrap
-    pkill -f mpv
 
     if [ "$1" = "--stop" ]; then
         exit 0

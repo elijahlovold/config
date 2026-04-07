@@ -195,7 +195,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+Shift+Control+e exec --no-startup-id i3-msg exit
 
 # power control bindings
-bindsym $mod+Shift+Control+x exec --no-startup-id poweroff
+bindsym $mod+Shift+Control+x exec --no-startup-id loginctl poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id reboot
 
 # # Configure additional display
@@ -205,6 +205,7 @@ bindsym $mod+Shift+Control+r exec --no-startup-id reboot
 bindsym $mod+c exec --no-startup-id wallpaper-picker
 bindsym $mod+Shift+c exec --no-startup-id wallpaper-picker --manual
 bindsym $mod+Control+c exec --no-startup-id wallpaper-picker --stop
+bindsym $mod+Mod1+c exec --no-startup-id toggle-picom
 
 # Screenshot bindings
 bindsym --release Print exec flameshot gui -c -p "$(xdg-user-dir PICTURES)/Screenshots/"
@@ -214,7 +215,16 @@ bindsym $mod+Print exec flameshot full -c -p  "$(xdg-user-dir PICTURES)/Screensh
 
 # open files 
 bindsym $mod+o exec thunar
-bindsym $mod+Shift+o exec $term --working-directory ~/vault -e nvim
+bindsym $mod+Shift+o exec alacritty --working-directory $(mount.sh)
+
+# vault
+bindsym $mod+i exec $term --working-directory ~/vault -e nvim
+bindsym $mod+Shift+i exec $term --working-directory ~/vault
+bindsym $mod+t exec $term --working-directory ~/vault -e nvim $(todays-notes)
+bindsym $mod+Shift+t exec $term --working-directory ~/vault -e nvim $(todays-notes $(rofi -dmenu -i -p "Date delta"))
+
+bindsym $mod+minus scratchpad show
+bindsym $mod+Shift+minus move scratchpad
 
 # open browser
 bindsym $mod+g exec google-chrome
@@ -230,9 +240,6 @@ bindsym $mod+p exec $term -e python3
 
 # open vim-anywhere
 bindsym $mod+Shift+v exec $term -e vim-anywhere
-
-bindsym $mod+t exec TERM=$term todays-notes
-bindsym $mod+Shift+t exec TERM=$term todays-notes $(rofi -dmenu -i -p "Date delta")
 
 bindsym $mod+b exec $term -e nvim $HOME/dox/bible_kjv.txt
 

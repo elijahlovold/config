@@ -1,13 +1,12 @@
 #!/bin/python
 
 import os
-import subprocess
 import sys
 from datetime import date, timedelta
 
 bday = date(2003, 8, 19)
 
-notes_path = f"{os.path.expanduser('~')}/vault/daily_notes"
+notes_path = f"{os.path.expanduser('~')}/vault/Daily"
 template = f"{notes_path}/_daily_template.md"
 today = date.today()
 if (len(sys.argv) != 1):
@@ -33,7 +32,7 @@ if not os.path.isfile(outfile):
         entry_i = 9 * weeks + 1 + dow
         today_passage = bible_plan_lines[entry_i]
 
-        passage_txt = "Bible Passage:"
+        passages = []
         def split_ref(ref: str):
             import re
             match = re.match(r"(\d?\s*[A-Za-z]+)\s+(\d+(?:-\d+)?)", ref)
@@ -44,16 +43,16 @@ if not os.path.isfile(outfile):
 
         for entry in [x.strip() for x in today_passage.split(",")]:
             book, chaps = split_ref(entry)
-            passage_txt += f" [[{book}]] {chaps}"
-
+            passages.append(f"{book} {chaps}")
 
     with open(template, "r") as fin, open(outfile, "w") as fout:
         for i, line in enumerate(fin):
-            if i == 0:
-                fout.write(f"# {today.strftime('%A, %B %-d, %Y')}\n")
-            elif i == 2:
-                fout.write(f"{passage_txt}\n")
-            else:
-                fout.write(line)
+            if line.startswith("created:"):
+                fout.write(f"created: {today.isoformat()}\n")
+                continue
+            fout.write(line)
+            if line.startswith("passages:"):
+                for p in passages:
+                    fout.write(f" - {p}\n")
 
-subprocess.Popen(["alacritty", "-e", "nvim", outfile])
+print(outfile)

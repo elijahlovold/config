@@ -1,5 +1,16 @@
 [font]
-    normal = { family = "FiraCode Nerd Font", style = "Regular" }
+    # normal = { family = "FiraCode Nerd Font", style = "Regular" }
+    # normal = { family = "DaddyTimeMono Nerd Font", style = "Regular" }
+    normal = { family = "RecMonoLinear Nerd Font", style = "Regular" }
+    # normal = { family = "Terminess Nerd Font", style = "Regular" }
+    # normal = { family = "FantasqueSansM Nerd Font", style = "Regular" }
+    # normal = { family = "ZedMono Nerd Font", style = "Regular" }
+    # normal = { family = "IosevkaTerm Nerd Font", style = "Regular" }
+    # normal = { family = "IosevkaTermSlab Nerd Font", style = "Regular" }
+    # Also, see Rn, Ar, Kr, Ne, Xe
+    # normal = { family = "MonaspiceAr Nerd Font", style = "Regular" }
+    # normal = { family = "MonaspiceXe Nerd Font", style = "Regular" }
+
     size = 14.0
 
 [window]
