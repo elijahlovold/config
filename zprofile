@@ -13,6 +13,7 @@
 
 # source env vars
 [ -f "$HOME/.config/env" ] && . "$HOME/.config/env"
+[ -f "$HOME/.config/.env" ] && . "$HOME/.config/.env"
 [ -f "$HOME/.config/aliases" ] && . "$HOME/.config/aliases"
 
 # update PATH if possible

@@ -12,7 +12,13 @@ alias lt='ls -ltr'
 alias l='ls -CF'
 alias lsgr="git ls-files -coz --exclude-standard | xargs -0 stat --format '%y %n' | sort | awk '{print \$1, substr(\$2,1,8), \$4}'"
 
+alias cdf='cd $(ls | fzf)'
+
 alias free='free -h'
+
+alias o='xdg-open'
+
+alias gpt='(cd ~/dl/llama.cpp/build/bin && ./llama-cli -m ~/.local/share/nomic.ai/GPT4All/gpt4all-falcon-newbpe-q4_0.gguf -ngl 99)'
 
 # use rg if available, either way, use color
 [ command -v rg >/dev/null 2>&1 ] && alias grep='rg --color=auto' || alias grep='grep --color=auto'

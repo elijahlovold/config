@@ -7,7 +7,7 @@ VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
 # rest of your code
 if [ "$1" = "--manual" ]; then
     selected=$(find "$VID_PATH" -type f -name "*.png" \
-        | shuf | sxiv -t -o -)
+        | shuf | nsxiv -t -o -)
     [ "$selected" = "" ] && exit 1
     vid_play=$(echo $selected | awk '{print $1}' | sed 's/\.png/\.mp4/')
     [ ! -f "$vid_play" ] && exit 1

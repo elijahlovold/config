@@ -1,0 +1,216 @@
+[commands]
+back   = "Escape"   # move up a group (or quit at root)
+quit   = "q"        # quit immediately from tree mode
+search = "/"        # enter dmenu-style PATH search
+
+[colors]
+# Executable nodes — rounded, bright blue border
+leaf_bg          = "#E0071520"
+leaf_border      = "#4499EE"
+# Group/subtree nodes — angular, amber border
+group_bg         = "#E01A0C06"
+group_border     = "#AA6622"
+# Text
+key_text         = "#88CCFF"
+label_text       = "#DDFFFFFF"
+# Radial connector lines (opacity is applied separately in the renderer)
+connector        = "#334466"
+center_dot       = "#5588CC"
+# Search panel
+search_bg        = "#E0071520"
+search_border    = "#4499EE"
+search_selection = "#774499EE"
+search_text      = "#AACCFF"
+
+[keys.f]
+label = "Firefox"
+cmd = "firefox"
+icon = "  "
+
+[keys.c]
+label = "Chrome"
+cmd = "google-chrome"
+icon = "  "
+
+[keys.p]
+label = "Python"
+cmd = "alacritty -e python3.14"
+icon = "  "
+
+[keys.w]
+label = "Wallpaper"
+cmd = "wallpaper-picker --manual"
+icon = "󰸉  "
+
+[keys.t]
+label = "Task Manager"
+cmd = "alacritty -e btop"
+icon = "  "
+
+[keys.k]
+label = "Bible"
+cmd = "alacritty -e nvim ~/dox/bible_kjv.txt"
+icon = "  "
+
+[keys.m]
+label = "Music"
+cmd = "spotify"
+icon = "  "
+
+
+[keys.b]
+label = "Bookmarks/"
+icon = "  "
+
+[keys.b.g]
+label = "Github"
+cmd = "firefox https://github.com/elijahlovold?tab=repositories"
+icon = "  "
+
+[keys.b.y]
+label = "Youtube"
+cmd = "firefox https://youtube.com/"
+icon = "  "
+
+[keys.b.t]
+label = "ChatGPT"
+cmd = "firefox https://chatgpt.com/"
+icon = "󰧑  "
+
+[keys.b.w]
+label = "Wikipedia"
+cmd = "firefox https://www.wikipedia.org/"
+icon = "󰖬  "
+
+[keys.b.d]
+label = "Dictionary"
+cmd = "firefox https://www.dictionary.com/"
+icon = "  "
+
+[keys.b.l]
+label = "Linkedin"
+cmd = "firefox https://www.linkedin.com/feed/"
+icon = "  "
+
+[keys.b.k]
+label = "Digikey"
+cmd = "firefox https://www.digikey.com/"
+icon = "󰬋  "
+
+[keys.b.m]
+label = "Mail"
+cmd = "firefox https://mail.google.com/mail/u/0/#inbox"
+icon = "󰇮  "
+
+[keys.b.c]
+label = "Calendar"
+cmd = "firefox https://calendar.google.com/calendar/u/0/r"
+icon = "  "
+
+[keys.v]
+label = "Work/"
+icon = "󰸖  "
+
+[keys.v.w]
+label = "Wiki"
+cmd = "google-chrome https://sites.google.com/cadenceneuro.com/team/home?pli=1"
+icon = "󰧑  "
+
+[keys.v.b]
+label = "Bitbucket"
+cmd = "google-chrome https://bitbucket.org/cadenceneuro/workspace/overview/"
+icon = "  "
+
+[keys.v.j]
+label = "Jira"
+cmd = "google-chrome https://cadenceneuro.atlassian.net/jira/for-you"
+icon = "  "
+
+[keys.v.d]
+label = "Drive"
+cmd = "google-chrome https://drive.google.com/drive/home"
+icon = "  "
+
+[keys.v.m]
+label = "Mail"
+cmd = "google-chrome https://mail.google.com/mail/u/0/#inbox"
+icon = "󰇮  "
+
+[keys.v.c]
+label = "Calendar"
+cmd = "google-chrome https://calendar.google.com/calendar/u/0/r"
+icon = "  "
+
+[keys.s]
+label = "Social/"
+icon = "  "
+
+[keys.s.d]
+label = "Discord"
+cmd = "discord"
+icon = "  "
+
+[keys.s.s]
+label = "Slack"
+cmd = "slack"
+icon = "  "
+
+[keys.s.n]
+label = "Session"
+cmd = "session-desktop"
+icon = "󰿌  "
+
+[keys.s.g]
+label = "Signal"
+cmd = "signal-desktop"
+icon = "󰘊  "
+
+
+[keys.g]
+label = "Games/"
+icon = "  "
+
+[keys.g.r]
+label = "R2ModMan"
+cmd = "r2modman"
+icon = "󰰞  "
+
+[keys.g.v]
+label = "Vim-Sweeper"
+cmd = "alacritty -e vim-sweeper"
+icon = "󰷚  "
+
+[keys.g.s]
+label = "Steam"
+cmd = "steam"
+icon = "  "
+
+[keys.g.f]
+label = "Factorio"
+cmd = "steam -applaunch 427520"
+icon = "  "
+
+[keys.g.t]
+label = "Terraria"
+cmd = "steam -applaunch 105600"
+icon = "󰔱  "
+
+[keys.g.h]
+label = "Hollow Knight"
+cmd = "steam -applaunch 4183110"
+icon = "󰷟  "
+
+[keys.g.k]
+label = "Silksong"
+cmd = "steam -applaunch 1030300"
+icon = "󱇫  "
+
+[keys.g.a]
+label = "AoE2"
+cmd = "steam -applaunch 813780"
+icon = "󰓥  "
+
+[keys.g.j]
+label = "Just Cause 2"
+cmd = "steam -applaunch 8190"
+icon = "󰓎  "

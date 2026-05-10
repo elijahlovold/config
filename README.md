@@ -26,16 +26,20 @@ makepkg -si
 # dbus before anything else
 yay -S dbus
 
+yay -S grub-theme-minegrub-world-selection-git
+# follow the setup steps after the install
+
 # general apps
-yay -S alacritty thunar zathura firefox
-yay -S spotify discord steam
+yay -S alacritty zathura firefox
+yay -S spotify steam
 yay -S ncspot
 
 # plugins and thumbnailer for thunar
 yay -S gvfs
 yay -S tumbler thunar-volman ffmpegthumbnailer poppler-glib
-# for ~/.config/scripts/stl-thumbnailer.sh (needs ffmpeg)
-yay -S openscad
+
+# yazi and plugins
+yay -S yazi ffmpeg 7zip jq poppler ripgrep fzf zoxide resvg imagemagick
 
 # zsh
 yay -S zsh zsh-syntax-highlighting
@@ -52,24 +56,27 @@ yay -S wayland wlroots xorg-xwayland \
 
 # session services/utils
 yay -S dunst xdg-utils xdg-user-dirs
-yay -S noto-fonts-emoji rofimoji redshift
+yay -S rofimoji redshift
+yay -S noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra
 
 # audio
 yay -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
 
 # installing, moving, compressing
-yay -S wget git openssh uv rsync pigz zip unzip barrier
+yay -S wget openssh uv rsync pigz zip unzip
 
 yay -S man man-pages man-db glibc
 
 # file editing and searching
 yay -S neovim bat jq ripgrep fzf xxd obsidian
+# lsps
+yay -S pyright rust-analyzer lua-language-server clang marksman svlangserver
 
 # hw interfacing
-yay -S btop lshw blueman nmap speedtest-cli fastfetch
+yay -S btop lshw blueman nmap speedtest-rs fastfetch
 
 # media
-yay -S ffmpeg mpv feh sxiv flameshot
+yay -S ffmpeg mpv feh nsxiv flameshot
 yay -S vlc vlc-plugins-all makemkv mkvtoolnix-cli
     sudo modprobe sg gpu-screen-recorder-ui
 
@@ -79,7 +86,7 @@ yay -S discord slack signal-desktop session-desktop
 # webcam
 yay -S iriunwebcam-bin android-tools
 
-# fonts
+# fonts (consider using this in future: ttf-firacode-nerd)
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
 unzip FiraCode.zip
 mv FiraCode/*.ttf ~/.local/share/fonts/

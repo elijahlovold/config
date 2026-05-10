@@ -57,9 +57,12 @@ forecast_hours = 9
 coordinates = ["47.744500", "-121.090528"]
 
 [[block]]
-block = "docker"
-interval = 2
-format = " $icon $running/$total "
+block = "custom"
+interval = 5
+command = "~/.config/scripts/syncthing-status.sh"
+[[block.click]]
+button = "left"
+cmd = "firefox --new-tab http://localhost:8384/"
 
 [[block]]
 block = "pomodoro"
