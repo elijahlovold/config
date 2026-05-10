@@ -32,6 +32,11 @@ label = "Chrome"
 cmd = "google-chrome"
 icon = "  "
 
+[keys.o]
+label = "Obsidian"
+cmd = "obsidian"
+icon = "  "
+
 [keys.p]
 label = "Python"
 cmd = "alacritty -e python3.14"
@@ -41,11 +46,6 @@ icon = "  "
 label = "Wallpaper"
 cmd = "wallpaper-picker --manual"
 icon = "󰸉  "
-
-[keys.t]
-label = "Task Manager"
-cmd = "alacritty -e btop"
-icon = "  "
 
 [keys.k]
 label = "Bible"
@@ -58,53 +58,78 @@ cmd = "spotify"
 icon = "  "
 
 
+[keys.d]
+label = "Design/"
+icon = "   "
+
+[keys.d.b]
+label = "Blender"
+cmd = "blender"
+icon = "  "
+
+[keys.d.l]
+label = "LTSpice"
+cmd = "ltspice"
+icon = "󰐋  "
+
+[keys.d.u]
+label = "Bambu"
+cmd = "bambu-studio"
+icon = "󰹛  "
+
+[keys.d.g]
+label = "Gimp"
+cmd = "gimp"
+icon = "  "
+
+
 [keys.b]
 label = "Bookmarks/"
 icon = "  "
 
 [keys.b.g]
 label = "Github"
-cmd = "firefox https://github.com/elijahlovold?tab=repositories"
+cmd = "firefox --new-window https://github.com/elijahlovold?tab=repositories"
 icon = "  "
 
 [keys.b.y]
 label = "Youtube"
-cmd = "firefox https://youtube.com/"
+cmd = "firefox --new-window https://youtube.com/"
 icon = "  "
 
 [keys.b.t]
 label = "ChatGPT"
-cmd = "firefox https://chatgpt.com/"
+cmd = "firefox --new-window https://chatgpt.com/"
 icon = "󰧑  "
 
 [keys.b.w]
 label = "Wikipedia"
-cmd = "firefox https://www.wikipedia.org/"
+cmd = "firefox --new-window https://www.wikipedia.org/"
 icon = "󰖬  "
 
 [keys.b.d]
 label = "Dictionary"
-cmd = "firefox https://www.dictionary.com/"
+cmd = "firefox --new-window https://www.dictionary.com/"
 icon = "  "
 
 [keys.b.l]
 label = "Linkedin"
-cmd = "firefox https://www.linkedin.com/feed/"
+cmd = "firefox --new-window https://www.linkedin.com/feed/"
 icon = "  "
 
 [keys.b.k]
 label = "Digikey"
-cmd = "firefox https://www.digikey.com/"
+cmd = "firefox --new-window https://www.digikey.com/"
 icon = "󰬋  "
 
 [keys.b.m]
 label = "Mail"
-cmd = "firefox https://mail.google.com/mail/u/0/#inbox"
+cmd = "firefox --new-window https://mail.google.com/mail/u/0/#inbox"
 icon = "󰇮  "
 
 [keys.b.c]
 label = "Calendar"
-cmd = "firefox https://calendar.google.com/calendar/u/0/r"
+cmd = "firefox --new-window https://calendar.google.com/calendar/u/0/r"
 icon = "  "
 
 [keys.v]
@@ -113,32 +138,32 @@ icon = "󰸖  "
 
 [keys.v.w]
 label = "Wiki"
-cmd = "google-chrome https://sites.google.com/cadenceneuro.com/team/home?pli=1"
+cmd = "google-chrome --new-window https://sites.google.com/cadenceneuro.com/team/home?pli=1"
 icon = "󰧑  "
 
 [keys.v.b]
 label = "Bitbucket"
-cmd = "google-chrome https://bitbucket.org/cadenceneuro/workspace/overview/"
+cmd = "google-chrome --new-window https://bitbucket.org/cadenceneuro/workspace/overview/"
 icon = "  "
 
 [keys.v.j]
 label = "Jira"
-cmd = "google-chrome https://cadenceneuro.atlassian.net/jira/for-you"
+cmd = "google-chrome --new-window https://cadenceneuro.atlassian.net/jira/for-you"
 icon = "  "
 
 [keys.v.d]
 label = "Drive"
-cmd = "google-chrome https://drive.google.com/drive/home"
+cmd = "google-chrome --new-window https://drive.google.com/drive/home"
 icon = "  "
 
 [keys.v.m]
 label = "Mail"
-cmd = "google-chrome https://mail.google.com/mail/u/0/#inbox"
+cmd = "google-chrome --new-window https://mail.google.com/mail/u/0/#inbox"
 icon = "󰇮  "
 
 [keys.v.c]
 label = "Calendar"
-cmd = "google-chrome https://calendar.google.com/calendar/u/0/r"
+cmd = "google-chrome --new-window https://calendar.google.com/calendar/u/0/r"
 icon = "  "
 
 [keys.s]
