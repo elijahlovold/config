@@ -1,0 +1,54 @@
+[Default Applications]
+x-scheme-handler/http=smart-browser.desktop
+x-scheme-handler/https=smart-browser.desktop
+x-scheme-handler/about=smart-browser.desktop
+x-scheme-handler/unknown=smart-browser.desktop
+x-scheme-handler/ror2mm=r2modman.desktop
+
+# Text -> nvim
+text/html=smart-browser.desktop
+text/plain=nvim.desktop
+text/x-script.python=nvim.desktop
+
+# Images → sxiv
+image/png=nsxiv.desktop
+image/jpeg=nsxiv.desktop
+image/webp=nsxiv.desktop
+image/bmp=nsxiv.desktop
+image/tiff=nsxiv.desktop
+image/gif=nsxiv.desktop
+
+# Video → mpv
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop
+video/quicktime=mpv.desktop
+video/x-msvideo=mpv.desktop
+
+# Audio -> mpv
+audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+audio/ogg=mpv.desktop
+audio/wav=mpv.desktop
+audio/x-wav=mpv.desktop
+audio/mp4=mpv.desktop
+audio/aac=mpv.desktop
+audio/x-aiff=mpv.desktop
+audio/webm=mpv.desktop
+audio/x-matroska=mpv.desktop
+
+# PDF → zathura
+application/pdf=zathura.desktop
+
+# Word
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=libreoffice-writer.desktop
+application/vnd.oasis.opendocument.text=libreoffice-writer.desktop
+
+# Excel
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=libreoffice-calc.desktop
+application/vnd.oasis.opendocument.spreadsheet=libreoffice-calc.desktop
+
+# Blender
+application/x-blender=blender.desktop
+x-scheme-handler/slack=slack.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
