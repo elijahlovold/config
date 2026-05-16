@@ -48,7 +48,7 @@ action = "prev"
 
 [[block]]
 block = "pomodoro"
-format = " $icon { $message|}"
+format = "  { $message|}"
 notify_cmd = "notify-send '{msg}'"
 blocking_cmd = false
 

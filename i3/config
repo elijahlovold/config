@@ -152,7 +152,7 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws0
 
-bindsym $mod+y workspace number 11; focus left; workspace 12; focus right; workspace number 11
+bindsym $mod+g workspace number 11; focus left; workspace 12; focus right; workspace number 11
 
 bindsym $mod+Mod1+1 workspace number $ws1; exec google-chrome --new-window https://calendar.google.com/calendar/u/0/r
 bindsym $mod+Mod1+2 workspace number $ws2; exec slack
@@ -249,6 +249,8 @@ bindsym $mod+Shift+minus move scratchpad
 # open resource monitor
 bindsym $mod+m exec $term -e btop
 
+bindsym $mod+x exec firefox
+
 # open vim-anywhere
 bindsym $mod+Shift+v exec $term -e vim-anywhere
 
@@ -259,6 +261,11 @@ bindsym --release $mod+Mod1+Return exec --no-startup-id spotify-queue
 
 # start keytree (dmenu substitue)
 bindsym $mod+d exec keytree
+bindsym $mod+b exec keytree ~/.config/keytree/bookmarks.toml
+bindsym $mod+v exec keytree ~/.config/keytree/work.toml
+
+# stator keytree
+bindsym $mod+y exec keytree ~/.config/keytree/stator.toml
 
 bindsym $mod+Ctrl+w exec rofi-wifi-menu
 
@@ -272,6 +279,7 @@ bindsym $mod+p exec rofimoji
 bindsym $mod+Ctrl+p exec password-picker
 
 for_window [class="ui_service.py|launch_workstation.py"] floating enable
+for_window [instance="nsxiv-wallpaper-picker"] floating enable
 
 client.focused          #4c7899 #1f4156 #ffffff #2e9ef4 #00424f
 client.unfocused        #323649 #161821 #888888 #292d2e #222222

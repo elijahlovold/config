@@ -1,0 +1,15 @@
+# x session
+xorg
+xorg-xinit
+xorg-xrandr
+xclip
+xdotool
+numlockx
+redshift
+
+# i3
+i3
+i3status-rust
+picom
+rofi
+rofi-themes-collection-git

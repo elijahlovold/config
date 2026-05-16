@@ -1,0 +1,16 @@
+dbus
+git
+base-devel
+
+wget
+openssh
+uv
+rsync
+pigz
+zip
+unzip
+
+man
+man-pages
+man-db
+glibc

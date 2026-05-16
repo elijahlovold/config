@@ -1,0 +1,16 @@
+wayland
+wlroots
+xorg-xwayland
+
+qt5-wayland
+qt6-wayland
+gtk3
+
+hyprland
+waybar
+wofi
+
+wl-clipboard
+cliphist
+hyprpaper
+mpvpaper

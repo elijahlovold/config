@@ -1,0 +1,73 @@
+[commands]
+back   = "Escape"   # move up a group (or quit at root)
+quit   = "q"        # quit immediately from tree mode
+search = "/"        # enter dmenu-style PATH search
+
+[colors]
+# Executable nodes — rounded, bright blue border
+leaf_bg          = "#E0071520"
+leaf_border      = "#4499EE"
+# Group/subtree nodes — angular, amber border
+group_bg         = "#E01A0C06"
+group_border     = "#AA6622"
+# Text
+key_text         = "#88CCFF"
+label_text       = "#DDFFFFFF"
+# Radial connector lines (opacity is applied separately in the renderer)
+connector        = "#334466"
+center_dot       = "#5588CC"
+# Search panel
+search_bg        = "#E0071520"
+search_border    = "#4499EE"
+search_selection = "#774499EE"
+search_text      = "#AACCFF"
+
+[keys.g]
+label = "Github"
+cmd = "firefox --new-window https://github.com/elijahlovold?tab=repositories"
+icon = "  "
+
+[keys.y]
+label = "Youtube"
+cmd = "firefox --new-window https://youtube.com/"
+icon = "  "
+
+[keys.t]
+label = "ChatGPT"
+cmd = "firefox --new-window https://chatgpt.com/"
+icon = "󰧑  "
+
+[keys.w]
+label = "Wikipedia"
+cmd = "firefox --new-window https://www.wikipedia.org/"
+icon = "󰖬  "
+
+[keys.d]
+label = "Dictionary"
+cmd = "firefox --new-window https://www.dictionary.com/"
+icon = "  "
+
+[keys.l]
+label = "Linkedin"
+cmd = "firefox --new-window https://www.linkedin.com/feed/"
+icon = "  "
+
+[keys.k]
+label = "Digikey"
+cmd = "firefox --new-window https://www.digikey.com/"
+icon = "󰬋  "
+
+[keys.m]
+label = "Mail"
+cmd = "firefox --new-window https://mail.google.com/mail/u/0/#inbox"
+icon = "󰇮  "
+
+[keys.c]
+label = "Calendar"
+cmd = "firefox --new-window https://calendar.google.com/calendar/u/0/r"
+icon = "  "
+
+[keys.n]
+label = "Monkeytype"
+cmd = "firefox --new-window https://monkeytype.com/"
+icon = "󰼭  "

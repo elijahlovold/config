@@ -1,0 +1,37 @@
+# shell
+zsh
+zsh-syntax-highlighting
+
+# yazi & deps
+yazi
+7zip
+jq
+poppler
+ripgrep
+fzf
+zoxide
+resvg
+imagemagick
+
+# hw tools
+btop
+lshw
+blueman
+nmap
+speedtest-rs
+fastfetch
+
+# media
+ffmpeg
+mpv
+feh
+nsxiv
+flameshot
+
+# vlc, makemkv & deps
+vlc
+vlc-plugins-all
+makemkv
+mkvtoolnix-cli
+
+gpu-screen-recorder-ui

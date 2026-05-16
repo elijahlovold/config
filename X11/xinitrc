@@ -5,3 +5,4 @@ export XDG_CURRENT_DESKTOP=i3
 export PATH="$XDG_DATA_HOME/.venv/bin:$PATH"
 
 exec dbus-run-session i3
+## exec /home/elovold/repos/dwm/dwm

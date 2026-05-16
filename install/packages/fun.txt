@@ -1,0 +1,10 @@
+ttyper
+openrgb-git
+glow
+cbonsai-git
+pipes.sh
+cava
+
+# games
+piu-piu-sh-git
+mcpelauncher

@@ -1,0 +1,53 @@
+[commands]
+back   = "Escape"   # move up a group (or quit at root)
+quit   = "q"        # quit immediately from tree mode
+search = "/"        # enter dmenu-style PATH search
+
+[colors]
+# Executable nodes — rounded, bright blue border
+leaf_bg          = "#E0071520"
+leaf_border      = "#4499EE"
+# Group/subtree nodes — angular, amber border
+group_bg         = "#E01A0C06"
+group_border     = "#AA6622"
+# Text
+key_text         = "#88CCFF"
+label_text       = "#DDFFFFFF"
+# Radial connector lines (opacity is applied separately in the renderer)
+connector        = "#334466"
+center_dot       = "#5588CC"
+# Search panel
+search_bg        = "#E0071520"
+search_border    = "#4499EE"
+search_selection = "#774499EE"
+search_text      = "#AACCFF"
+
+[keys.w]
+label = "Wiki"
+cmd = "google-chrome --new-window https://sites.google.com/cadenceneuro.com/team/home?pli=1"
+icon = "󰧑  "
+
+[keys.b]
+label = "Bitbucket"
+cmd = "google-chrome --new-window https://bitbucket.org/cadenceneuro/workspace/overview/"
+icon = "  "
+
+[keys.j]
+label = "Jira"
+cmd = "google-chrome --new-window https://cadenceneuro.atlassian.net/jira/for-you"
+icon = "  "
+
+[keys.d]
+label = "Drive"
+cmd = "google-chrome --new-window https://drive.google.com/drive/home"
+icon = "  "
+
+[keys.m]
+label = "Mail"
+cmd = "google-chrome --new-window https://mail.google.com/mail/u/0/#inbox"
+icon = "󰇮  "
+
+[keys.c]
+label = "Calendar"
+cmd = "google-chrome --new-window https://calendar.google.com/calendar/u/0/r"
+icon = "  "

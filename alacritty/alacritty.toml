@@ -20,6 +20,9 @@
 
 [terminal]
     shell = "/bin/zsh"
+# [terminal.shell]
+#     program = "/usr/bin/tmux"
+#     args = ["new-session"]
 
 [keyboard]
     bindings = [

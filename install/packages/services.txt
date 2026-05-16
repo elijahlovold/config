@@ -1,0 +1,11 @@
+# audio
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+wireplumber
+
+dunst
+xdg-utils
+xdg-user-dirs
+rofimoji

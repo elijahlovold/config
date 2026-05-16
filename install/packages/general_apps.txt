@@ -1,0 +1,14 @@
+alacritty
+obsidian
+zathura
+firefox
+spotify
+steam
+iriunwebcam-bin
+android-tools
+
+# social
+discord
+slack-desktop
+signal-desktop
+session-desktop

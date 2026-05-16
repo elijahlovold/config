@@ -22,10 +22,10 @@ search_border    = "#4499EE"
 search_selection = "#774499EE"
 search_text      = "#AACCFF"
 
-[keys.f]
-label = "Firefox"
-cmd = "firefox"
-icon = "  "
+[keys.l]
+label = "Download"
+cmd = "xdg-open \"dl/$(ls -t dl | head -n 1)\""
+icon = "  "
 
 [keys.c]
 label = "Chrome"
@@ -67,6 +67,11 @@ label = "Blender"
 cmd = "blender"
 icon = "  "
 
+[keys.d.g]
+label = "Godot"
+cmd = "godot"
+icon = "  "
+
 [keys.d.l]
 label = "LTSpice"
 cmd = "ltspice"
@@ -77,7 +82,7 @@ label = "Bambu"
 cmd = "bambu-studio"
 icon = "󰹛  "
 
-[keys.d.g]
+[keys.d.i]
 label = "Gimp"
 cmd = "gimp"
 icon = "  "
@@ -132,9 +137,19 @@ label = "Calendar"
 cmd = "firefox --new-window https://calendar.google.com/calendar/u/0/r"
 icon = "  "
 
+[keys.b.n]
+label = "Monkeytype"
+cmd = "firefox --new-window https://monkeytype.com/"
+icon = "󰼭  "
+
 [keys.v]
 label = "Work/"
 icon = "󰸖  "
+
+[keys.v.i]
+label = "Iriun"
+cmd = "iriunwebcam"
+icon = "  "
 
 [keys.v.w]
 label = "Wiki"
@@ -169,6 +184,11 @@ icon = "  "
 [keys.s]
 label = "Social/"
 icon = "  "
+
+[keys.s.p]
+label = "Phone"
+cmd = "firefox --new-window https://messages.google.com/web/conversations"
+icon = "  "
 
 [keys.s.d]
 label = "Discord"

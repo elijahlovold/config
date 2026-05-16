@@ -1,0 +1,43 @@
+neovim
+bat
+jq
+ripgrep
+fzf
+xxd
+
+# lsps
+pyright
+rust-analyzer
+lua-language-server
+clang
+marksman
+svlangserver
+
+# c/cpp
+gcc
+valgrind
+pahole
+ninja
+cmake
+codelldb-bin
+stdman
+
+npm
+nodejs
+docker
+docker-compose
+
+qt6-tools
+
+# electrical design
+ltspice
+kicad
+saleae-logic2
+
+bambustudio-bin
+fstl
+
+# digital design
+blender
+godot
+gimp
