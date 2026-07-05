@@ -3,6 +3,7 @@ obsidian
 zathura
 firefox
 spotify
+spicetify-cli
 steam
 iriunwebcam-bin
 android-tools

@@ -34,7 +34,7 @@ icon = "  "
 
 [keys.o]
 label = "Obsidian"
-cmd = "obsidian"
+cmd = "obsidian --force-device-scale-factor=2 \"obsidian://open?vault=vault\""
 icon = "  "
 
 [keys.p]
@@ -53,9 +53,9 @@ cmd = "alacritty -e nvim ~/dox/bible_kjv.txt"
 icon = "  "
 
 [keys.m]
-label = "Music"
-cmd = "spotify"
-icon = "  "
+label = "CaH"
+cmd = "mupdf -r 180 ~/dox/books/The\\ Complete\\ Calvin\\ \\&\\ Hobbes.pdf $((1 + RANDOM % 1350))"
+icon = "󰄛  "
 
 
 [keys.d]
@@ -146,6 +146,11 @@ icon = "󰼭  "
 label = "Work/"
 icon = "󰸖  "
 
+[keys.v.o]
+label = "Obsidian"
+cmd = "obsidian --force-device-scale-factor=2 \"obsidian://open?vault=Shared-Vault\""
+icon = "  "
+
 [keys.v.i]
 label = "Iriun"
 cmd = "iriunwebcam"
@@ -153,32 +158,32 @@ icon = "  "
 
 [keys.v.w]
 label = "Wiki"
-cmd = "google-chrome --new-window https://sites.google.com/cadenceneuro.com/team/home?pli=1"
+cmd = "google-chrome https://sites.google.com/cadenceneuro.com/team/home?pli=1"
 icon = "󰧑  "
 
 [keys.v.b]
 label = "Bitbucket"
-cmd = "google-chrome --new-window https://bitbucket.org/cadenceneuro/workspace/overview/"
+cmd = "google-chrome https://bitbucket.org/cadenceneuro/workspace/overview/"
 icon = "  "
 
 [keys.v.j]
 label = "Jira"
-cmd = "google-chrome --new-window https://cadenceneuro.atlassian.net/jira/for-you"
+cmd = "google-chrome https://cadenceneuro.atlassian.net/jira/software/c/projects/SWS/boards/129/backlog"
 icon = "  "
 
 [keys.v.d]
 label = "Drive"
-cmd = "google-chrome --new-window https://drive.google.com/drive/home"
+cmd = "google-chrome https://drive.google.com/drive/home"
 icon = "  "
 
 [keys.v.m]
 label = "Mail"
-cmd = "google-chrome --new-window https://mail.google.com/mail/u/0/#inbox"
+cmd = "google-chrome https://mail.google.com/mail/u/0/#inbox"
 icon = "󰇮  "
 
 [keys.v.c]
 label = "Calendar"
-cmd = "google-chrome --new-window https://calendar.google.com/calendar/u/0/r"
+cmd = "google-chrome https://calendar.google.com/calendar/u/0/r"
 icon = "  "
 
 [keys.s]

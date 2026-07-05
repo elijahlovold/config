@@ -7,9 +7,7 @@ autoload -U colors && colors
 parse_git_branch() {
     git branch 2> /dev/null | sed -n -e 's/^\* \(.*\)/[\1]/p'
 }
-# setopt prompt_subst
-# PS1="%B${VIRTUAL_ENV:+($VIRTUAL_ENV:t)}$fg[green]%}%n%{$fg[white]%}:%{$fg[blue]%}%1~$reset_color"'$(parse_git_branch)$ '
-PS1="%B%${VIRTUAL_ENV:+($VIRTUAL_ENV:t)}{$fg[green]%}%n%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$%b "
+PS1="%B%${VIRTUAL_ENV:+($VIRTUAL_ENV:t)}{$fg[green]%}${SANDBOX_USER:-%n}${SSH_CONNECTION:+@%m}%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$%b "
 
 # Basic auto/tab complete:
 fpath=(/usr/share/zsh/vendor-completions $fpath)

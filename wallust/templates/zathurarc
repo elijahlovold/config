@@ -1,0 +1,16 @@
+set selection-clipboard clipboard
+
+# colors
+set default-bg     "{{background}}"
+
+# complementary foreground, but keep it light
+set default-fg     "{{foreground | complementary | lighten(0.5)}}"
+
+# make it a bit lighter than background
+set statusbar-bg   "{{background | lighten(0.3)}}"
+
+# make it darken by blending to a darken color
+set statusbar-fg   "{{foreground | blend("#eeeeee")}}"
+
+# use it's complementary
+set inputbar-bg    "{{background | complementary}}"

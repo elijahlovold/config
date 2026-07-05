@@ -13,6 +13,13 @@
 
     size = 14.0
 
+[general]
+import = [
+    # default
+    "~/.config/alacritty/base-colors.toml",
+    "~/.config/alacritty/wallust.toml"
+]
+
 [window]
     padding = {x = 10, y = 10}
     # opacity = 0.8
@@ -20,14 +27,11 @@
 
 [terminal]
     shell = "/bin/zsh"
-# [terminal.shell]
-#     program = "/usr/bin/tmux"
-#     args = ["new-session"]
 
 [keyboard]
     bindings = [
         {key = "Return", mods = "Super|Shift", command = "alacritty"},
-        {key = "Escape", mode = "~vi | ~AppKeypad", action = "ToggleViMode"},
+        {key = "Escape", mods = "Alt", mode = "~vi | ~AppKeypad", action = "ToggleViMode"},
 
         {key = "w", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BF"},
         {key = "b", mods = "Alt", mode = "~vi | ~AppKeypad", chars = "\u001BB"},
@@ -39,36 +43,3 @@
 
 [cursor]
     vi_mode_style = { shape="Block", blinking="Off" }
-
-[colors]
-    transparent_background_colors = true
-
-[colors.primary]
-    background = "#00011D"
-    foreground = '#cccccc'
-
-[colors.normal]
-    black      = '#0c0c0c'
-    red        = '#c50f1f'
-    green      = '#05f00d'
-    yellow     = '#c19c00'
-    blue       = '#0037da'
-    magenta    = '#881798'
-    cyan       = '#3a96dd'
-    white      = '#cccccc'
-
-[colors.bright]
-    black      = '#767676'
-    red        = '#e74856'
-    green      = '#16c60c'
-    yellow     = '#f9f1a5'
-    blue       = '#3b78ff'
-    magenta    = '#b4009e'
-    cyan       = '#61d6d6'
-    white      = '#f2f2f2'
-
-# [bell]
-#   animation = "EaseOutSine"
-#   duration = 300
-#   color = '0xffffff'
-#   command = { program = "paplay", args = ["/usr/share/sounds/freedesktop/stereo/audio-volume-change.oga"] }

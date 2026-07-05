@@ -1,11 +1,8 @@
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
-        // "color": {
-        //   "1": "96"
-        // }
         "type": "file",
-        "source": "~/.config/fastfetch/hklogo.txt",
+        "source": "~/.config/fastfetch/active.txt",
         "color": {
           "1": "white"
         }
@@ -22,16 +19,17 @@
     "uptime",
     "packages",
     "shell",
-    "display",
-    "de",
+    {
+        "type": "display",
+        "format": "{width}x{height}"
+    },
     "wm",
-    "wmtheme",
-    "theme",
-    "icons",
-    "font",
     "cursor",
     "terminal",
-    "terminalfont",
+    {
+        "type": "terminalfont",
+        "format": "{name} {size}"
+    },
     "cpu",
     "gpu",
     "memory",
@@ -39,9 +37,12 @@
     "disk",
     "localip",
     "battery",
-    "poweradapter",
     "locale",
     "break",
-    "colors"
+    {
+        "type": "colors",
+        "paddingLeft": 6,
+        "symbol": "block"
+    }
   ]
 }

@@ -41,7 +41,7 @@ cat "$DIRS" | while read -r dir; do
     [ ! -d "$dest_dir" ] && mkdir -p "$dest_dir"
 
     # Run rsync for each directory
-    rsync -avh --delete --exclude-from="$EXCLUDES" "$src_dir/" "$dest_dir/"
+    rsync -avh --exclude-from="$EXCLUDES" "$src_dir/" "$dest_dir/"
     echo "\n"
 done
 

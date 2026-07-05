@@ -1,0 +1,20 @@
+idle_bg = "{{ background }}"
+idle_fg = "#d2d4de"
+
+info_bg = "{{ color0 }}"
+info_fg = "#d2d4de"
+
+good_bg = "{{ color2 }}"
+good_fg = "#d2d4de"
+
+warning_bg = "{{ color3 }}"
+warning_fg = "#d2d4de"
+
+critical_bg = "{{ color1 }}"
+critical_fg = "#d2d4de"
+
+separator = " "
+separator_fg = "auto"
+separator_bg = "auto"
+
+alternating_tint_bg = "{{ color4 }}"

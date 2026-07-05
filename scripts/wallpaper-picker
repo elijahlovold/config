@@ -6,15 +6,19 @@ VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
 
 # rest of your code
 if [ "$1" = "--manual" ]; then
-    selected=$(find "$VID_PATH" -type f -name "*.png" \
-        | shuf | nsxiv -t -o -N "nsxiv-wallpaper-picker" -)
+    selected=$(find "$VID_PATH" -type f -name "*.png" | sort \
+        | nsxiv -t -o -N "nsxiv-wallpaper-picker" -)
     [ "$selected" = "" ] && exit 1
-    vid_play=$(echo $selected | awk '{print $1}' | sed 's/\.png/\.mp4/')
+    img_wallpaper="$selected"
+    vid_play="${selected%.*}.mp4"
     [ ! -f "$vid_play" ] && exit 1
 elif [ "$1" = "--sp" ]; then
     vid_play="https://streamer8.brownrice.com/stevenspassjupiter/stevenspassjupiter.stream/main_playlist.m3u8"
+    img_wallpaper=""
 else
     vid_play="$(find "$VID_PATH" -type f -name "*.mp4" | shuf -n 1)"
+    img_wallpaper="${vid_play%.*}.png"
+    [ ! -f "$img_wallpaper" ] && exit 1
 fi
 
 if [ -n "$WAYLAND_DISPLAY" ]; then
@@ -25,7 +29,10 @@ else  # assume X11
     pkill -f xwinwrap
 
     if [ "$1" = "--stop" ]; then
+        wallust cs default
         exit 0
+    else
+        [ -n "$img_wallpaper" ] && wallust run "$img_wallpaper"
     fi
 
     # Restart static background

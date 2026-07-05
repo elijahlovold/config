@@ -14,6 +14,10 @@ alias lsgr="git ls-files -coz --exclude-standard | xargs -0 stat --format '%y %n
 
 alias cdf='cd $(ls | fzf)'
 
+# cp recents
+alias cpd='cp ~/dl/$(ls -t ~/dl | head -n 1)'
+alias cps='cp ~/pix/screenshots/$(ls -t ~/pix/screenshots/ | head -n 1)'
+
 alias free='free -h'
 
 alias o='xdg-open'

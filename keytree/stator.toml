@@ -51,3 +51,13 @@ icon = "󱎫  "
 label = "Chillin"
 cmd = "stator-rs --set-state chill"
 icon = "  "
+
+[keys.l]
+label = "Logs"
+cmd = "alacritty -e zsh -c 'stator-rs --log; exec sh'"
+icon = "  "
+
+[keys.d]
+label = "Dist"
+cmd = "alacritty -e zsh -c 'stator-rs --dist; exec sh'"
+icon = "  "

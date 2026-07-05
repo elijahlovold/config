@@ -2,27 +2,8 @@
 #    https://docs.rs/i3status-rs/latest/i3status_rs/blocks/index.html#modules
 
 [theme]
-theme = "plain"
-
-[theme.overrides]
-idle_bg = "#161821"
-idle_fg = "#d2d4de"
-separator = " "
-# separator = " "
-# separator = " "
-# separator = " "
-# separator = ""
-# separator = ""
-# separator = ""
-# separator = ""
-# separator = ""
-# separator = ""
-
-separator_fg = "auto"
-separator_bg = "auto"
-alternating_tint_bg = "#00424f"
-
-icons_format = "{icon}"
+# theme = "default"
+theme = "wallust"
 
 [icons]
 icons = "awesome4"

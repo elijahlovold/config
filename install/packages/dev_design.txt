@@ -10,8 +10,13 @@ pyright
 rust-analyzer
 lua-language-server
 clang
-marksman
+markdown-oxide
 svlangserver
+vscode-html-languageserver
+
+wordnet-progs
+wordnet-common
+wordnet-dictd
 
 # c/cpp
 gcc
@@ -33,6 +38,7 @@ qt6-tools
 ltspice
 kicad
 saleae-logic2
+dfcgen-gtk
 
 bambustudio-bin
 fstl

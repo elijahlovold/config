@@ -1,0 +1,30 @@
+idle_bg = "#161821"
+idle_fg = "#d2d4de"
+
+info_bg = "#000000"
+info_fg = "#93a1a1"
+
+good_bg = "#000000"
+good_fg = "#859900"
+
+warning_bg  = "#000000"
+warning_fg  = "#b58900"
+
+critical_bg = "#000000"
+critical_fg = "#dc322f"
+
+separator = " "
+# separator = " "
+# separator = " "
+# separator = " "
+# separator = ""
+# separator = ""
+# separator = ""
+# separator = ""
+# separator = ""
+# separator = ""
+
+separator_bg = "auto"
+separator_fg = "auto"
+
+alternating_tint_bg = "#00424f"

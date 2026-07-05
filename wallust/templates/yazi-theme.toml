@@ -1,0 +1,197 @@
+[icon]
+
+dirs = [
+	{ name = "dox",    text = "󰈙 ", fg = "#a6e3a1" },
+	{ name = "dl",    text = "󰇚 ", fg = "#f9e2af" },
+	{ name = "usik",        text = "󰝚 ", fg = "#fab387" },
+	{ name = "pix",     text = "󰉏 ", fg = "#f5c2e7" },
+	{ name = "vids",       text = "󰕧 ", fg = "#cba6f7" },
+	{ name = "proj",     text = "󰲋 ", fg = "#89dceb" },
+	{ name = "repos",        text = "󰊤 ", fg = "#89dceb" },
+	{ name = ".git",         text = "󰊢 ", fg = "#f38ba8" },
+	{ name = ".config",      text = "󱁿 ", fg = "#94e2d5" },
+	{ name = ".local",       text = "󰒓 ", fg = "#94e2d5" },
+	{ name = "node_modules", text = "󰎙 ", fg = "#f9e2af" },
+	{ name = "src",          text = "󰴉 ", fg = "#89dceb" },
+	{ name = "include",      text = "󰟢 ", fg = "#74c7ec" },
+	{ name = "build",        text = "󰉋 ", fg = "#fab387" },
+	{ name = "target",       text = "󱧼 ", fg = "#fab387" },
+	{ name = "__pycache__",  text = "󰌠 ", fg = "#6c7086" },
+]
+
+prepend_conds = [
+	{ if = "hidden & dir",  text = "󰊠 " },  # Hidden directories
+	{ if = "dir",           text = "󰉋 " },  # Directories
+	{ if = "!(dir | link)", text = " " },  # Normal files (not directories or symlinks)
+]
+
+exts = [
+	# Documents
+	{ name = "pdf",  text = "󰈦 ", fg = "#f38ba8" },
+	{ name = "epub", text = "󰂺 ", fg = "#a6e3a1" },
+	{ name = "doc",  text = "󰈬 ", fg = "#89b4fa" },
+	{ name = "docx", text = "󰈬 ", fg = "#89b4fa" },
+	{ name = "ppt",  text = "󰈧 ", fg = "#fab387" },
+	{ name = "pptx", text = "󰈧 ", fg = "#fab387" },
+	{ name = "xls",  text = "󰈛 ", fg = "#a6e3a1" },
+	{ name = "xlsx", text = "󰈛 ", fg = "#a6e3a1" },
+
+	# Text
+	{ name = "txt",  text = "󰈙 ", fg = "#bac2de" },
+	{ name = "md",   text = "󰍔 ", fg = "#89b4fa" },
+	{ name = "rst",  text = "󰈙 ", fg = "#89b4fa" },
+
+	# Config
+	{ name = "toml", text = " ", fg = "#94e2d5" },
+	{ name = "yaml", text = " ", fg = "#94e2d5" },
+	{ name = "yml",  text = " ", fg = "#94e2d5" },
+	{ name = "json", text = " ", fg = "#f9e2af" },
+	{ name = "ini",  text = " ", fg = "#94e2d5" },
+	{ name = "conf", text = " ", fg = "#94e2d5" },
+
+	# C/C++
+	{ name = "c",    text = " ", fg = "#89b4fa" },
+	{ name = "h",    text = " ", fg = "#74c7ec" },
+	{ name = "cpp",  text = " ", fg = "#89b4fa" },
+	{ name = "hpp",  text = " ", fg = "#74c7ec" },
+	{ name = "cc",   text = " ", fg = "#89b4fa" },
+	{ name = "hh",   text = " ", fg = "#74c7ec" },
+
+	# Python
+	{ name = "py",   text = " ", fg = "#f9e2af" },
+	{ name = "pyi",  text = " ", fg = "#f9e2af" },
+
+	# Rust
+	{ name = "rs",   text = "󱘗 ", fg = "#fab387" },
+
+	# Web
+	{ name = "html", text = "󰌝 ", fg = "#f38ba8" },
+	{ name = "css",  text = " ", fg = "#89b4fa" },
+	{ name = "js",   text = "󰌞 ", fg = "#f9e2af" },
+	{ name = "ts",   text = "󰛦 ", fg = "#89b4fa" },
+
+	# Shell
+	{ name = "sh",   text = "󰆍 ", fg = "#a6e3a1" },
+	{ name = "bash", text = "󰆍 ", fg = "#a6e3a1" },
+	{ name = "zsh",  text = "󰆍 ", fg = "#a6e3a1" },
+	{ name = "fish", text = "󰈺 ", fg = "#94e2d5" },
+
+	# Images
+	{ name = "png",  text = "󰉏 ", fg = "#f5c2e7" },
+	{ name = "jpg",  text = "󰉏 ", fg = "#f5c2e7" },
+	{ name = "jpeg", text = "󰉏 ", fg = "#f5c2e7" },
+	{ name = "webp", text = "󰉏 ", fg = "#f5c2e7" },
+	{ name = "svg",  text = "󰜡 ", fg = "#fab387" },
+
+	# Audio
+	{ name = "mp3",  text = "󰝚 ", fg = "#a6e3a1" },
+	{ name = "flac", text = "󰝚 ", fg = "#a6e3a1" },
+	{ name = "wav",  text = "󰝚 ", fg = "#a6e3a1" },
+	{ name = "ogg",  text = "󰝚 ", fg = "#a6e3a1" },
+
+	# Video
+	{ name = "mp4",  text = "󰕧 ", fg = "#cba6f7" },
+	{ name = "mkv",  text = "󰕧 ", fg = "#cba6f7" },
+	{ name = "webm", text = "󰕧 ", fg = "#cba6f7" },
+	{ name = "mov",  text = "󰕧 ", fg = "#cba6f7" },
+
+	# Archives
+	{ name = "zip",  text = "󰗄 ", fg = "#f9e2af" },
+	{ name = "tar",  text = "󰗄 ", fg = "#f9e2af" },
+	{ name = "gz",   text = "󰗄 ", fg = "#f9e2af" },
+	{ name = "xz",   text = "󰗄 ", fg = "#f9e2af" },
+	{ name = "7z",   text = "󰗄 ", fg = "#f9e2af" },
+
+	# Binaries
+	{ name = "so",   text = "󰡱 ", fg = "#fab387" },
+	{ name = "a",    text = "󰡱 ", fg = "#fab387" },
+	{ name = "o",    text = "󰡱 ", fg = "#fab387" },
+
+	# PCB / CAD
+	{ name = "kicad_pcb", text = "󰻫 ", fg = "#89dceb" },
+	{ name = "kicad_sch", text = "󰯂 ", fg = "#89dceb" },
+	{ name = "step",      text = "󰆧 ", fg = "#74c7ec" },
+	{ name = "stl",       text = "󰆧 ", fg = "#74c7ec" },
+]
+
+[manager]
+cwd = { fg = "{{color4}}" }
+
+hovered         = { fg = "{{background}}", bg = "{{color4}}" }
+preview_hovered = { fg = "{{background}}", bg = "{{color4}}" }
+
+find_keyword  = { fg = "{{color3}}", bold = true }
+find_position = { fg = "{{color5}}", bold = true }
+
+marker_copied   = { fg = "{{color2}}", bg = "{{color2}}" }
+marker_cut      = { fg = "{{color1}}", bg = "{{color1}}" }
+marker_marked   = { fg = "{{color3}}", bg = "{{color3}}" }
+marker_selected = { fg = "{{color4}}", bg = "{{color4}}" }
+
+tab_active   = { fg = "{{background}}", bg = "{{color4}}" }
+tab_inactive = { fg = "{{foreground}}", bg = "{{color0}}" }
+
+count_copied   = { fg = "{{background}}", bg = "{{color2}}" }
+count_cut      = { fg = "{{background}}", bg = "{{color1}}" }
+count_selected = { fg = "{{background}}", bg = "{{color4}}" }
+
+border_symbol = "│"
+border_style  = { fg = "{{color8}}" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+
+mode_normal = { fg = "{{background}}", bg = "{{color4}}", bold = true }
+mode_select = { fg = "{{background}}", bg = "{{color3}}", bold = true }
+mode_unset  = { fg = "{{background}}", bg = "{{color1}}", bold = true }
+
+progress_label  = { fg = "{{foreground}}", bold = true }
+progress_normal = { fg = "{{color4}}", bg = "{{color0}}" }
+progress_error  = { fg = "{{color1}}", bg = "{{color0}}" }
+
+permissions_t = { fg = "{{color2}}" }
+permissions_r = { fg = "{{color3}}" }
+permissions_w = { fg = "{{color1}}" }
+permissions_x = { fg = "{{color4}}" }
+permissions_s = { fg = "{{color5}}" }
+
+[input]
+border   = { fg = "{{color4}}" }
+title    = { fg = "{{color4}}" }
+value    = {}
+selected = { fg = "{{background}}", bg = "{{color4}}" }
+
+[select]
+border   = { fg = "{{color4}}" }
+active   = { fg = "{{color4}}" }
+inactive = { fg = "{{foreground}}" }
+
+[tasks]
+border  = { fg = "{{color4}}" }
+title   = { fg = "{{color4}}" }
+hovered = { fg = "{{background}}", bg = "{{color4}}" }
+
+[which]
+mask            = { bg = "#000000" }
+cand            = { fg = "{{color4}}" }
+rest            = { fg = "{{foreground}}" }
+desc            = { fg = "{{color8}}" }
+separator       = " → "
+separator_style = { fg = "{{color8}}" }
+
+[help]
+on      = { fg = "{{color2}}" }
+run     = { fg = "{{color3}}" }
+hovered = { fg = "{{background}}", bg = "{{color4}}" }
+footer  = { fg = "{{background}}", bg = "{{color4}}" }
+
+[filetype]
+
+rules = [
+    { mime = "image/*", fg = "{{color5}}" },
+    { mime = "video/*", fg = "{{color1}}" },
+    { mime = "audio/*", fg = "{{color6}}" },
+    { mime = "application/zip", fg = "{{color3}}" },
+    { mime = "application/x-tar", fg = "{{color3}}" },
+]
