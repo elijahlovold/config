@@ -12,6 +12,8 @@ alias lt='ls -ltr'
 alias l='ls -CF'
 alias lsgr="git ls-files -coz --exclude-standard | xargs -0 stat --format '%y %n' | sort | awk '{print \$1, substr(\$2,1,8), \$4}'"
 
+alias vi='nvim'
+
 alias cdf='cd $(ls | fzf)'
 
 # cp recents
