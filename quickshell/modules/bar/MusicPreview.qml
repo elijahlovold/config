@@ -117,7 +117,7 @@ PopupWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     color: Theme.pillBg
                     border.width: 2
-                    border.color: (popup.player?.isPlaying ?? false) ? Theme.focusedWorkspace : Theme.pillBorder
+                    border.color: (popup.player?.isPlaying ?? false) ? Theme.accent : Theme.pillBorder
                     Behavior on border.color { ColorAnimation { duration: 400 } }
 
                     Image {
@@ -242,7 +242,7 @@ PopupWindow {
                     width: parent.width * Math.max(0, Math.min(1, progressTrack.fraction))
                     height: parent.height
                     radius: parent.radius
-                    color: Theme.focusedWorkspace
+                    color: Theme.accent
                 }
 
                 MouseArea {

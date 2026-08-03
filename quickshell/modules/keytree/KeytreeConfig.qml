@@ -3,8 +3,9 @@ import QtQuick
 import Quickshell
 
 // QML port of ~/.config/keytree/config.toml's [commands]/[layout]/[keys.*].
-// Colors live in KeytreeColors.qml instead (wallust-overridable, see that
-// file). Editing the tree/layout here is the equivalent of editing the TOML.
+// Colors live in qs.modules.common's Theme singleton instead (wallust-
+// overridable, see modules/common/Theme.qml). Editing the tree/layout here
+// is the equivalent of editing the TOML.
 Singleton {
     id: root
 

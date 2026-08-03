@@ -163,7 +163,7 @@ PopupWindow {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     text: popup.iconToday
-                    color: popup.monthOffset === 0 ? Theme.focusedWorkspace : Theme.dimText
+                    color: popup.monthOffset === 0 ? Theme.accent : Theme.dimText
                     font.family: Theme.fontFamily
                     font.pixelSize: Theme.fontSize - 2
                     MouseArea {
@@ -225,14 +225,14 @@ PopupWindow {
                         width: layout.width / 7
                         height: width
                         radius: 6
-                        color: dayCell.isToday ? Theme.focusedWorkspace
+                        color: dayCell.isToday ? Theme.accent
                              : dayMa.containsMouse ? Theme.pillBorder
                              : "transparent"
 
                         Text {
                             anchors.centerIn: parent
                             text: dayCell.day
-                            color: dayCell.isToday ? Theme.background
+                            color: dayCell.isToday ? Theme.onAccentText
                                  : dayCell.inMonth ? Theme.text
                                  : Theme.dimText
                             font.family: Theme.fontFamily

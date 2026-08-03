@@ -1,7 +1,8 @@
 import QtQuick
+import qs.modules.common
 
 // Ported from keytree/qml/RadialView.qml near-verbatim (same ring/spiral
-// placement math). Colors read from KeytreeColors directly (already carry
+// placement math). Colors read from Theme directly (already carry
 // alpha, Qt #AARRGGBB style). Card/spacing/radius constants below are fixed
 // design values multiplied by KeytreeConfig.layout.nodeScale; the popup's
 // overall size comes from .ringScale (applied to the window size in
@@ -21,10 +22,10 @@ Item {
     property int    spiralThreshold:  6         // spiral mode: N+ items → spiral; else single ring
     property int    spiralGapPixels:  8
 
-    readonly property color cLeafBg:    KeytreeColors.leafBg
-    readonly property color cGroupBg:   KeytreeColors.groupBg
-    readonly property color cKeyText:   KeytreeColors.keyText
-    readonly property color cLabelText: KeytreeColors.labelText
+    readonly property color cLeafBg:    Theme.leafBg
+    readonly property color cGroupBg:   Theme.groupBg
+    readonly property color cKeyText:   Theme.keyText
+    readonly property color cLabelText: Theme.labelText
 
     readonly property real cx:      width  / 2
     readonly property real cy:      height / 2
@@ -184,7 +185,7 @@ Item {
             var n = root.items.length
             if (n < 2) return
 
-            ctx.strokeStyle = KeytreeColors.connector
+            ctx.strokeStyle = Theme.connector
             ctx.lineWidth   = 1
             ctx.lineCap     = "round"
 
@@ -253,7 +254,7 @@ Item {
             visible: atRoot
             anchors.fill: parent
             radius: width / 2
-            color:   KeytreeColors.centerDot
+            color:   Theme.centerDot
             opacity: 0.85
         }
 
@@ -264,7 +265,7 @@ Item {
                 ? Math.min(width, height) / 2
                 : Math.round(8 * root.nodeScale)
             color:        root.cGroupBg
-            border.color: KeytreeColors.centerDot
+            border.color: Theme.centerDot
             border.width: 1
 
             Text {
@@ -322,7 +323,7 @@ Item {
                     ? Math.min(width, height) / 2
                     : Math.round((modelData.isLeaf ? 12 : 5) * root.nodeScale)
                 color:        modelData.isLeaf ? root.cLeafBg    : root.cGroupBg
-                border.color: modelData.isLeaf ? KeytreeColors.leafBorder : KeytreeColors.groupBorder
+                border.color: modelData.isLeaf ? Theme.leafBorder : Theme.groupBorder
                 border.width: modelData.isLeaf ? 2 : 1
             }
 

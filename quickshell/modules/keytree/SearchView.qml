@@ -1,10 +1,11 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import qs.modules.common
 
 // Ported from keytree/qml/SearchView.qml. The original read `keyTree.*`
 // (search state) and `colorScheme.*` as C++-injected context properties;
 // this takes the same search state as explicit properties from
-// KeytreeWindow and reads KeytreeColors directly.
+// KeytreeWindow and reads Theme directly.
 Item {
     id: root
     anchors.fill: parent
@@ -17,10 +18,10 @@ Item {
     readonly property real inputH:  44
     readonly property real resultH: 37
 
-    readonly property color cBg:        KeytreeColors.searchBg
-    readonly property color cSelection: KeytreeColors.searchSelection
-    readonly property color cText:      KeytreeColors.searchText
-    readonly property color cKeyText:   KeytreeColors.keyText
+    readonly property color cBg:        Theme.searchBg
+    readonly property color cSelection: Theme.searchSelection
+    readonly property color cText:      Theme.searchText
+    readonly property color cKeyText:   Theme.keyText
 
     Rectangle {
         id: panel
@@ -29,7 +30,7 @@ Item {
         height: root.inputH + 1 + root.searchResults.length * root.resultH + 24
         radius: 12
         color:        root.cBg
-        border.color: KeytreeColors.searchBorder
+        border.color: Theme.searchBorder
         border.width: 1
 
         Column {
@@ -87,7 +88,7 @@ Item {
             Rectangle {
                 width: parent.width
                 height: 1
-                color:   KeytreeColors.searchBorder
+                color:   Theme.searchBorder
                 opacity: 0.5
             }
 

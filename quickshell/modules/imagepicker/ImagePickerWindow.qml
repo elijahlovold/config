@@ -228,8 +228,8 @@ PanelWindow {
             id: panel
             anchors.fill: parent
             radius: 16
-            color: "#CC0D0D12"
-            border.color: "#33FFFFFF"
+            color: Theme.pillBg
+            border.color: Theme.pillBorder
             border.width: 1
 
             Item {
@@ -258,7 +258,7 @@ PanelWindow {
                             anchors.fill: parent
                             anchors.margins: 5
                             radius: 8
-                            color: "#1AFFFFFF"
+                            color: Theme.hoverBg
                             clip: true
 
                             Image {
@@ -289,7 +289,7 @@ PanelWindow {
                                 radius: Math.max(0, parent.radius - 3)
                                 color: "transparent"
                                 border.width: 2
-                                border.color: Theme.focusedWorkspace
+                                border.color: Theme.accent
                             }
                         }
 

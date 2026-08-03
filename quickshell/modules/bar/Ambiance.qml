@@ -13,7 +13,7 @@ Text {
     readonly property string iconStop: String.fromCharCode(0xf04d) // fa-stop
 
     text: root.playing ? root.iconStop : root.iconPlay
-    color: root.playing ? Theme.activeWorkspace : Theme.text
+    color: root.playing ? Theme.accent : Theme.text
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSize
 

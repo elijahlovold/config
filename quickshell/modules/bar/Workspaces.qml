@@ -37,7 +37,7 @@ Pill {
                 id: label
                 anchors.centerIn: parent
                 text: wsDelegate.modelData.name || wsDelegate.modelData.id
-                color: (wsDelegate.modelData.urgent || wsDelegate.modelData.focused) ? "#0A0A0C"
+                color: (wsDelegate.modelData.urgent || wsDelegate.modelData.focused) ? Theme.onAccentText
                      : wsDelegate.modelData.active ? Theme.activeWorkspace
                      : Theme.dimText
                 font.family: Theme.fontFamily

@@ -3,6 +3,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import qs.modules.common
 
 // QML/quickshell port of keytree's C++ KeyTreeModel + Main.qml. Runs as an
 // overlay-layer surface covering the whole screen (transparent, click/input
@@ -241,17 +242,15 @@ PanelWindow {
 
         // Circular tint behind the content, lined up with BackgroundEffect
         // .blurRegion above so blur + tint read as one frosted-glass disc.
-        // Derived from groupBg's own RGB (own alpha discarded, tint alpha
-        // set here instead) rather than a dedicated KeytreeColors property -
-        // ~/.config/wallust/templates/keytree-colors.qml doesn't know about
-        // this window at all, so any color that isn't already part of
-        // whatever that template emits gets silently wiped back to
-        // Rectangle's default (white) on the next wallust run. groupBg is
-        // present in every version of the generated file seen so far.
+        // Derived from Theme.groupBg's own RGB (own alpha discarded, tint
+        // alpha set here instead) rather than a dedicated Theme property -
+        // groupBg is a plain QML binding computed from the wallust palette,
+        // not itself wallust-templated, so this stays safe across regens
+        // without needing its own entry in modules/common/theme.qml.template.
         Rectangle {
             anchors.fill: parent
             radius: width / 2
-            color: Qt.rgba(KeytreeColors.groupBg.r, KeytreeColors.groupBg.g, KeytreeColors.groupBg.b, 0.35)
+            color: Qt.rgba(Theme.groupBg.r, Theme.groupBg.g, Theme.groupBg.b, 0.35)
         }
 
         function keyMatches(event, binding) {

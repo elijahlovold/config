@@ -64,7 +64,7 @@ Item {
                     ctx.arc(cx, cy, r, 0, Math.PI * 2);
                     ctx.stroke();
                     if (progressIcon.fraction > 0) {
-                        ctx.strokeStyle = Theme.focusedWorkspace;
+                        ctx.strokeStyle = Theme.accent;
                         ctx.beginPath();
                         ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * progressIcon.fraction);
                         ctx.stroke();
