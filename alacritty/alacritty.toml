@@ -20,9 +20,12 @@ import = [
     "~/.config/alacritty/wallust.toml"
 ]
 
+[env]
+QT_QPA_PLATFORM = "xcb"
+
 [window]
     padding = {x = 10, y = 10}
-    # opacity = 0.8
+    opacity = 0.8
     decorations = "None"
 
 [terminal]

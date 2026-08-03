@@ -3,6 +3,19 @@ back   = "Escape"   # move up a group (or quit at root)
 quit   = "q"        # quit immediately from tree mode
 search = "/"        # enter dmenu-style PATH search
 
+[layout]
+# "ring"   — single ring, two rings when item count reaches dual_ring_threshold
+# "spiral" — golden-angle phyllotaxis spiral starting off-center
+type = "ring"
+# Node shape: "rect" (default) or "circle"
+shape = "circle"
+# ring mode:   items >= ring_threshold → two rings (default 8)
+ring_threshold = 12
+# spiral mode: items >= spiral_threshold → spiral layout; else single ring (default 6)
+spiral_threshold = 12
+# Minimum pixel gap between rectangle bounding boxes along the spiral (spiral mode only).
+gap_pixels = 20
+
 [colors]
 # Executable nodes — rounded, bright blue border
 leaf_bg          = "#E0071520"
@@ -22,71 +35,10 @@ search_border    = "#4499EE"
 search_selection = "#774499EE"
 search_text      = "#AACCFF"
 
-[keys.l]
-label = "Download"
-cmd = "xdg-open \"dl/$(ls -t dl | head -n 1)\""
-icon = "  "
-
-[keys.c]
-label = "Chrome"
-cmd = "google-chrome"
-icon = "  "
-
-[keys.o]
-label = "Obsidian"
-cmd = "obsidian --force-device-scale-factor=2 \"obsidian://open?vault=vault\""
-icon = "  "
-
-[keys.p]
-label = "Python"
-cmd = "alacritty -e python3.14"
-icon = "  "
-
-[keys.w]
-label = "Wallpaper"
-cmd = "wallpaper-picker --manual"
-icon = "󰸉  "
-
-[keys.k]
-label = "Bible"
-cmd = "alacritty -e nvim ~/dox/bible_kjv.txt"
-icon = "  "
-
-[keys.m]
-label = "CaH"
-cmd = "mupdf -r 180 ~/dox/books/The\\ Complete\\ Calvin\\ \\&\\ Hobbes.pdf $((1 + RANDOM % 1350))"
-icon = "󰄛  "
-
-
-[keys.d]
-label = "Design/"
-icon = "   "
-
-[keys.d.b]
-label = "Blender"
-cmd = "blender"
-icon = "  "
-
-[keys.d.g]
-label = "Godot"
-cmd = "godot"
-icon = "  "
-
-[keys.d.l]
-label = "LTSpice"
-cmd = "ltspice"
-icon = "󰐋  "
-
-[keys.d.u]
-label = "Bambu"
-cmd = "bambu-studio"
-icon = "󰹛  "
-
-[keys.d.i]
-label = "Gimp"
-cmd = "gimp"
-icon = "  "
-
+# [keys.a]
+# label = ""
+# cmd = ""
+# icon = "   "
 
 [keys.b]
 label = "Bookmarks/"
@@ -122,11 +74,6 @@ label = "Linkedin"
 cmd = "firefox --new-window https://www.linkedin.com/feed/"
 icon = "  "
 
-[keys.b.k]
-label = "Digikey"
-cmd = "firefox --new-window https://www.digikey.com/"
-icon = "󰬋  "
-
 [keys.b.m]
 label = "Mail"
 cmd = "firefox --new-window https://mail.google.com/mail/u/0/#inbox"
@@ -142,49 +89,255 @@ label = "Monkeytype"
 cmd = "firefox --new-window https://monkeytype.com/"
 icon = "󰼭  "
 
-[keys.v]
+[keys.c]
+label = "Chrome"
+cmd = "google-chrome"
+icon = "  "
+
+[keys.d]
+label = "Design/"
+icon = "   "
+
+[keys.d.b]
+label = "Blender"
+cmd = "blender"
+icon = "  "
+
+[keys.d.g]
+label = "Godot"
+cmd = "godot"
+icon = "  "
+
+[keys.d.l]
+label = "LTSpice"
+cmd = "ltspice"
+icon = "󰐋  "
+
+[keys.d.u]
+label = "Bambu"
+cmd = "bambu-studio"
+icon = "󰹛  "
+
+[keys.d.i]
+label = "Gimp"
+cmd = "gimp"
+icon = "  "
+
+[keys.e]
+label = "EE/"
+icon = "  "
+
+[keys.e.d]
+label = "Digikey"
+cmd = "firefox --new-window https://www.digikey.com/"
+icon = "󰬋  "
+
+[keys.e.o]
+label = "Octopart"
+cmd = "firefox --new-window https://octopart.com/ "
+icon = "  "
+
+[keys.e.n]
+label = "Nordic"
+cmd = "firefox --new-window https://devzone.nordicsemi.com/ "
+icon = "󰎖  "
+
+[keys.e.e]
+label = "EDN"
+cmd = "firefox --new-window https://www.edn.com/ "
+icon = "󰬰  "
+
+[keys.f]
+label = "Config"
+icon = "  "
+
+[keys.f.a]
+label = "Aliases"
+cmd = "alacritty -e nvim ~/.config/aliases"
+icon = "󱍵  "
+
+[keys.f.c]
+label = "cl-wrap"
+cmd = "alacritty -e nvim ~/.config/scripts/cl-wrap.sh"
+icon = "󰧑  "
+
+[keys.f.e]
+label = "Env"
+cmd = "alacritty -e nvim ~/.config/env"
+icon = "󰇧  "
+
+[keys.f.i]
+label = "i3wm"
+cmd = "alacritty -e nvim ~/.config/i3/config"
+icon = "󱇙  "
+
+[keys.f.k]
+label = "Keytree"
+cmd = "alacritty -e nvim ~/.config/keytree/config.toml"
+icon = "  "
+
+[keys.f.m]
+label = "Mimes"
+cmd = "alacritty -e nvim ~/.config/mimeapps.list"
+icon = "󰣆  "
+
+[keys.f.s]
+label = "i3 Status"
+cmd = "alacritty -e nvim ~/.config/i3status-rust/config.toml"
+icon = "  "
+
+[keys.f.w]
+label = "Wallust"
+cmd = "alacritty -e nvim ~/.config/wallust/wallust.toml"
+icon = "󰏘  "
+
+[keys.f.z]
+label = "zsh"
+cmd = "alacritty -e nvim ~/.config/zsh/.zshrc"
+icon = "󰏘  "
+
+[keys.g]
+label = "Games/"
+icon = "  "
+
+[keys.g.r]
+label = "R2ModMan"
+cmd = "r2modman"
+icon = "󰰞  "
+
+[keys.g.v]
+label = "Vim-Sweeper"
+cmd = "alacritty -e vim-sweeper"
+icon = "󰷚  "
+
+[keys.g.s]
+label = "Steam"
+cmd = "steam"
+icon = "  "
+
+[keys.g.f]
+label = "Factorio"
+cmd = "steam -applaunch 427520"
+icon = "  "
+
+[keys.g.m]
+label = "Minecraft"
+cmd = "mcpelauncher-ui-qt"
+icon = "󰍳  "
+
+[keys.g.t]
+label = "Terraria"
+cmd = "steam -applaunch 105600"
+icon = "󰔱  "
+
+[keys.g.h]
+label = "Hollow Knight"
+cmd = "steam -applaunch 4183110"
+icon = "󰷟  "
+
+[keys.g.k]
+label = "Silksong"
+cmd = "steam -applaunch 1030300"
+icon = "󱇫  "
+
+[keys.g.a]
+label = "AoE2"
+cmd = "steam -applaunch 813780"
+icon = "󰓥  "
+
+[keys.g.j]
+label = "Just Cause 2"
+cmd = "steam -applaunch 8190"
+icon = "󰓎  "
+
+[keys.h]
 label = "Work/"
 icon = "󰸖  "
 
-[keys.v.o]
+[keys.h.o]
 label = "Obsidian"
 cmd = "obsidian --force-device-scale-factor=2 \"obsidian://open?vault=Shared-Vault\""
 icon = "  "
 
-[keys.v.i]
+[keys.h.i]
 label = "Iriun"
 cmd = "iriunwebcam"
 icon = "  "
 
-[keys.v.w]
+[keys.h.w]
 label = "Wiki"
 cmd = "google-chrome https://sites.google.com/cadenceneuro.com/team/home?pli=1"
 icon = "󰧑  "
 
-[keys.v.b]
+[keys.h.b]
 label = "Bitbucket"
 cmd = "google-chrome https://bitbucket.org/cadenceneuro/workspace/overview/"
 icon = "  "
 
-[keys.v.j]
+[keys.h.j]
 label = "Jira"
 cmd = "google-chrome https://cadenceneuro.atlassian.net/jira/software/c/projects/SWS/boards/129/backlog"
 icon = "  "
 
-[keys.v.d]
+[keys.h.d]
 label = "Drive"
 cmd = "google-chrome https://drive.google.com/drive/home"
 icon = "  "
 
-[keys.v.m]
+[keys.h.m]
 label = "Mail"
 cmd = "google-chrome https://mail.google.com/mail/u/0/#inbox"
 icon = "󰇮  "
 
-[keys.v.c]
+[keys.h.c]
 label = "Calendar"
 cmd = "google-chrome https://calendar.google.com/calendar/u/0/r"
 icon = "  "
+
+# [keys.i]
+# label = ""
+# cmd = ""
+# icon = "   "
+
+# [keys.j]
+# label = ""
+# cmd = ""
+# icon = "   "
+
+[keys.k]
+label = "Bible"
+cmd = "alacritty -e nvim ~/dox/bible_kjv.txt"
+icon = "  "
+
+[keys.l]
+label = "Download"
+cmd = "xdg-open \"$HOME/dl/$(ls -t $HOME/dl | head -n 1)\""
+icon = "  "
+
+[keys.m]
+label = "CaH"
+cmd = "mupdf -r 180 ~/dox/books/The\\ Complete\\ Calvin\\ \\&\\ Hobbes.pdf $((1 + RANDOM % 1350))"
+icon = "󰄛  "
+
+# [keys.n]
+# label = ""
+# cmd = ""
+# icon = "   "
+
+[keys.o]
+label = "Obsidian"
+cmd = "obsidian --force-device-scale-factor=2 \"obsidian://open?vault=vault\""
+icon = "  "
+
+[keys.p]
+label = "Python"
+cmd = "alacritty -e python3.14"
+icon = "  "
+
+# [keys.r]
+# label = ""
+# cmd = ""
+# icon = "   "
 
 [keys.s]
 label = "Social/"
@@ -215,52 +368,61 @@ label = "Signal"
 cmd = "signal-desktop"
 icon = "󰘊  "
 
+# [keys.t]
+# label = ""
+# cmd = ""
+# icon = "   "
 
-[keys.g]
-label = "Games/"
-icon = "  "
+# [keys.u]
+# label = ""
+# cmd = ""
+# icon = "   "
 
-[keys.g.r]
-label = "R2ModMan"
-cmd = "r2modman"
-icon = "󰰞  "
+[keys.v]
+label = "Services/"
+icon = "  "
 
-[keys.g.v]
-label = "Vim-Sweeper"
-cmd = "alacritty -e vim-sweeper"
-icon = "󰷚  "
+[keys.v.i]
+label = "Immich"
+cmd = "firefox http://edel:2283/"
+icon = "  "
 
-[keys.g.s]
-label = "Steam"
-cmd = "steam"
-icon = "  "
+[keys.v.j]
+label = "Jellyfin"
+cmd = "firefox http://edel:8096/"
+icon = "󰿎  "
 
-[keys.g.f]
-label = "Factorio"
-cmd = "steam -applaunch 427520"
-icon = "  "
+[keys.v.t]
+label = "TailScale"
+cmd = "firefox https://login.tailscale.com/"
+icon = "󰖂  "
 
-[keys.g.t]
-label = "Terraria"
-cmd = "steam -applaunch 105600"
-icon = "󰔱  "
+[keys.v.p]
+label = "Portainer"
+cmd = "firefox https://edel:9443/"
+icon = "󰡨  "
 
-[keys.g.h]
-label = "Hollow Knight"
-cmd = "steam -applaunch 4183110"
-icon = "󰷟  "
+[keys.v.s]
+label = "Stirling"
+cmd = "firefox http://edel:8080/"
+icon = "  "
 
-[keys.g.k]
-label = "Silksong"
-cmd = "steam -applaunch 1030300"
-icon = "󱇫  "
+[keys.w]
+label = "Wallpaper"
+cmd = "wallpaper-picker --manual"
+icon = "󰸉  "
 
-[keys.g.a]
-label = "AoE2"
-cmd = "steam -applaunch 813780"
-icon = "󰓥  "
+# [keys.x]
+# label = ""
+# cmd = ""
+# icon = "   "
 
-[keys.g.j]
-label = "Just Cause 2"
-cmd = "steam -applaunch 8190"
-icon = "󰓎  "
+[keys.y]
+label = "Stator"
+cmd = "keytree ~/.config/keytree/stator.toml"
+icon = "󱇯   "
+
+# [keys.z]
+# label = ""
+# cmd = ""
+# icon = "   "

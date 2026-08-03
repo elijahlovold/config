@@ -1,0 +1,4 @@
+PollingLabel {
+    command: ["/home/elovold/waybar/scripts/diskio.sh", "nvme0n1"]
+    interval: 2000
+}

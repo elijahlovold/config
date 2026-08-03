@@ -1,5 +1,5 @@
 [colors]
-transparent_background_colors = true
+transparent_background_colors = false
 
 [colors.primary]
 background = "{{ background }}"

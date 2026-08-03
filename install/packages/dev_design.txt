@@ -13,6 +13,7 @@ clang
 markdown-oxide
 svlangserver
 vscode-html-languageserver
+qt6-languageserver
 
 wordnet-progs
 wordnet-common

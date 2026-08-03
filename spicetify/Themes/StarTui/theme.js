@@ -47,38 +47,59 @@ waitForElement([".Root__top-container"], ([topContainer]) => {
 
   const ctx = canvas.getContext("2d");
 
+  const staticCanvas = document.createElement("canvas");
+  const staticCtx = staticCanvas.getContext("2d");
+
   let width = 0;
   let height = 0;
-  let dpr = window.devicePixelRatio || 1;
+  let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-  const stars = [];
+  const twinkleStars = [];
   const shootingStars = [];
 
   function rand(min, max) {
     return Math.random() * (max - min) + min;
   }
 
+  let resizeTimer = null;
+
+  function scheduleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 150);
+  }
+
   function resize() {
     width = container.clientWidth;
     height = container.clientHeight;
 
-    dpr = window.devicePixelRatio || 1;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     canvas.width = width * dpr;
     canvas.height = height * dpr;
-
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    staticCanvas.width = width * dpr;
+    staticCanvas.height = height * dpr;
+    staticCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     createStars();
   }
 
   function createStars() {
-    stars.length = 0;
+    twinkleStars.length = 0;
 
-    const count = Math.floor((width * height) / 12000);
+    const count = Math.min(
+      Math.floor((width * height) / 12000),
+      400,
+    );
+
+    staticCtx.clearRect(0, 0, width, height);
+    staticCtx.fillStyle = starColor;
+
+    const staticByRadius = { 1: [], 2: [] };
 
     for (let i = 0; i < count; i++) {
-      stars.push({
+      const star = {
         x: rand(0, width),
         y: rand(0, height),
         r: Math.random() < 0.5 ? 1 : 2,
@@ -86,8 +107,40 @@ waitForElement([".Root__top-container"], ([topContainer]) => {
         speed: rand(0.3, 1.0),
         brightness: rand(0.5, 1.0),
         twinkle: Math.random() < 0.05,
-      });
+      };
+
+      if (star.twinkle) {
+        twinkleStars.push(star);
+      } else {
+        staticByRadius[star.r].push(star);
+      }
     }
+
+    // static (non-twinkling) stars are baked into an offscreen
+    // canvas once here instead of being redrawn every frame
+    for (const r of [1, 2]) {
+      const group = staticByRadius[r];
+      if (!group.length) continue;
+
+      staticCtx.globalAlpha = 1;
+      staticCtx.beginPath();
+
+      for (const star of group) {
+        staticCtx.moveTo(star.x + star.r, star.y);
+        staticCtx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+      }
+
+      // approximate shared brightness per radius group so it can
+      // be filled as a single path instead of per-star draw calls
+      const avgBrightness =
+        group.reduce((sum, s) => sum + s.brightness, 0) /
+        group.length;
+
+      staticCtx.globalAlpha = avgBrightness;
+      staticCtx.fill();
+    }
+
+    staticCtx.globalAlpha = 1;
   }
 
   function spawnShootingStar() {
@@ -122,30 +175,45 @@ waitForElement([".Root__top-container"], ([topContainer]) => {
   }
 
   let lastTime = performance.now();
+  let lastRender = 0;
+  const frameInterval = 1000 / 30;
+  let running = true;
 
   function frame(now) {
+    if (!running) return;
+
+    if (now - lastRender < frameInterval) {
+      requestAnimationFrame(frame);
+      return;
+    }
+    lastRender = now;
+
     const dt = (now - lastTime) / 1000;
     lastTime = now;
 
     ctx.clearRect(0, 0, width, height);
 
+    // blit the pre-rendered static stars (see createStars) in one
+    // call instead of redrawing every star every frame
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.drawImage(staticCanvas, 0, 0);
+    ctx.restore();
+
     //
-    // stars
+    // twinkling stars (small subset, animated brightness)
     //
     ctx.fillStyle = starColor;
 
-    for (const star of stars) {
-      let alpha = star.brightness;
-
-      if (star.twinkle) {
-        alpha *=
-          0.7 +
+    for (const star of twinkleStars) {
+      const alpha =
+        star.brightness *
+        (0.7 +
           0.3 *
             Math.sin(
               now * 0.001 * star.speed +
                 star.phase,
-            );
-      }
+            ));
 
       ctx.globalAlpha = alpha;
 
@@ -218,9 +286,19 @@ waitForElement([".Root__top-container"], ([topContainer]) => {
   resize();
 
   const resizeObserver =
-    new ResizeObserver(resize);
+    new ResizeObserver(scheduleResize);
 
   resizeObserver.observe(container);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      running = false;
+    } else if (!running) {
+      running = true;
+      lastTime = performance.now();
+      requestAnimationFrame(frame);
+    }
+  });
 
   requestAnimationFrame(frame);
 });

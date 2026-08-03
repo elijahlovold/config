@@ -6,8 +6,6 @@ export EDITOR="$VISUAL"
 # export BROWSER="firefox"
 export MANPAGER="nvim +Man\!"
 
-export PATH="$PATH:$HOME/.config/tools"
-export PATH="$PATH:$XDG_DATA_HOME/npm/bin"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
 
 export PICO_SDK_PATH=$HOME/repos/pico-sdk/
@@ -17,6 +15,13 @@ export XDG_CONFIG_HOME="$HOME/.config"        # User-specific config files
 export XDG_CACHE_HOME="$HOME/.cache"          # User-specific cache
 export XDG_DATA_HOME="$HOME/.local/share"     # User-specific data
 export XDG_STATE_HOME="$HOME/.local/state"    # User-specific state (logs, history)
+
+[ -d "$XDG_DATA_HOME/.venv/bin" ] && PATH="$XDG_DATA_HOME/.venv/bin:$PATH"
+[ -d "$HOME/.local/bin" ]       && PATH="$PATH:$HOME/.local/bin"
+[ -d "$HOME/bin" ]              && PATH="$PATH:$HOME/bin"
+[ -d "$HOME/.config/scripts" ]  && PATH="$PATH:$HOME/.config/scripts"
+[ -d "$XDG_DATA_HOME/npm/bin" ] && PATH="$PATH:$XDG_DATA_HOME/npm/bin"
+export PATH
 
 export HISTFILE="$XDG_CACHE_HOME/shell_history"
 

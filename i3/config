@@ -8,20 +8,17 @@ set $mod Mod4
 # is used in the bar {} block below.
 font pango:FiraCode Nerd Font 12
 
-# # Start XDG autostart .desktop files using dex. See also
-# # https://wiki.archlinux.org/index.php/XDG_Autostart
-# exec --no-startup-id dex --autostart --environment i3
+# # Startup services
+# exec --no-startup-id pipewire
+# exec --no-startup-id wireplumber
+# exec --no-startup-id pipewire-pulse
+# exec --no-startup-id openrgb --server
 
-# Startup services
-exec --no-startup-id pipewire
-exec --no-startup-id wireplumber
-exec --no-startup-id pipewire-pulse
 exec --no-startup-id dunst
 
-exec --no-startup-id openrgb --server
 exec --no-startup-id toggle-monitors --reset
-exec --no-startup-id wallpaper-picker
-exec --no-startup-id picom
+# exec --no-startup-id wallpaper-picker
+exec --no-startup-id toggle-picom
 
 exec --no-startup-id numlockx on
 exec --no-startup-id config-keyboard.sh
@@ -228,7 +225,7 @@ bindsym $mod+Shift+c exec --no-startup-id toggle-picom
 bindsym $mod+Control+c exec --no-startup-id wallpaper-picker --stop; exec wallust cs default
 
 # Screenshot bindings
-bindsym --release Print exec flameshot gui -c -p "$(xdg-user-dir PICTURES)/screenshots/"
+bindsym --release Print exec flameshot launcher -c -p "$(xdg-user-dir PICTURES)/screenshots/"
 bindsym $mod+Print exec flameshot full -c -p  "$(xdg-user-dir PICTURES)/screenshots/"
 
 # ---- apps ----
@@ -239,7 +236,7 @@ bindsym $mod+Shift+o exec alacritty --working-directory $(mount.sh)
 
 # vault
 bindsym $mod+i exec kitty --working-directory ~/vault -e nvim
-bindsym $mod+Shift+i exec kitty --working-directory ~/vault
+bindsym $mod+Shift+i exec kitty --working-directory ~/repos/Cadence-Vault -e nvim
 bindsym $mod+t exec $term --working-directory ~/vault -e nvim $(todays-notes)
 bindsym $mod+Shift+t exec $term --working-directory ~/vault -e nvim $(todays-notes $(rofi -dmenu -i -p "Date delta"))
 
@@ -251,9 +248,6 @@ bindsym $mod+m exec $term -e btop
 
 bindsym $mod+x exec firefox
 
-# open vim-anywhere
-bindsym $mod+Shift+v exec $term -e vim-anywhere
-
 # open music 
 bindsym --release $mod+Mod1+Return exec --no-startup-id spotify-queue
 
@@ -261,6 +255,7 @@ bindsym --release $mod+Mod1+Return exec --no-startup-id spotify-queue
 
 # start keytree (dmenu substitue)
 bindsym $mod+d exec keytree
+bindsym $mod+slash exec keytree
 
 # stator keytree
 bindsym $mod+y exec keytree ~/.config/keytree/stator.toml
@@ -271,7 +266,7 @@ bindsym $mod+u exec firefox --new-window https://www.stevenspass.com/the-mountai
 bindsym $mod+Shift+u exec wallpaper-picker --sp
 
 # open symbol picker
-bindsym $mod+p exec rofimoji
+bindsym $mod+Shift+p exec rofimoji
 
 # open password picker
 bindsym $mod+Ctrl+p exec password-picker

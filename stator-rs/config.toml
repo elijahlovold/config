@@ -3,7 +3,7 @@
 default_state = "idle"
 
 # These sites are blocked in every state, regardless of state config
-always_blocked_sites = ["reddit.com", ]
+always_blocked_sites = ["reddit.com", "youtube.com"]
 
 # Notify i3status-rs (or any process) instantly on state change via signal.
 # In i3status-rs: [[block]] block = "custom" command = "stator-rs --get-state" signal = 10
@@ -14,27 +14,27 @@ signal  = 10              # SIGUSR1
 [states.idle]
 description      = "Default resting state — select state to raise restrictions"
 blocked_programs = ["discord", "steam", "vim-sweeper"]
-blocked_sites    = ["youtube.com", "linkedin.com"]
+blocked_sites    = ["linkedin.com"]
 
 [states.proj]
 description      = "Projects - distractions blocked"
 blocked_programs = ["discord", "steam", "vim-sweeper"]
-blocked_sites    = ["youtube.com", "linkedin.com"]
+blocked_sites    = ["linkedin.com"]
 
 [states.work]
 description      = "Work — distractions blocked"
 blocked_programs = ["discord", "steam", "vim-sweeper"]
-blocked_sites    = ["youtube.com", "linkedin.com"]
+blocked_sites    = ["linkedin.com"]
 
 [states.rw]
 description      = "Reading / writing - distractions blocked"
 blocked_programs = ["discord", "steam", "vim-sweeper"]
-blocked_sites    = ["youtube.com", "linkedin.com"]
+blocked_sites    = ["linkedin.com"]
 
 [states.break]
 description      = "Break time — light restrictions"
 blocked_programs = ["steam"]
-blocked_sites    = ["youtube.com"]
+blocked_sites    = []
 
 [states.chill]
 description      = "Chillin — no restrictions"

@@ -2,22 +2,24 @@
 
 import os
 import sys
-from datetime import date, timedelta
+from datetime import date
 
 bday = date(2003, 8, 19)
 
-notes_path = f"{os.path.expanduser('~')}/vault/Daily"
-template = f"{notes_path}/_daily_template.md"
-today = date.today()
-if (len(sys.argv) != 1):
-    today += timedelta(days=int(sys.argv[1]))
-outfile = f"{notes_path}/{today.isoformat()}.md"
+today = date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else date.today()
+
+vault_path = f"{os.path.expanduser('~')}/vault"
+cal_path = f"{vault_path}/Calendar"
+out_path = f"{cal_path}/{today.year}"
+template_file = f"{vault_path}/Templates/Daily-Template.md"
+
+outfile = f"{out_path}/{today.isoformat()}.md"
 
 if not os.path.isfile(outfile):
     years = today.year - bday.year
     if (today.month, today.day) < (bday.month, bday.day):
         years -= 1
-    bible_plan_path = f"{notes_path}/bible_plan_{years}.csv"
+    bible_plan_path = f"{cal_path}/bible_plan_{years}.csv"
 
     start_year = today.year
     if (today.month, today.day) < (bday.month, bday.day):
@@ -33,19 +35,30 @@ if not os.path.isfile(outfile):
         today_passage = bible_plan_lines[entry_i]
 
         passages = []
-        def split_ref(ref: str):
+        def split_ref(ref: str) -> tuple[str, str | None]:
             import re
-            match = re.match(r"(\d?\s*[A-Za-z]+)\s+(\d+(?:-\d+)?)", ref)
+            match = re.fullmatch(
+                r"\s*((?:[1-3]\s+)?[A-Za-z]+(?:\s+[A-Za-z]+)*?)"
+                r"(?:\s+(\d+(?:-\d+)?))?\s*",
+                ref,
+            )
+
             if not match:
-                raise ValueError("No regex match found!")
+                raise ValueError(f"Invalid passage reference: {ref!r}")
+
             book, chapters = match.groups()
-            return book.strip(), chapters
+            return book, chapters
 
-        for entry in [x.strip() for x in today_passage.split(",")]:
-            book, chaps = split_ref(entry)
-            passages.append(f"{book} {chaps}")
 
-    with open(template, "r") as fin, open(outfile, "w") as fout:
+        for entry in map(str.strip, today_passage.split(",")):
+            book, chapters = split_ref(entry)
+
+            if chapters:
+                passages.append(f"{book} {chapters}")
+            else:
+                passages.append(book)
+
+    with open(template_file, "r") as fin, open(outfile, "w") as fout:
         for i, line in enumerate(fin):
             if line.startswith("created:"):
                 fout.write(f"created: {today.isoformat()}\n")

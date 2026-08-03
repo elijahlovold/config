@@ -1,16 +1,13 @@
-wayland
-wlroots
-xorg-xwayland
-
-qt5-wayland
-qt6-wayland
-gtk3
-
 hyprland
-waybar
-wofi
+xorg-xwayland
+xdg-desktop-portal-hyprland
 
+qt6-wayland
+quickshell
+
+wofi
 wl-clipboard
 cliphist
+
 hyprpaper
 mpvpaper

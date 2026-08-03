@@ -1,3 +1,6 @@
+# Filters explained here:
+# https://explosion-mental.codeberg.page/wallust/templates/filters.html
+
 # wallust v3.5
 #
 # You can copy this file to ~/.config/wallust/wallust.toml (keep in mind is a sample config)
@@ -15,7 +18,7 @@ backend = "fastresize"
 
 # What color space to use to produce and select the most prominent colors:
 # lab - labmixed - lch - lchmixed - salience
-color_space = "salience"
+color_space = "lchmixed"
 
 # Use the most prominent colors in a way that makes sense, a scheme color palette:
 # dark - dark16 - darkcomp - darkcomp16
@@ -87,8 +90,16 @@ target = "~/.config/spicetify/Themes/StarTui/color.ini"
 template = "openrgb.json"
 target = "~/.cache/wallust/openrgb.json"
 
+[templates.keytree]
+template = "keytree-colors.toml"
+target = "~/.config/keytree/colors.toml"
+
+[templates.keytree-qml]
+template = "keytree-colors.qml"
+target = "~/.config/quickshell/modules/keytree/KeytreeColors.qml"
+
 [hooks]
 # Run commands when wallust is invoked. Useful to avoid scripting.
 i3status_refresh = "pkill -USR2 i3status-rs"
-spicetify_refresh = "spicetify apply --no-restart"
+# spicetify_refresh = "spicetify apply --no-restart"
 openrgb_refresh = "wallust-openrgb"

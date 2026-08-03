@@ -1,0 +1,5 @@
+PollingLabel {
+    command: ["/home/elovold/waybar/scripts/hueshift.sh", "status"]
+    interval: 10000
+    leftClickCommand: ["/home/elovold/waybar/scripts/hueshift.sh", "toggle"]
+}

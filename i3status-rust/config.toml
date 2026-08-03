@@ -67,7 +67,9 @@ update = true
 sync = true
 [[block.click]]
 button = "right"
-cmd = "rm ~/.cache/vault-sync-count"
+cmd = "~/.config/scripts/vault-sync.sh --lock-unlock"
+update = true
+sync = true
 
 [[block]]
 block = "pomodoro"
@@ -87,6 +89,16 @@ step = 50
 click_temp = 3500
 
 [[block]]
+block = "custom"
+interval = "once"
+command = "cat ~/.cache/picom-state"
+[[block.click]]
+button = "left"
+cmd = "~/.config/scripts/toggle-picom"
+update = true
+sync = true
+
+[[block]]
 block = "xrandr"
 format = " $icon  $brightness $resolution "
 
@@ -96,6 +108,9 @@ command = "stator-rs --get-state"
 interval = 1
 format = " 󱇯  $text "
 # signal  = 10
+[[block.click]]
+button = "left"
+cmd = "keytree ~/.config/keytree/stator.toml"
 
 ##################################
 # Hardware performance

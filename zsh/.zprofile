@@ -16,10 +16,6 @@
 [ -f "$HOME/.config/.env" ] && . "$HOME/.config/.env"
 [ -f "$HOME/.config/aliases" ] && . "$HOME/.config/aliases"
 
-# update PATH if possible
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
-[ -d "$HOME/.config/scripts" ] && PATH="$HOME/.config/scripts:$PATH"
-
-# source cargo env
-# . "/home/elijah/.cache/cargo/env"
+if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+    exec dbus-run-session start-hyprland
+fi

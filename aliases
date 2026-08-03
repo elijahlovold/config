@@ -36,8 +36,6 @@ alias gsw='git switch'
 alias gsu='git submodule update'
 alias glog='git log --oneline --graph'
 alias gsun='git submodule foreach --quiet '\''if [ -n "$sha1" ] && [ "$(git rev-parse HEAD)" != "$sha1" ]; then echo -e "\033[36m$name\033[0m"; git log --oneline $sha1..HEAD; fi'\'''
-# use personal git credentials
-alias egit='GIT_CONFIG_GLOBAL=$XDG_CONFIG_HOME/git/personal_config git'
 
 # copy paste
 alias xc="xclip -sel clip <"

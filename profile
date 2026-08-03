@@ -18,10 +18,3 @@
 # if running bash and .bashrc if it exists
 [ -n "$BASH_VERSION" ] && [ -f "$HOME/.bashrc" ] && . "$HOME/.bashrc"
 
-# update PATH if possible
-[ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/.local/bin" ] && PATH="$HOME/.local/bin:$PATH"
-[ -d "$HOME/.config/scripts" ] && PATH="$HOME/.config/scripts:$PATH"
-
-# source cargo env
-[ -f "$HOME/.cache/cargo/env" ] && . "/home/elijah/.cache/cargo/env"

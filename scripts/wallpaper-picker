@@ -1,11 +1,13 @@
 #!/bin/sh
 
-STATIC_PATH="$XDG_CONFIG_HOME/i3/background"
 VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
 
-
 # rest of your code
-if [ "$1" = "--manual" ]; then
+if [ "$1" = "--select" ]; then
+    img_wallpaper="$2"
+    vid_play="${img_wallpaper%.*}.mp4"
+    [ ! -f "$vid_play" ] && exit 1
+elif [ "$1" = "--manual" ]; then
     selected=$(find "$VID_PATH" -type f -name "*.png" | sort \
         | nsxiv -t -o -N "nsxiv-wallpaper-picker" -)
     [ "$selected" = "" ] && exit 1
@@ -21,31 +23,62 @@ else
     [ ! -f "$img_wallpaper" ] && exit 1
 fi
 
-if [ -n "$WAYLAND_DISPLAY" ]; then
+if [ "$1" = "--stop" ]; then
+    wallust cs default
     exit 0
-else  # assume X11
-
-    # Kill existing background processes
-    pkill -f xwinwrap
-
-    if [ "$1" = "--stop" ]; then
-        wallust cs default
-        exit 0
-    else
-        [ -n "$img_wallpaper" ] && wallust run "$img_wallpaper"
-    fi
-
-    # Restart static background
-    # feh --bg-fill --no-fehbg "$STATIC_PATH"
-    feh --bg-fill --no-fehbg /home/elovold/pix/wallpapers/Linux/artix_wave_2.jpg /home/elovold/pix/wallpapers/Linux/artix_wave.jpg
-
-    # Restart video background
-    xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
-      mpv --fs --loop-file \
-        --no-audio --no-osc --no-osd-bar --no-correct-pts \
-        --no-input-default-bindings -wid WID \
-        --hwdec=vaapi,auto --profile=low-latency \
-        --gamma-auto=no --deband=no \
-        --scale=bilinear --cscale=bilinear \
-        "$vid_play" &
+else
+    [ -n "$img_wallpaper" ] && wallust run "$img_wallpaper"
 fi
+
+# set wallpapers depending on x11 or wayland
+if [ -n "$WAYLAND_DISPLAY" ]; then  # wayland
+    MPV_SOCK="/tmp/mpvpaper-mpv.sock"
+
+    # startup mpvpaper
+    if ! pgrep -x mpvpaper >/dev/null; then
+        # startup hyprpaper if needed
+        # if ! pgrep -x hyprpaper >/dev/null; then
+        #     hyprpaper &
+        #     for i in 1 2 3 4 5; do
+        #         pgrep -x hyprpaper >/dev/null && break
+        #         sleep 0.2
+        #     done
+        # fi
+        # hyprctl hyprpaper wallpaper "DP-1,/home/elovold/pix/wallpapers/Linux/artix_wave.jpg"
+        # hyprctl hyprpaper wallpaper "DP-2,/home/elovold/pix/wallpapers/Linux/artix_wave_2.jpg"
+
+        mpvpaper -f -p -o \
+            "--loop-file
+            --no-audio --no-osc --no-osd-bar
+            --hwdec=vaapi,auto --profile=low-latency
+            --gamma-auto=no --deband=no
+            --scale=bilinear --cscale=bilinear
+            --input-ipc-server=$MPV_SOCK" \
+            DP-2 "$vid_play" &
+        exit 0
+    fi
+else  # assume X11
+    MPV_SOCK="/tmp/xwinwrap-mpv.sock"
+
+    # startup xwinwrap
+    if ! pgrep -x xwinwrap >/dev/null; then
+        # restart static background
+        feh --bg-fill --no-fehbg /home/elovold/pix/wallpapers/Linux/artix_wave_2.jpg \
+            /home/elovold/pix/wallpapers/Linux/artix_wave.jpg
+
+        xwinwrap -ov -g 3840x2160+1080+0 -ni -- \
+          mpv --fs --loop-file \
+            --no-audio --no-osc --no-osd-bar \
+            --no-input-default-bindings -wid WID \
+            --hwdec=vaapi,auto --profile=low-latency \
+            --gamma-auto=no --deband=no \
+            --scale=bilinear --cscale=bilinear \
+            --input-ipc-server="$MPV_SOCK" \
+            "$vid_play" &
+        exit 0
+    fi
+fi
+
+printf '{"command":["loadfile","%s","replace"]}\n' "$vid_play" \
+    | socat - "$MPV_SOCK"
+
