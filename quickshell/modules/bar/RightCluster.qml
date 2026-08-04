@@ -14,11 +14,18 @@ Row {
 
     spacing: 8
 
-    // Media
+    // Media - pill collapses fully when both are silent. Ambiance stays
+    // visible whenever Music is (so its icon rides along next to the
+    // track), and independently whenever ambiance itself is playing (so
+    // it's always clickable to stop); Separator only shows alongside Music
+    // since Ambiance's own visibility is a superset of Music's.
     Pill {
-        Music {}
-        Separator {}
-        Ambiance {}
+        Music { id: musicWidget }
+        Separator { visible: musicWidget.visible }
+        Ambiance {
+            id: ambianceWidget
+            visible: ambianceWidget.playing || musicWidget.visible
+        }
     }
 
     // Tasks / background sync - full-bar only (Pomodoro was previously
@@ -64,6 +71,8 @@ Row {
 
     // Clock
     Pill {
+        DesktopWidgetToggle {}
+        Separator {}
         Clock {
             full: root.full
         }

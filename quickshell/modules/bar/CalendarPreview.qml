@@ -36,8 +36,7 @@ PopupWindow {
         const todayM = popup.todayDate.getMonth();
         const todayD = popup.todayDate.getDate();
 
-        let firstDow = new Date(year, month, 1).getDay(); // 0 = Sunday
-        firstDow = firstDow === 0 ? 6 : firstDow - 1; // convert to Monday-first index
+        const firstDow = new Date(year, month, 1).getDay(); // 0 = Sunday, already Sunday-first index
 
         const daysInMonth = new Date(year, month + 1, 0).getDate();
         const daysInPrevMonth = new Date(year, month, 0).getDate();
@@ -194,7 +193,7 @@ PopupWindow {
                 width: parent.width
 
                 Repeater {
-                    model: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+                    model: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
                     delegate: Text {
                         required property string modelData
                         width: layout.width / 7

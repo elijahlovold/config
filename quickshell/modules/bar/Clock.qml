@@ -35,11 +35,25 @@ Item {
         }
 
         Text {
+            id: calendarText
             visible: root.full
             text: root.calendarIcon + "  " + Qt.formatDateTime(clock.date, "ddd, MM/dd/yy")
             color: Theme.dimText
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSize
+
+            // Left-click opens today's daily note directly - same command
+            // CalendarPreview.qml's openDailyNote() runs for a clicked day,
+            // just always today's date instead of whichever cell was clicked.
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.LeftButton
+                cursorShape: Qt.PointingHandCursor
+                onClicked: {
+                    const date = Qt.formatDateTime(clock.date, "yyyy-MM-dd");
+                    Quickshell.execDetached(["alacritty", "-e", "sh", "-c", 'nvim "$(todays-notes "$1")"', "sh", date]);
+                }
+            }
         }
     }
 
