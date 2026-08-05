@@ -177,6 +177,21 @@ PanelWindow {
         }
     }
 
+    // ── Vim-style grid navigation ─────────────────────────────────────────────
+    // Rows are treated as vim "lines": 0/$ jump to row start/end, gg/G jump to
+    // the very first/last tile, gm jumps to the row's middle tile.
+    function rowStart(i) {
+        return Math.floor(i / root.columns) * root.columns;
+    }
+    function rowEnd(i) {
+        return Math.min(root.images.length - 1, root.rowStart(i) + root.columns - 1);
+    }
+    function rowMiddle(i) {
+        const start = root.rowStart(i);
+        const end = root.rowEnd(i);
+        return start + Math.floor((end - start) / 2);
+    }
+
     // ── Selection ──────────────────────────────────────────────────────────────
     function selectIndex(i) {
         if (i < 0 || i >= root.images.length)
@@ -205,7 +220,31 @@ PanelWindow {
                 root.dismissed();
         }
 
+        // Set by a bare "g" press, consumed by the following "g"/"m" to form
+        // the gg/gm two-key sequences; cleared on timeout or any other key.
+        property bool pendingG: false
+
+        Timer {
+            id: gTimer
+            interval: 600
+            onTriggered: contentItem.pendingG = false
+        }
+
         Keys.onPressed: event => {
+            if (contentItem.pendingG) {
+                contentItem.pendingG = false;
+                gTimer.stop();
+                if (event.text === "g") {
+                    root.currentIndex = 0;
+                    event.accepted = true;
+                    return;
+                } else if (event.text === "m") {
+                    root.currentIndex = root.rowMiddle(root.currentIndex);
+                    event.accepted = true;
+                    return;
+                }
+            }
+
             if (event.key === Qt.Key_Escape || event.key === Qt.Key_Q) {
                 root.dismissed();
             } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
@@ -218,6 +257,15 @@ PanelWindow {
                 root.currentIndex = Math.max(0, root.currentIndex - root.columns);
             } else if (event.key === Qt.Key_Down || event.key === Qt.Key_J) {
                 root.currentIndex = Math.min(root.images.length - 1, root.currentIndex + root.columns);
+            } else if (event.text === "g") {
+                contentItem.pendingG = true;
+                gTimer.restart();
+            } else if (event.text === "G") {
+                root.currentIndex = root.images.length - 1;
+            } else if (event.text === "$") {
+                root.currentIndex = root.rowEnd(root.currentIndex);
+            } else if (event.text === "0") {
+                root.currentIndex = root.rowStart(root.currentIndex);
             } else {
                 return;
             }
