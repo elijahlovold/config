@@ -36,21 +36,17 @@ PanelWindow {
         item: contentItem
     }
 
-    // Real compositor-side blur, disabled for now - it's the likely cause
-    // of the solid white disk (Hyprland needs a `layerrule = blur, ...`
-    // matching this surface's namespace before it'll actually blur the
-    // region instead of rendering some opaque fallback for it; guessing at
-    // that rule in your hyprland-lua config risks breaking the reload
-    // entirely, so isolating this out first). The visible tint circle in
-    // contentItem below is the other half of this and is unaffected -
-    // confirm that renders as a plain translucent dark circle (no white)
-    // before we re-enable this.
+    // // Real compositor-side blur behind the disc, matched by the
+    // // `hl.layer_rule` for namespace "quickshell:keytree" in
+    // // ~/hypr/hyprland/rules.lua (blur + ignore_alpha - without ignore_alpha
+    // // Hyprland renders the mostly-transparent tint circle below as a solid
+    // // fallback square instead of actually blurring through it). Ellipse
+    // // shape sourced straight from contentItem so the blurred region always
+    // // matches the visible disc exactly, hollowing out whatever windows are
+    // // behind it rather than just tinting them.
     // BackgroundEffect.blurRegion: Region {
     //     shape: RegionShape.Ellipse
-    //     x: (root.width - contentItem.width) / 2
-    //     y: (root.height - contentItem.height) / 2
-    //     width: contentItem.width
-    //     height: contentItem.height
+    //     item: contentItem
     // }
 
     // No manual DPI scaling here - unlike the original X11 app, Hyprland's
@@ -247,10 +243,37 @@ PanelWindow {
         // groupBg is a plain QML binding computed from the wallust palette,
         // not itself wallust-templated, so this stays safe across regens
         // without needing its own entry in modules/common/theme.qml.template.
-        Rectangle {
-            anchors.fill: parent
-            radius: width / 2
-            color: Qt.rgba(Theme.groupBg.r, Theme.groupBg.g, Theme.groupBg.b, 0.35)
+        //
+        // A radial gradient (center -> fully transparent edge) painted via
+        // Canvas rather than Rectangle.gradient, which in QtQuick is
+        // linear-only - no built-in radial gradient primitive. Sized larger
+        // than contentItem (parent here) so the fade bleeds out past the
+        // outermost node bubbles instead of stopping flush at their edge;
+        // this is purely a visual halo - the input mask and blurRegion
+        // above stay tied to contentItem's own tighter bounds.
+        Canvas {
+            id: haloCanvas
+            anchors.centerIn: parent
+            readonly property real haloRadius: parent.width * 0.8
+            width: haloRadius * 2
+            height: haloRadius * 2
+
+            property color haloColor: Theme.groupBg
+            onHaloColorChanged: requestPaint()
+            onHaloRadiusChanged: requestPaint()
+
+            onPaint: {
+                const ctx = getContext("2d");
+                ctx.clearRect(0, 0, width, height);
+                const r = haloRadius;
+                const gradient = ctx.createRadialGradient(r, r, 0, r, r, r);
+                gradient.addColorStop(0, Qt.rgba(haloColor.r, haloColor.g, haloColor.b, 1));
+                gradient.addColorStop(1, Qt.rgba(haloColor.r, haloColor.g, haloColor.b, 0));
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(r, r, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
         function keyMatches(event, binding) {
