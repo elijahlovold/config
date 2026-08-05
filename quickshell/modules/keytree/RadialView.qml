@@ -22,6 +22,62 @@ Item {
     property int    spiralThreshold:  6         // spiral mode: N+ items → spiral; else single ring
     property int    spiralGapPixels:  8
 
+    // Entrance/exit animation - set true by KeytreeWindow when it's about to
+    // tear down, so nodes can play their bloom/unfurl in reverse first.
+    // Read totalAnimMs to know how long to actually wait before destroying.
+    property bool   closing:          false
+    readonly property int nodeAnimDuration: 190
+    readonly property int nodeStaggerMs:    18
+    readonly property int totalAnimMs:      nodeAnimDuration + Math.max(0, items.length - 1) * nodeStaggerMs
+
+    // Center dot/label closes first, as its own lead-in phase - everything
+    // else (nodes, connector lines, halo) waits this long before starting
+    // to retreat, so closing reads as two clean phases instead of one big
+    // overlapping collapse. Open is unaffected - the center still just
+    // appears instantly there, as before; only closing got this new phase.
+    readonly property int centerAnimDuration: 140
+    readonly property int closeWaitMs: closing ? (centerAnimDuration + totalAnimMs) : totalAnimMs
+
+    // Connector-line reveal (spokes/spiral curve, drawn in the Canvas
+    // below). One shared progress rather than per-node stagger - it's a
+    // single continuous line, not N separate items. Unlike per-node
+    // entryProgress, RadialView itself isn't recreated when navigating
+    // into a submenu (only the Repeater's node delegates are), so this
+    // needs its own explicit replay on every items change, not just the
+    // very first open - see _replayReveal.
+    property real revealProgress: 0
+
+    Behavior on revealProgress {
+        id: revealBehavior
+        SequentialAnimation {
+            // Waits out the center's own close phase first, same as the
+            // node stagger above - see centerAnimDuration.
+            PauseAnimation {
+                duration: root.closing ? root.centerAnimDuration : 0
+            }
+            NumberAnimation {
+                duration: root.totalAnimMs
+                easing.type: root.closing ? Easing.InCubic : Easing.OutCubic
+            }
+        }
+    }
+
+    function _replayReveal() {
+        // Behavior intercepts every assignment, including this reset one -
+        // toggling it off/on is the standard way to jump a value instantly
+        // without also animating the reset itself.
+        revealBehavior.enabled = false;
+        root.revealProgress = 0;
+        revealBehavior.enabled = true;
+        root.revealProgress = 1;
+    }
+
+    Component.onCompleted: root._replayReveal()
+    onItemsChanged: if (!root.closing)
+        root._replayReveal()
+    onClosingChanged: if (closing)
+        revealProgress = 0
+
     readonly property color cLeafBg:    Theme.leafBg
     readonly property color cGroupBg:   Theme.groupBg
     readonly property color cKeyText:   Theme.keyText
@@ -172,10 +228,12 @@ Item {
         property bool watchIsSpiral:        root.isSpiral
         property bool watchTwoRings:        root.twoRings
         property var  watchSpiralPositions: root.spiralPositions
+        property real watchRevealProgress:  root.revealProgress
         onWatchItemsChanged:           requestPaint()
         onWatchIsSpiralChanged:        requestPaint()
         onWatchTwoRingsChanged:        requestPaint()
         onWatchSpiralPositionsChanged: requestPaint()
+        onWatchRevealProgressChanged:  requestPaint()
         onWidthChanged:                requestPaint()
         onHeightChanged:               requestPaint()
 
@@ -200,10 +258,14 @@ Item {
                 var tStart  = positions[0].theta
                 var tEnd    = positions[positions.length - 1].theta
                 var STEPS   = 160
+                // Draw only the reveal-progress-sized leading portion of the
+                // curve, so it visibly winds itself out in sync with the
+                // nodes riding this exact same formula (see node.animTheta).
+                var visibleSteps = Math.round(STEPS * Math.min(1, Math.max(0, root.revealProgress)))
 
                 ctx.globalAlpha = 0.35
                 ctx.beginPath()
-                for (var s = 0; s <= STEPS; s++) {
+                for (var s = 0; s <= visibleSteps; s++) {
                     var t  = tStart + (tEnd - tStart) * s / STEPS
                     var rr = rStart + b * (t - theta0)
                     var px = root.cx + rr * Math.cos(t)
@@ -221,12 +283,17 @@ Item {
                 var innerR     = root.innerR
                 var outerR     = root.outerR
                 var outerOff   = root.outerOffset
+                // Spokes grow out from the center together, in sync with
+                // the reveal progress (not per-spoke staggered - a single
+                // shared length reads as one cohesive "ring extending out"
+                // rather than trying to chase each node's own stagger).
+                var reveal = Math.min(1, Math.max(0, root.revealProgress))
 
                 for (var i = 0; i < n; i++) {
                     var onInner   = !two || i < innerCount
                     var ringIdx   = onInner ? i : (i - innerCount)
                     var ringCount = onInner ? (two ? innerCount : n) : outerCount
-                    var ringR     = onInner ? innerR : outerR
+                    var ringR     = (onInner ? innerR : outerR) * reveal
                     var offset    = onInner ? 0 : outerOff
                     var angle     = ringCount === 1
                         ? -Math.PI / 2
@@ -245,10 +312,27 @@ Item {
     // ── Center element ────────────────────────────────────────────────────────
 
     Item {
+        id: centerItem
         x: root.cx - width  / 2
         y: root.cy - height / 2
         width:  atRoot ? 10 : root.centerW
         height: atRoot ? 10 : root.centerH
+
+        // Plain live binding (not the Component.onCompleted-flip trick the
+        // nodes use) is fine here since only the 1→0 close transition needs
+        // to animate - a Behavior always animates a *later* change to a
+        // bound property, it only misses the very first evaluation, which
+        // this correctly starts at 1 (visible) regardless.
+        property real centerProgress: root.closing ? 0 : 1
+        opacity: centerProgress
+        scale:   centerProgress
+
+        Behavior on centerProgress {
+            NumberAnimation {
+                duration: root.centerAnimDuration
+                easing.type: Easing.InCubic
+            }
+        }
 
         Rectangle {
             visible: atRoot
@@ -312,10 +396,58 @@ Item {
                 ? root.spiralPositions[index].y
                 : root.cy + ringR * Math.sin(ringAngle)
 
-            x: px - root.nodeW / 2
-            y: py - root.nodeH / 2
+            // ── Entrance/exit ──────────────────────────────────────────
+            // 0 = hidden/at-start, 1 = fully shown/at-final-position. Plain
+            // property (not a binding to root.closing) so the very first
+            // open transition actually animates - a Behavior only fires on
+            // a real value *change*, not on the initial binding evaluation.
+            // Component.onCompleted flips it to 1 on open; the Connections
+            // below flips it back to 0 when the whole popup starts closing.
+            property real entryProgress: 0
+
+            // Spiral mode rides the real spiral curve out from the center
+            // (interpolating theta, same formula the guide-line/placement
+            // walk already use) rather than a straight-line pop, so the
+            // motion literally traces the layout's own geometry. Ring mode
+            // stays put at its final position and blooms via scale instead.
+            readonly property real finalTheta: (root.isSpiral && index < root.spiralPositions.length) ? root.spiralPositions[index].theta : 0
+            readonly property real animTheta: root.spiralTheta0 + (finalTheta - root.spiralTheta0) * entryProgress
+            readonly property real animR:     root.spiralRStart + root.spiralB * (animTheta - root.spiralTheta0)
+            readonly property real animPx:    root.isSpiral ? (root.cx + animR * Math.cos(animTheta)) : px
+            readonly property real animPy:    root.isSpiral ? (root.cy + animR * Math.sin(animTheta)) : py
+
+            x: animPx - root.nodeW / 2
+            y: animPy - root.nodeH / 2
             width:  root.nodeW
             height: root.nodeH
+            opacity: entryProgress
+            scale:   root.isSpiral ? 1 : entryProgress
+
+            Behavior on entryProgress {
+                SequentialAnimation {
+                    PauseAnimation {
+                        // Reversed order on close - the last node to arrive
+                        // is the first to retreat, like rewinding the open -
+                        // plus centerAnimDuration so nothing here starts
+                        // retreating until the center has fully vanished.
+                        duration: root.closing ? (root.centerAnimDuration + (root.items.length - 1 - node.index) * root.nodeStaggerMs) : node.index * root.nodeStaggerMs
+                    }
+                    NumberAnimation {
+                        duration: root.nodeAnimDuration
+                        easing.type: root.closing ? Easing.InCubic : Easing.OutBack
+                    }
+                }
+            }
+
+            Component.onCompleted: node.entryProgress = 1
+
+            Connections {
+                target: root
+                function onClosingChanged() {
+                    if (root.closing)
+                        node.entryProgress = 0;
+                }
+            }
 
             Rectangle {
                 anchors.fill: parent

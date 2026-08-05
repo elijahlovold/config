@@ -16,6 +16,31 @@ PanelWindow {
     required property string configName
     signal dismissed
 
+    // Reject (Escape/back-at-root/focus-loss) and launch both go through
+    // this instead of emitting `dismissed` directly, so RadialView's node
+    // animations get a chance to play in reverse before the window (and
+    // everything in it) actually gets torn down by Keytree.qml's Loader.
+    // Search mode has no entrance animation to reverse, so it still closes
+    // immediately.
+    property bool closing: false
+
+    function requestClose() {
+        if (root.closing)
+            return;
+        if (root.searchMode) {
+            root.dismissed();
+            return;
+        }
+        root.closing = true;
+        closeTimer.start();
+    }
+
+    Timer {
+        id: closeTimer
+        interval: radialView.closeWaitMs
+        onTriggered: root.dismissed()
+    }
+
     anchors {
         top: true
         bottom: true
@@ -96,7 +121,7 @@ PanelWindow {
             root.current = node;
         } else if (node.cmd) {
             Quickshell.execDetached(["sh", "-c", node.cmd]);
-            root.dismissed();
+            root.requestClose();
         }
     }
 
@@ -105,7 +130,7 @@ PanelWindow {
             root.current = root.stack[root.stack.length - 1];
             root.stack = root.stack.slice(0, -1);
         } else {
-            root.dismissed();
+            root.requestClose();
         }
     }
 
@@ -196,7 +221,7 @@ PanelWindow {
     function confirmSearch() {
         if (root.searchSelection < root.searchResults.length) {
             Quickshell.execDetached(["sh", "-c", root.searchResults[root.searchSelection]]);
-            root.dismissed();
+            root.requestClose();
         }
     }
 
@@ -233,7 +258,7 @@ PanelWindow {
         // keytree" in both senses.
         onActiveFocusChanged: {
             if (!activeFocus)
-                root.dismissed();
+                root.requestClose();
         }
 
         // Circular tint behind the content, lined up with BackgroundEffect
@@ -257,6 +282,38 @@ PanelWindow {
             readonly property real haloRadius: parent.width * 0.8
             width: haloRadius * 2
             height: haloRadius * 2
+
+            // Scaled via a transform, not by redrawing at a different pixel
+            // size - a radial gradient scales losslessly, so this is a free
+            // GPU transform instead of an extra Canvas rasterization pass.
+            // One shot, not replayed per submenu navigation like the nodes/
+            // connectors - a steady backdrop while individual levels refresh
+            // reads calmer than the whole halo pulsing on every keystroke.
+            property real haloScale: 0
+            scale: haloScale
+
+            Behavior on haloScale {
+                SequentialAnimation {
+                    // Same center-first lead-in as the nodes/connector lines.
+                    PauseAnimation {
+                        duration: root.closing ? radialView.centerAnimDuration : 0
+                    }
+                    NumberAnimation {
+                        duration: radialView.totalAnimMs
+                        easing.type: root.closing ? Easing.InCubic : Easing.OutBack
+                    }
+                }
+            }
+
+            Component.onCompleted: haloCanvas.haloScale = 1
+
+            Connections {
+                target: root
+                function onClosingChanged() {
+                    if (root.closing)
+                        haloCanvas.haloScale = 0;
+                }
+            }
 
             property color haloColor: Theme.groupBg
             onHaloColorChanged: requestPaint()
@@ -313,7 +370,7 @@ PanelWindow {
             }
 
             if (contentItem.keyMatches(event, kb.quit)) {
-                root.dismissed();
+                root.requestClose();
                 event.accepted = true;
                 return;
             }
@@ -334,6 +391,7 @@ PanelWindow {
         }
 
         RadialView {
+            id: radialView
             anchors.fill: parent
             items: root.items
             fontScale: root.fontScale
@@ -345,6 +403,7 @@ PanelWindow {
             ringThreshold: KeytreeConfig.layout.ringThreshold
             spiralThreshold: KeytreeConfig.layout.spiralThreshold
             spiralGapPixels: KeytreeConfig.layout.gapPixels
+            closing: root.closing
             visible: !root.searchMode
         }
 
