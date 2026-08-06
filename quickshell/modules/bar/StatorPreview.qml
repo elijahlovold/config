@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.modules.common
+import qs.modules.theme
 
 // Log popup, right-click-toggled open from Stator.qml. Same pipeline as
 // MusicPreview.qml/CalendarPreview.qml: just tails `stator-rs --log`, no

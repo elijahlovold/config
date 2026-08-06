@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import qs.modules.common
+import qs.modules.theme
 
 Scope {
     Variants {
@@ -35,8 +35,9 @@ Scope {
                 id: workspacesItem
                 screen: barRoot.modelData
                 anchors.left: parent.left
-                anchors.leftMargin: 8
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.leftMargin: 10
+                anchors.bottom: parent.bottom
+                // anchors.verticalCenter: parent.verticalCenter
             }
 
             // Hugs the right edge normally (same as a plain anchors.right),
@@ -51,7 +52,8 @@ Scope {
                 id: rightCluster
                 full: barRoot.full
                 showTray: barRoot.showTray
-                anchors.verticalCenter: parent.verticalCenter
+                anchors.bottom: parent.bottom
+                // anchors.verticalCenter: parent.verticalCenter
                 x: Math.max(workspacesItem.x + workspacesItem.width + 8, parent.width - rightCluster.width - 8)
             }
         }

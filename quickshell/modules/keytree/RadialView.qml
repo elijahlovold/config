@@ -1,5 +1,5 @@
 import QtQuick
-import qs.modules.common
+import qs.modules.theme
 
 // Ported from keytree/qml/RadialView.qml near-verbatim (same ring/spiral
 // placement math). Colors read from Theme directly (already carry

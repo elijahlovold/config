@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs.modules.common
+import qs.modules.theme
 import "KeybindData.js" as KB
 
 // Physical-keyboard view: color-coded by binding density under the current

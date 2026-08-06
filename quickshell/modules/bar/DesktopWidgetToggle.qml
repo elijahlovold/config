@@ -1,5 +1,5 @@
 import QtQuick
-import qs.modules.common
+import qs.modules.theme
 import qs.modules.desktop
 
 // Left-click toggles the desktop clock+weather overlay on/off. Right-click

@@ -1,5 +1,5 @@
 import QtQuick
-import qs.modules.common
+import qs.modules.theme
 
 // Generic rounded-pill container for grouping related bar widgets. Content
 // is placed directly inside `Pill { ... }` (reparented into the inner Row

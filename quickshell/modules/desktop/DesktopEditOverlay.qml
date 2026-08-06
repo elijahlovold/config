@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import qs.modules.common
+import qs.modules.theme
 
 // Full-screen drag/resize UI for the single desktop clock+weather card.
 // Simplified single-widget version of zesis's DesktopConfigOverlay.qml -

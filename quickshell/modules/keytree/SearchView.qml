@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import qs.modules.common
+import qs.modules.theme
 
 // Ported from keytree/qml/SearchView.qml. The original read `keyTree.*`
 // (search state) and `colorScheme.*` as C++-injected context properties;

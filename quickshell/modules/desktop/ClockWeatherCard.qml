@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import qs.modules.common
 import qs.modules.theme
 
 // Large desktop clock+date+weather overlay, adapted from zesis's

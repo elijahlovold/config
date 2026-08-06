@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
-import qs.modules.common
+import qs.modules.theme
 
 // Same overlay-layer-surface chrome as KeytreeWindow.qml / ImagePickerWindow.qml.
 // Hosts a KeybindService instance (fetches `hyprctl binds -j` once on open)

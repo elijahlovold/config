@@ -71,6 +71,10 @@ Row {
 
     // Clock
     Pill {
+        DrawToggle {}
+        Separator {}
+        ReticleToggle {}
+        Separator {}
         DesktopWidgetToggle {}
         Separator {}
         Clock {

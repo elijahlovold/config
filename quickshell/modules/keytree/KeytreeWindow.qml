@@ -3,7 +3,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
-import qs.modules.common
+import qs.modules.theme
 
 // QML/quickshell port of keytree's C++ KeyTreeModel + Main.qml. Runs as an
 // overlay-layer surface covering the whole screen (transparent, click/input

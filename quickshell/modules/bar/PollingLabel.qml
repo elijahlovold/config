@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.modules.common
+import qs.modules.theme
 
 // Generic "run a script on an interval, show its stdout" widget - the QML
 // equivalent of an i3status-rust `custom` block / waybar `custom/*` module.

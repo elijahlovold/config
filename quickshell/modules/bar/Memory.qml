@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Io
-import qs.modules.common
+import qs.modules.theme
 
 Text {
     id: root

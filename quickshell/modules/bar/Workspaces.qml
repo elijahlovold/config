@@ -2,7 +2,6 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-import qs.modules.common
 import qs.modules.theme
 
 // Per-workspace indicator. Structural rendering is theme-dependent (see

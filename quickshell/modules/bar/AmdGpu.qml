@@ -1,6 +1,6 @@
 import QtQuick
 import Quickshell.Io
-import qs.modules.common
+import qs.modules.theme
 
 // Reads amdgpu's sysfs ABI directly (/sys/class/drm/card1/device/) instead
 // of shelling out to ~/waybar/scripts/amdgpu.sh - same FileView+Timer
@@ -9,7 +9,7 @@ Text {
     id: root
 
     readonly property string devicePath: "/sys/class/drm/card1/device"
-    readonly property string icon: String.fromCharCode(0xf108) // fa-desktop
+    readonly property string icon: ""
 
     property int busyPercent: 0
     property real vramUsedGb: 0

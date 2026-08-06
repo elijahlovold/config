@@ -5,7 +5,7 @@ import Quickshell
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import Qt5Compat.GraphicalEffects
-import qs.modules.common
+import qs.modules.theme
 
 Row {
     id: root

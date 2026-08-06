@@ -4,7 +4,7 @@ import Qt.labs.folderlistmodel
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
-import qs.modules.common
+import qs.modules.theme
 
 // Grid-tile wallpaper picker, replacing an nsxiv-based flow. Directory
 // listing via FolderListModel (native, no subprocess). Thumbnails are

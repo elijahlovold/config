@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Bluetooth
-import qs.modules.common
+import qs.modules.theme
 
 Text {
     id: root

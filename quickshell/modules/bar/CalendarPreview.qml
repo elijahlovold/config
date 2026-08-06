@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
-import qs.modules.common
+import qs.modules.theme
 
 // Month-grid popup, right-click-toggled open from Clock.qml. Same pipeline
 // as MusicPreview.qml: the calendar grid itself is pure QML/JS (Date math),
