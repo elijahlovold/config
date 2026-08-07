@@ -35,3 +35,14 @@ hl.window_rule({
     center = true,
     size = { "(monitor_w*0.90)", "(monitor_h*0.70)" },
 })
+
+-- -- Real compositor blur for Keytree's disc (see
+-- -- quickshell/modules/keytree/KeytreeWindow.qml's BackgroundEffect.blurRegion).
+-- -- ignore_alpha is required: the disc content is a mostly-transparent tint
+-- -- rectangle, and without it Hyprland renders that as an opaque fallback
+-- -- square instead of blurring through it.
+-- hl.layer_rule({
+--     match = { namespace = "^quickshell:keytree$" },
+--     blur = true,
+--     ignore_alpha = 0.01,
+-- })

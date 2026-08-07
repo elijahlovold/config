@@ -6,8 +6,6 @@ hl.on("hyprland.start", function()
 
     hl.exec_cmd("dunst")
 
-    -- hl.exec_cmd("toggle-monitors --reset") -- X11/xrandr script - needs a wlr-randr/hyprctl rewrite
-
     -- hl.exec_cmd("hyprpaper")
     hl.exec_cmd("wallpaper-picker")
 

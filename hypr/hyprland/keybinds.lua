@@ -196,6 +196,7 @@ hl.bind(mod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist 
 -- hl.bind(mod .. " + D", hl.dsp.exec_cmd("keytree"))
 hl.bind(mod .. " + D", hl.dsp.exec_cmd("qs ipc call keytree toggle default"))
 hl.bind(mod .. " + Y", hl.dsp.exec_cmd("qs ipc call keytree toggle stator"))
+hl.bind(mod .. " + B", hl.dsp.exec_cmd("qs ipc call keybinds toggle"))
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + X", hl.dsp.exec_cmd("firefox"))
@@ -204,7 +205,7 @@ hl.bind(mod .. " + O", hl.dsp.exec_cmd("kitty -e yazi ~"))
 hl.bind(mod .. " + SHIFT + O", hl.dsp.exec_cmd("alacritty --working-directory $(mount.sh)"))
 
 hl.bind(mod .. " + I", hl.dsp.exec_cmd("kitty --working-directory ~/vault -e nvim"))
-hl.bind(mod .. " + SHIFT + I", hl.dsp.exec_cmd("kitty --working-directory ~/repos/Cadence-Vault -e nvim"))
+hl.bind(mod .. " + SHIFT + I", hl.dsp.exec_cmd("kitty --working-directory ~/reposc/vault -e nvim"))
 hl.bind(mod .. " + T", hl.dsp.exec_cmd(terminal .. " --working-directory ~/vault -e nvim $(todays-notes)"))
 hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd(terminal .. [[ --working-directory ~/vault -e nvim $(todays-notes $(rofi -dmenu -i -p "Date delta"))]]))
 
@@ -215,6 +216,9 @@ hl.bind(mod .. " + ALT + Return", hl.dsp.exec_cmd("spotify-queue"), { release = 
 -- hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("rofi-wifi-menu"))
 
 hl.bind(mod .. " + C", hl.dsp.exec_cmd("wallpaper-picker"))
+
+-- Toggle dual monitors (DP-1 + DP-2) vs. solo third monitor (HDMI-A-1) - see toggle-monitors
+hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("hypr-toggle-monitors"))
 
 hl.bind(mod .. " + U", hl.dsp.exec_cmd("firefox --new-window https://www.stevenspass.com/the-mountain/mountain-conditions/mountain-cams.aspx"))
 hl.bind(mod .. " + SHIFT + U", hl.dsp.exec_cmd("wallpaper-picker --sp"))
