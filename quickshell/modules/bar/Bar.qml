@@ -3,6 +3,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import qs.modules.theme
+import qs.modules.common
 
 Scope {
     Variants {
@@ -14,12 +15,14 @@ Scope {
             required property ShellScreen modelData
             screen: barRoot.modelData
 
-            // Mirrors the old i3 bar {} blocks: DP-2 (was DisplayPort-1) got the
-            // full i3status-rust config + tray, DP-1 (was DisplayPort-0) got the
-            // short config. HDMI-A-1 (was HDMI-A-0) is currently a disabled output
-            // but kept configured for when it's re-enabled.
-            readonly property bool full: barRoot.modelData.name !== "DP-1"
-            readonly property bool showTray: barRoot.modelData.name === "DP-2"
+            // Mirrors the old i3 bar {} blocks: the primary monitor got the full
+            // i3status-rust config + tray, DP-1 (was DisplayPort-0) got the short
+            // config. DP-1 is the only output ever special-cased by name - whichever
+            // monitor is playing "primary" (DP-2 in dual mode, HDMI-A-1 when solo -
+            // see toggle-monitors) gets the full treatment, so both get the same
+            // bar layout without hardcoding either name.
+            readonly property bool full: !MonitorRoles.isSecondary(barRoot.modelData)
+            readonly property bool showTray: barRoot.full
 
             anchors {
                 top: true

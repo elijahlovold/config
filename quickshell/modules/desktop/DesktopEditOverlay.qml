@@ -19,7 +19,7 @@ PanelWindow {
     // mismatched screen (different resolution/aspect ratio) would save a
     // position that looks right here but is wrong once the live overlay
     // (on the actual primary output) picks it back up.
-    screen: Quickshell.screens.find(s => s.name === DesktopOverlayStore.primaryOutput) ?? Quickshell.screens[0]
+    screen: MonitorRoles.primaryScreen()
 
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.namespace: "quickshell:desktop-overlay:edit"

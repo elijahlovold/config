@@ -21,14 +21,6 @@ Singleton {
     readonly property real minScale: 0.4
     readonly property real maxScale: 3.0
 
-    // Output name (matches Hyprland's monitor block / ShellScreen.name),
-    // pinning both DesktopOverlayWindow.qml and DesktopEditOverlay.qml to
-    // the primary monitor - mirrors Bar.qml's own convention of hardcoding
-    // output names for per-monitor behavior. Without this, PanelWindow falls
-    // back to whichever screen currently has focus/cursor, which is why the
-    // overlay used to jump monitors on reload.
-    readonly property string primaryOutput: "DP-2"
-
     property bool visible: data.visible
     // Edit mode is a transient UI state, not persisted - always starts closed.
     property bool editMode: false

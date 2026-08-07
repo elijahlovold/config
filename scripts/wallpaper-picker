@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VID_PATH="$(xdg-user-dir VIDEOS)/wallpapers"
+: "${VID_PATH:=$(xdg-user-dir VIDEOS)/wallpapers}"
 
 # rest of your code
 if [ "$1" = "--select" ]; then
@@ -78,6 +78,8 @@ else  # assume X11
         exit 0
     fi
 fi
+
+echo "$vid_play" > ~/.cache/current_wallpaper
 
 printf '{"command":["loadfile","%s","replace"]}\n' "$vid_play" \
     | socat - "$MPV_SOCK"

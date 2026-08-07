@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import qs.modules.common
 
 // Click-through WlrLayer.Bottom surface holding the clock+weather card,
 // positioned anywhere on screen via DesktopOverlayStore's normalized nx/ny.
@@ -20,9 +21,9 @@ PanelWindow {
     id: root
 
     // Without an explicit screen, PanelWindow falls back to whichever
-    // monitor currently has focus/cursor - pin it to the configured primary
-    // output instead so the overlay doesn't jump monitors on reload.
-    screen: Quickshell.screens.find(s => s.name === DesktopOverlayStore.primaryOutput) ?? Quickshell.screens[0]
+    // monitor currently has focus/cursor - pin it to the primary output
+    // instead so the overlay doesn't jump monitors on reload.
+    screen: MonitorRoles.primaryScreen()
 
     property real _nx: 0.5
     property real _ny: 0.5
