@@ -8,12 +8,16 @@ Text {
     readonly property string blocks: "▁▂▃▄▅▆▇█"
     readonly property string icon: String.fromCharCode(0xf2db) // fa-microchip
 
+    property bool full: true
     property real usage: 0
     property var previousStats: null
     property var previousCoreStats: []
     property list<real> coreUsages: []
 
-    text: root.icon + "  " + root.sparkline(root.coreUsages) + " " + Math.round(root.usage * 100) + "%"
+    text: full
+        ? root.icon + "  " + root.sparkline(root.coreUsages) + " " + Math.round(root.usage * 100) + "%"
+        : root.icon + "  " + Math.round(root.usage * 100) + "%"
+
     color: Theme.text
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSize

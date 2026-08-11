@@ -21,10 +21,16 @@ Row {
     // since Ambiance's own visibility is a superset of Music's.
     Pill {
         Music { id: musicWidget }
-        Separator { visible: musicWidget.visible }
-        Ambiance {
-            id: ambianceWidget
-            visible: ambianceWidget.playing || musicWidget.visible
+
+        Loader {
+            active: root.full
+            sourceComponent: Pill {
+                Separator { visible: musicWidget.visible }
+                Ambiance {
+                    id: ambianceWidget
+                    visible: ambianceWidget.playing || musicWidget.visible
+                }
+            }
         }
     }
 
@@ -41,22 +47,25 @@ Row {
     }
 
     // Status
-    Loader {
-        active: root.full
-        sourceComponent: Pill {
-            Stator {}
-        }
+    Pill {
+        Stator {}
     }
 
     // System - re-enabling Hueshift/DiskIo below needs a Separator {} added
     // next to them too, same as the three active widgets here.
     Pill {
         // Loader { active: root.full; sourceComponent: Hueshift {} }
-        AmdGpu {}
+        AmdGpu {
+            full: root.full
+        }
         Separator {}
-        Cpu {}
+        Cpu {
+            full: root.full
+        }
         Separator {}
-        Memory {}
+        Memory {
+            full: root.full
+        }
         // Loader { active: root.full; sourceComponent: DiskIo {} }
     }
 
@@ -64,19 +73,31 @@ Row {
     Pill {
         Network {}
         Separator {}
-        Bluetooth {}
-        Separator {}
+        Loader {
+            active: root.full
+            sourceComponent: Row {
+                spacing: 10
+                Bluetooth {}
+                Separator {}
+            }
+        }
         Sound {}
     }
 
     // Clock
     Pill {
-        DrawToggle {}
-        Separator {}
-        ReticleToggle {}
-        Separator {}
-        DesktopWidgetToggle {}
-        Separator {}
+        Loader {
+            active: root.full
+            sourceComponent: Row {
+                spacing: 10
+                DrawToggle {}
+                Separator {}
+                ReticleToggle {}
+                Separator {}
+                DesktopWidgetToggle {}
+                Separator {}
+            }
+        }
         Clock {
             full: root.full
         }

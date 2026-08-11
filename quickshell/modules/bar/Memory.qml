@@ -5,6 +5,7 @@ import qs.modules.theme
 Text {
     id: root
 
+    property bool full: true
     property real usedKb: 0
     property real totalKb: 1
     readonly property string icon: String.fromCharCode(0xf1c0) // fa-database
@@ -13,8 +14,10 @@ Text {
         return (kb / (1024 * 1024)).toFixed(1) + "G";
     }
 
-    text: root.icon + "  " + root.fmt(root.usedKb) + " / " + root.fmt(root.totalKb) +
+    text: root.full
+        ? root.icon + "  " + root.fmt(root.usedKb) + " / " + root.fmt(root.totalKb) +
           " (" + Math.round(100 * root.usedKb / root.totalKb) + "%)"
+        : root.icon + "  " + Math.round(100 * root.usedKb / root.totalKb) + "%"
     color: Theme.text
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSize

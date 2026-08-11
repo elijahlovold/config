@@ -11,11 +11,15 @@ Text {
     readonly property string devicePath: "/sys/class/drm/card1/device"
     readonly property string icon: ""
 
+    property bool full: true
     property int busyPercent: 0
     property real vramUsedGb: 0
     property real vramTotalGb: 1
 
-    text: root.icon + "  " + root.busyPercent + "%  " + root.vramUsedGb.toFixed(1) + " / " + root.vramTotalGb.toFixed(1) + "G"
+    text: full
+        ? root.icon + "  " + root.busyPercent + "%  " + root.vramUsedGb.toFixed(1) + " / " + root.vramTotalGb.toFixed(1) + "G"
+        : root.icon + "  " + root.busyPercent + "%"
+
     color: Theme.text
     font.family: Theme.fontFamily
     font.pixelSize: Theme.fontSize
