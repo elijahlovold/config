@@ -9,6 +9,7 @@ import qs.modules.theme
 import qs.modules.reticle
 import qs.modules.draw
 import qs.modules.notifications
+import qs.modules.clipboard
 
 ShellRoot {
     Connections {
@@ -34,4 +35,5 @@ ShellRoot {
     Reticle {}
     Draw {}
     Notifications {}
+    Clipboard {}
 }

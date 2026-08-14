@@ -33,6 +33,13 @@ Scope {
             color: "transparent"
             exclusionMode: ExclusionMode.Auto
             WlrLayershell.namespace: "quickshell:bar"
+            // OnDemand (not the None default) - needed so popups spawned
+            // from this window (e.g. UnitToolsPreview's TextInputs) can
+            // ever receive real Wayland keyboard input at all. OnDemand
+            // only actually takes focus when something inside requests it
+            // (forceActiveFocus()), same reasoning as KeytreeWindow.qml -
+            // it won't steal focus from other apps just by existing.
+            WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
             Workspaces {
                 id: workspacesItem

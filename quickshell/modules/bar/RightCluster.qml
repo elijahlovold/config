@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
+import qs.modules.bambu
 
 // Mirrors the old i3status-rust config.toml (full) / config_short.toml
 // (short) split, now grouped into pills by rough category instead of one
@@ -46,7 +47,13 @@ Row {
         }
     }
 
-    // Status
+    // Status - Bambu collapses to nothing whenever the printer isn't
+    // actively printing/paused (same convention as Music with nothing
+    // playing), so this pill only ever appears while a print is running.
+    Pill {
+        Bambu {}
+    }
+
     Pill {
         Stator {}
     }
@@ -69,6 +76,12 @@ Row {
         // Loader { active: root.full; sourceComponent: DiskIo {} }
     }
 
+    // Dev boards - collapses to nothing whenever no ttyUSB*/ttyACM* device
+    // is attached, same convention as the Bambu pill above.
+    Pill {
+        SerialWatcher {}
+    }
+
     // Connectivity
     Pill {
         Network {}
@@ -84,20 +97,30 @@ Row {
         Sound {}
     }
 
+    // Structural theme
+    Pill {
+        ThemeSwitcherWidget {}
+        Separator {}
+        DesktopWidgetToggle {}
+    }
+
+    // Utils
+    Loader {
+        active: root.full
+        sourceComponent: Pill {
+            spacing: 10
+            DrawToggle {}
+            Separator {}
+            ReticleToggle {}
+            Separator {}
+            ColorPicker {}
+            Separator {}
+            UnitTools {}
+        }
+    }
+
     // Clock
     Pill {
-        Loader {
-            active: root.full
-            sourceComponent: Row {
-                spacing: 10
-                DrawToggle {}
-                Separator {}
-                ReticleToggle {}
-                Separator {}
-                DesktopWidgetToggle {}
-                Separator {}
-            }
-        }
         Clock {
             full: root.full
         }
