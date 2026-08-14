@@ -54,6 +54,24 @@ Item {
     readonly property real _weatherTextPx: Math.max(1, Math.round(Theme.fontSize * root.contentScale))
     readonly property real _layoutSpacing: Math.round(10 * root.contentScale)
 
+    // DigitSlot's box has to be at least as wide as the glyph actually
+    // rendered in it, or a centered digit pokes past the slot's edges -
+    // on the leftmost digit that means past the card's own left edge,
+    // clipped by the window surface. 0.62em was a fixed guess that didn't
+    // hold for every _fontFamily/weight combination, so measure the real
+    // glyph width for the active font instead and pad it a couple px for
+    // hinting/antialiasing overhang, taking whichever of the two is larger.
+    TextMetrics {
+        id: _digitMetrics
+        font.family: root._fontFamily
+        font.styleName: root._fontStyleName
+        font.pixelSize: root._digitPx
+        font.weight: root._fontWeight
+        font.letterSpacing: root._letterSpacing
+        text: "0"
+    }
+    readonly property real _digitSlotW: Math.max(Math.round(root._digitPx * 0.62), Math.ceil(_digitMetrics.width) + Math.round(4 * root.contentScale))
+
     // Typography per structural theme (see modules/theme/ThemeManager.qml) -
     // token-tier, not a full skin swap: the typewriter/layout logic above is
     // unchanged, only the face/weight/spacing/tint fed into the existing
@@ -97,7 +115,7 @@ Item {
 
     readonly property var _monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-    readonly property real _naturalTimeW: 4 * Math.round(root._digitPx * 0.62) + Math.round(root._dotR * 5) + 4 * root._gap
+    readonly property real _naturalTimeW: 4 * root._digitSlotW + Math.round(root._dotR * 5) + 4 * root._gap
 
     // Non-visual state/logic lives directly on root (plain Item, not a
     // positioner) - Column below must contain only the visual rows, or
@@ -188,7 +206,7 @@ Item {
     component DigitSlot: Item {
         required property string ch
         readonly property bool _isColon: ch === ":"
-        width: _isColon ? Math.round(root._dotR * 5) : Math.round(root._digitPx * 0.62)
+        width: _isColon ? Math.round(root._dotR * 5) : root._digitSlotW
         height: root._digitPx
 
         Text {

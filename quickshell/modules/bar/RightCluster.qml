@@ -108,6 +108,8 @@ Row {
         active: root.showTray
         sourceComponent: Pill {
             Tray {}
+            Separator {}
+            NotificationBell {}
         }
     }
 }

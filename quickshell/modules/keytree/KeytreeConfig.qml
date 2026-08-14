@@ -152,7 +152,7 @@ Singleton {
           }
         },
         "w": { icon: "󰸉  ", label: "Wallpaper", cmd: "qs ipc call imagepicker toggle" },
-        "y": { icon: "󱇯  ", label: "Stator",    cmd: "qs ipc call keytree toggle stator" },
+        "y": { icon: "󱐋  ", label: "Yazi",    cmd: "kitty -e zsh -c yazi" },
       },
 
       "stator": {

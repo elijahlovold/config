@@ -8,6 +8,7 @@ import qs.modules.desktop
 import qs.modules.theme
 import qs.modules.reticle
 import qs.modules.draw
+import qs.modules.notifications
 
 ShellRoot {
     Connections {
@@ -32,4 +33,5 @@ ShellRoot {
     ThemeSwitcher {}
     Reticle {}
     Draw {}
+    Notifications {}
 }
