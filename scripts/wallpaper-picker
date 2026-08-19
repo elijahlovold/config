@@ -1,5 +1,14 @@
 #!/bin/sh
 
+if [ "$1" = "--clear" ]; then
+    wallust cs default
+fi
+if [ "$1" = "--stop" ] || [ "$1" = "--clear" ]; then
+    pkill xwinwrap
+    pkill mpvpaper
+    exit 0
+fi
+
 : "${VID_PATH:=$(xdg-user-dir VIDEOS)/wallpapers}"
 
 # rest of your code
@@ -23,12 +32,9 @@ else
     [ ! -f "$img_wallpaper" ] && exit 1
 fi
 
-if [ "$1" = "--stop" ]; then
-    wallust cs default
-    exit 0
-else
-    [ -n "$img_wallpaper" ] && wallust run "$img_wallpaper"
-fi
+[ -n "$img_wallpaper" ] && wallust run "$img_wallpaper"
+
+echo "$vid_play" > ~/.cache/current_wallpaper
 
 # set wallpapers depending on x11 or wayland
 if [ -n "$WAYLAND_DISPLAY" ]; then  # wayland
@@ -78,8 +84,6 @@ else  # assume X11
         exit 0
     fi
 fi
-
-echo "$vid_play" > ~/.cache/current_wallpaper
 
 printf '{"command":["loadfile","%s","replace"]}\n' "$vid_play" \
     | socat - "$MPV_SOCK"

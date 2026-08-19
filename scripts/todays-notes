@@ -1,71 +1,104 @@
-#!/bin/python
+#!/usr/bin/env python3
 
-import os
+import re
 import sys
 from datetime import date
+from pathlib import Path
 
-bday = date(2003, 8, 19)
+BDAY = date(2003, 8, 19)
 
-today = date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else date.today()
+PASSAGE_RE = re.compile(
+    r"\s*((?:[1-3]\s+)?[A-Za-z]+(?:\s+[A-Za-z]+)*)?"
+    r"\s*(\d+(?:-\d+)?)?\s*"
+)
 
-vault_path = f"{os.path.expanduser('~')}/vault"
-cal_path = f"{vault_path}/Calendar"
-out_path = f"{cal_path}/{today.year}"
-template_file = f"{vault_path}/Templates/Daily-Template.md"
 
-outfile = f"{out_path}/{today.isoformat()}.md"
+def split_ref(ref: str, last_book: str | None) -> tuple[str, str | None]:
+    """Parse one comma-separated passage entry, e.g. 'Genesis 1-2' or a
+    bare '94' that continues the previous entry's book."""
+    match = PASSAGE_RE.fullmatch(ref)
+    if not match:
+        raise ValueError(f"Invalid passage reference: {ref!r}")
 
-if not os.path.isfile(outfile):
-    years = today.year - bday.year
-    if (today.month, today.day) < (bday.month, bday.day):
-        years -= 1
-    bible_plan_path = f"{cal_path}/bible_plan_{years}.csv"
-
-    start_year = today.year
-    if (today.month, today.day) < (bday.month, bday.day):
-        start_year -= 1
-    start_date = bday.replace(year=start_year)
-    today_entry = (today - start_date).days
-
-    with open(bible_plan_path, "r") as f:
-        bible_plan_lines = f.readlines()
-        weeks = int(today_entry / 7)
-        dow = today_entry % 7
-        entry_i = 9 * weeks + 1 + dow
-        today_passage = bible_plan_lines[entry_i]
-
-        passages = []
-        def split_ref(ref: str) -> tuple[str, str | None]:
-            import re
-            match = re.fullmatch(
-                r"\s*((?:[1-3]\s+)?[A-Za-z]+(?:\s+[A-Za-z]+)*?)"
-                r"(?:\s+(\d+(?:-\d+)?))?\s*",
-                ref,
+    book, chapters = match.groups()
+    if book is None:
+        if last_book is None:
+            raise ValueError(
+                f"Passage reference {ref!r} has no book and none precedes it"
             )
-
-            if not match:
-                raise ValueError(f"Invalid passage reference: {ref!r}")
-
-            book, chapters = match.groups()
-            return book, chapters
+        book = last_book
+    return book, chapters
 
 
-        for entry in map(str.strip, today_passage.split(",")):
-            book, chapters = split_ref(entry)
+def parse_passage_line(line: str) -> list[str]:
+    """Turn a plan file's day line into a list of 'Book N' / 'Book N-M' /
+    'Book' passage strings, e.g. 'Psalms 71, 94' -> ['Psalms 71', 'Psalms 94']."""
+    passages = []
+    last_book: str | None = None
+    for entry in map(str.strip, line.split(",")):
+        book, chapters = split_ref(entry, last_book)
+        last_book = book
+        passages.append(f"{book} {chapters}" if chapters else book)
+    return passages
 
-            if chapters:
-                passages.append(f"{book} {chapters}")
-            else:
-                passages.append(book)
 
-    with open(template_file, "r") as fin, open(outfile, "w") as fout:
-        for i, line in enumerate(fin):
-            if line.startswith("created:"):
-                fout.write(f"created: {today.isoformat()}\n")
-                continue
-            fout.write(line)
-            if line.startswith("passages:"):
-                for p in passages:
-                    fout.write(f" - {p}\n")
+def main() -> None:
+    today = date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else date.today()
 
-print(outfile)
+    vault_path = Path.home() / "vault"
+    cal_path = vault_path / "Calendar"
+    out_path = cal_path / str(today.year)
+    template_file = vault_path / "Templates" / "Daily-Template.md"
+
+    outfile = out_path / f"{today.isoformat()}.md"
+
+    if not outfile.is_file():
+        years = today.year - BDAY.year
+        if (today.month, today.day) < (BDAY.month, BDAY.day):
+            years -= 1
+        tar_age_file = cal_path / f"Age-{years}.md"
+
+        # Age-{years}.md (and the "Bible Plan: `...`" line inside it) may not
+        # exist yet - still create today's note, just without passages.
+        passages: list[str] = []
+        if tar_age_file.is_file():
+            plan_match = re.search(
+                r"Bible Plan:\s*`([^`]+)`", tar_age_file.read_text(encoding="utf-8")
+            )
+            if not plan_match:
+                raise ValueError(f"No 'Bible Plan: `<file>`' line found in {tar_age_file}")
+            bible_plan_file = plan_match.group(1)
+
+            bible_plan_path = cal_path / "Bible-Plans" / bible_plan_file
+
+            start_year = today.year
+            if (today.month, today.day) < (BDAY.month, BDAY.day):
+                start_year -= 1
+            start_date = BDAY.replace(year=start_year)
+            today_entry = (today - start_date).days
+
+            bible_plan_lines = bible_plan_path.read_text(encoding="utf-8").splitlines()
+            # Plan files are flat, one line per day, 0-indexed, no header row.
+            # Clamp defensively: a leap day between anniversaries of BDAY can
+            # push today_entry to 365 in a 365-line (leap-years-ignored) plan.
+            entry_i = min(today_entry, len(bible_plan_lines) - 1)
+            passages = parse_passage_line(bible_plan_lines[entry_i])
+
+        out_path.mkdir(parents=True, exist_ok=True)
+        with template_file.open("r", encoding="utf-8") as fin, outfile.open(
+            "w", encoding="utf-8"
+        ) as fout:
+            for line in fin:
+                if line.startswith("created:"):
+                    fout.write(f"created: {today.isoformat()}\n")
+                    continue
+                fout.write(line)
+                if line.startswith("passages:"):
+                    for p in passages:
+                        fout.write(f" - {p}\n")
+
+    print(outfile)
+
+
+if __name__ == "__main__":
+    main()
