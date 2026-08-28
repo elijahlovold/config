@@ -2,10 +2,30 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import qs.modules.theme
 import qs.modules.common
 
 Scope {
+    // Quickshell's incremental Hyprland state tracking misses workspace-
+    // altering actions that don't change global focus - e.g. win+N
+    // (movecurrentworkspacetomonitor) fires Hyprland's moveworkspacev2
+    // event, but the workspace that was displaced on the destination
+    // monitor keeps reporting stale active/focused flags until some
+    // unrelated workspace-focus event forces a resync. Force one directly
+    // on the event that's known to fall through. Single Connections here
+    // (Scope is instantiated once, unlike the per-monitor Variants below).
+    Connections {
+        target: Hyprland
+
+        function onRawEvent(event: HyprlandEvent) {
+            if (event.name === "moveworkspacev2" || event.name === "moveworkspace") {
+                Hyprland.refreshWorkspaces();
+                Hyprland.refreshMonitors();
+            }
+        }
+    }
+
     Variants {
         model: Quickshell.screens
 
