@@ -1,0 +1,68 @@
+# This is the configuration file for Ghostty.
+#
+# This template file has been automatically created at the following
+# path since Ghostty couldn't find any existing config files on your system:
+#
+#   /home/elovold/.config/ghostty/config
+#
+# The template does not set any default options, since Ghostty ships
+# with sensible defaults for all options. Users should only need to set
+# options that they want to change from the default.
+#
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Config syntax crash course
+# ==========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+font-family = "FiraCode Nerd Font"
+font-size = 16
+# window-padding-x = 2
+window-decoration = none
+# custom-shader = ghostty-shaders/bloom.glsl
+custom-shader = ./ghostty-shaders/in-game-crt.glsl
+# custom-shader = ./ghostty-shaders/water.glsl
+
+#
+# # Spacing around the equals sign does not matter.
+# # All of these are identical:
+# key=value
+# key= value
+# key =value
+# key = value
+#
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+background = #00011D
+foreground = #cccccc
+background-opacity = 0.8
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # Some config options have unique syntaxes for their value,
+# # which is explained in the docs for that config option.
+# # Just for example:
+# resize-overlay-duration = 4s 200ms
+
+palette = 0=#0c0c0c
+palette = 1=#c50f1f
+palette = 2=#05f00d
+palette = 3=#c19c00
+palette = 4=#0037da
+palette = 5=#881798
+palette = 6=#3a96dd
+palette = 7=#cccccc
+palette = 8=#767676
+palette = 9=#e74856
+palette = 10=#16c60c
+palette = 11=#f9f1a5
+palette = 12=#3b78ff
+palette = 13=#b4009e
+palette = 14=#61d6d6
+palette = 15=#f2f2f2

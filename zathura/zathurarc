@@ -1,0 +1,16 @@
+set selection-clipboard clipboard
+
+# colors
+set default-bg     "#030300"
+
+# complementary foreground, but keep it light
+set default-fg     "#FFBDBD"
+
+# make it a bit lighter than background
+set statusbar-bg   "#4F4F4C"
+
+# make it darken by blending to a darken color
+set statusbar-fg   "#B5F7F7"
+
+# use it's complementary
+set inputbar-bg    "#000003"

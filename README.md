@@ -1,4 +1,4 @@
-.dotfiles for arch-based installation
+.dotfiles for arch-based installation, supporting i3 and hyprland DE
 
 Init and update submodules:
 ```sh
@@ -34,15 +34,18 @@ ln -s $XDG_CONFIG_HOME/bashrc ~/.bashrc
 usermod -aG tty,docker,video,optical,input,wheel,dialout $USER
 ```
 
-## Per-Machine i3 Configuration
-* configure displays and status bars
-```
-xrandr
+## Installing Desktops
+
+### I3
+
+```sh
+~/.config/dotfiles-i3/setup
 ```
 
-* configure trackpad input device
-```
-xinput list
+### Hyprland
+
+```sh
+~/.config/dotfiles-hypr/setup
 ```
 
 ## Grub
