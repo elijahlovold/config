@@ -4,3 +4,9 @@
 [submodule "trident"]
 	path = trident
 	url = git@github.com:elijahlovold/trident.git
+[submodule "dotfiles-i3"]
+	path = dotfiles-i3
+	url = git@github.com:elijahlovold/dotfiles-i3.git
+[submodule "dotfiles-hypr"]
+	path = dotfiles-hypr
+	url = git@github.com:elijahlovold/dotfiles-hypr.git
