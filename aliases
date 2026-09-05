@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# power aliases
-alias poweroff='loginctl poweroff'
-alias reboot='loginctl reboot'
-
 # ls aliases
 alias ls='ls -h --si --color=auto'
 alias ll='ls -alF'
@@ -11,8 +7,6 @@ alias la='ls -A'
 alias lt='ls -ltr'
 alias l='ls -CF'
 alias lsgr="git ls-files -coz --exclude-standard | xargs -0 stat --format '%y %n' | sort | awk '{print \$1, substr(\$2,1,8), \$4}'"
-
-alias vi='nvim'
 
 alias cdf='cd $(ls | fzf)'
 
@@ -63,6 +57,17 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+toggle-venv() {
+    if [ -n "$VIRTUAL_ENV" ]; then
+        deactivate
+    elif [ -f .venv/bin/activate ]; then
+        source .venv/bin/activate
+    else
+        echo "No .venv found" >&2
+        return 1
+    fi
+}
 
 # python .venv auto-sourcing
 cd() {

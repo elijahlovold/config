@@ -18,9 +18,9 @@ export XDG_STATE_HOME="$HOME/.local/state"    # User-specific state (logs, histo
 
 [ -d "$XDG_DATA_HOME/.venv/bin" ] && PATH="$XDG_DATA_HOME/.venv/bin:$PATH"
 [ -d "$HOME/.local/bin" ]       && PATH="$PATH:$HOME/.local/bin"
-[ -d "$HOME/bin" ]              && PATH="$PATH:$HOME/bin"
 [ -d "$HOME/.config/scripts" ]  && PATH="$PATH:$HOME/.config/scripts"
 [ -d "$XDG_DATA_HOME/npm/bin" ] && PATH="$PATH:$XDG_DATA_HOME/npm/bin"
+[ -d "$XDG_CACHE_HOME/cargo/bin" ] && PATH="$PATH:$XDG_CACHE_HOME/cargo/bin"
 export PATH
 
 export HISTFILE="$XDG_CACHE_HOME/shell_history"

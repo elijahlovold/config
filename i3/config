@@ -16,12 +16,12 @@ font pango:FiraCode Nerd Font 12
 
 exec --no-startup-id dunst
 
-exec --no-startup-id toggle-monitors --reset
+exec --no-startup-id x11-toggle-monitors --reset
 # exec --no-startup-id wallpaper-picker
 exec --no-startup-id toggle-picom
 
 exec --no-startup-id numlockx on
-exec --no-startup-id config-keyboard.sh
+exec --no-startup-id x11-config-keyboard
 
 # Enter stats mode on mod+apostrophe press
 bindsym $mod+apostrophe mode "stats"; exec --no-startup-id /home/elovold/sdbx/cpp_overlay/build/overlay
@@ -207,17 +207,17 @@ mode "resize" {
 bindsym $mod+Shift+r reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Control+r restart
-bindsym $mod+Mod1+r exec --no-startup-id sh -c 'config-keyboard.sh && notify-send "keyboard reset"'
+bindsym $mod+Mod1+r exec --no-startup-id sh -c 'x11-config-keyboard && notify-send "keyboard reset"'
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 bindsym $mod+Shift+Control+e exec --no-startup-id i3-msg exit
 
 # power control bindings
-bindsym $mod+Shift+Control+x exec --no-startup-id loginctl poweroff
+bindsym $mod+Shift+Control+x exec --no-startup-id poweroff
 bindsym $mod+Shift+Control+r exec --no-startup-id reboot
 
 # # Configure additional display
-# bindsym $mod+Shift+t exec --no-startup-id toggle-monitors
+bindsym $mod+Shift+m exec --no-startup-id x11-toggle-monitors
 
 # set background
 bindsym $mod+c exec --no-startup-id wallpaper-picker

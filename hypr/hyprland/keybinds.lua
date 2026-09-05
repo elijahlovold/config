@@ -6,6 +6,7 @@ local mod = "SUPER"
 hl.bind(mod .. " + Q", hl.dsp.window.close())
 
 hl.bind(mod .. " + CTRL + SHIFT + E", hl.dsp.exit())
+hl.bind(mod .. " + Space", hl.dsp.window.cycle_next())
 hl.bind(mod .. " + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 
@@ -134,7 +135,7 @@ end)
 
 hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
-hl.bind(mod .. " + CTRL + SHIFT + X", hl.dsp.exec_cmd("loginctl poweroff"))
+hl.bind(mod .. " + CTRL + SHIFT + X", hl.dsp.exec_cmd("poweroff"))
 hl.bind(mod .. " + CTRL + SHIFT + R", hl.dsp.exec_cmd("reboot"))
 
 -- Native Lua replacement for the old `hyprctl keyword ... | jq` blur toggle.
@@ -178,7 +179,8 @@ hl.bind("Print", hl.dsp.exec_cmd(
     'grim -g "$(slurp)" "$file" && wl-copy < "$file"'
 ))
 
-hl.bind("SUPER + Print", hl.dsp.exec_cmd(
+hl.bind(mod .. " + ALT + Print", hl.dsp.exec_cmd("hypr-ocr"))
+hl.bind(mod .. " + Print", hl.dsp.exec_cmd(
     'file="' .. screenshots .. '/$(date +%Y-%m-%d_%H-%M-%S).png"; ' ..
     'output="$(hyprctl -j monitors | jq -r \'.[] | select(.focused).name\')"; ' ..
     'grim -o "$output" "$file" && wl-copy < "$file"'
@@ -190,7 +192,7 @@ hl.bind("SUPER + SHIFT + Print", hl.dsp.exec_cmd(
     '[ -n "$file" ] && satty -f "$file" --copy-command wl-copy'
 ))
 
-hl.bind(mod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
+hl.bind(mod .. " + V", hl.dsp.exec_cmd("qs ipc call clipboard toggle"))
 
 -- --- apps ---
 -- hl.bind(mod .. " + D", hl.dsp.exec_cmd("keytree"))
@@ -200,7 +202,7 @@ hl.bind(mod .. " + B", hl.dsp.exec_cmd("qs ipc call keybinds toggle"))
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + X", hl.dsp.exec_cmd("firefox"))
-hl.bind(mod .. " + O", hl.dsp.exec_cmd("kitty -e yazi ~"))
+hl.bind(mod .. " + O", hl.dsp.focus({ last = true }))
 
 hl.bind(mod .. " + SHIFT + O", hl.dsp.exec_cmd("alacritty --working-directory $(mount.sh)"))
 
@@ -215,7 +217,11 @@ hl.bind(mod .. " + ALT + Return", hl.dsp.exec_cmd("spotify-queue"), { release = 
 
 -- hl.bind(mod .. " + CTRL + W", hl.dsp.exec_cmd("rofi-wifi-menu"))
 
+hl.bind("SUPER + grave", hl.dsp.exec_cmd('wtype -s 150 "$(date +%F)"'))
+
 hl.bind(mod .. " + C", hl.dsp.exec_cmd("wallpaper-picker"))
+hl.bind(mod .. " + CTRL + C", hl.dsp.exec_cmd("wallpaper-picker --stop"))
+hl.bind(mod .. " + CTRL + SHIFT + C", hl.dsp.exec_cmd("wallpaper-picker --clear"))
 
 -- Toggle dual monitors (DP-1 + DP-2) vs. solo third monitor (HDMI-A-1) - see toggle-monitors
 hl.bind(mod .. " + SHIFT + M", hl.dsp.exec_cmd("hypr-toggle-monitors"))

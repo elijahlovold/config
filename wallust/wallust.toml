@@ -94,9 +94,9 @@ target = "~/.cache/wallust/openrgb.json"
 template = "keytree-colors.toml"
 target = "~/.config/keytree/colors.toml"
 
-[templates.keytree-qml]
-template = "keytree-colors.qml"
-target = "~/.config/quickshell/modules/keytree/KeytreeColors.qml"
+[templates.quickshell]
+template = "quickshell.qml"
+target = "~/.config/quickshell/modules/theme/Theme.qml"
 
 [hooks]
 # Run commands when wallust is invoked. Useful to avoid scripting.
